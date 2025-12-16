@@ -11,6 +11,7 @@
   "dependencies": {
     "@medusajs/js-sdk": "^2.12.2",
     "@medusajs/types": "^2.12.2",
+    "@payloadcms/sdk": "^3.68.5",
     "next": "16.0.10",
     "react": "19.2.1",
     "react-dom": "19.2.1"

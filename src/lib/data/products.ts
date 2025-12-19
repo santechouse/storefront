@@ -5,6 +5,7 @@ import { HttpTypes } from "@medusajs/types";
 import { getAuthHeaders, getCacheOptions } from "./cookies";
 import { getRegion, retrieveRegion } from "./regions";
 import { SortOptions } from "@/types/globals";
+import { getLocale } from "../util/get-locale";
 
 export const listProducts = async ({
   locale,
@@ -48,6 +49,7 @@ export const listProducts = async ({
 
   const headers = {
     ...(await getAuthHeaders()),
+    "x-medusa-locale": getLocale(locale),
   };
 
   const next = {
@@ -56,7 +58,7 @@ export const listProducts = async ({
 
   return sdk.client
     .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
-      `/store/${locale}/products`,
+      `/store/products`,
       {
         method: "GET",
         query: {

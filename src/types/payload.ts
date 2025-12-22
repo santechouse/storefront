@@ -72,3 +72,12 @@ export interface PayloadProduct extends BasePayload {
       }[]
     | null;
 }
+
+export interface FeaturedBrands extends BasePayload {
+  title: string;
+  brands: Array<{
+    name: string;
+    logo: Media;
+    link: string;
+  }>;
+}

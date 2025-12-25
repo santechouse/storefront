@@ -24,3 +24,7 @@ export type StoreFreeShippingPrice = StorePrice & {
   target_remaining: number;
   remaining_percentage: number;
 };
+
+export interface CategoryImage {
+  url: string;
+}

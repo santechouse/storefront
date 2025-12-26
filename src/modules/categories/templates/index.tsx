@@ -16,7 +16,7 @@ export default function CatalogTemplate({ categories, category }: Props) {
   }
 
   return (
-    <>
+    <div className="flex-1">
       <div className="mb-6  w-full">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
           {t("header")}
@@ -27,6 +27,6 @@ export default function CatalogTemplate({ categories, category }: Props) {
           return <CategoryCard category={category} key={i} />;
         })}
       </div>
-    </>
+    </div>
   );
 }

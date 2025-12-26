@@ -97,30 +97,29 @@ export const listProductsWithSort = async ({
   page = 0,
   queryParams,
   sortBy = "created_at",
-  countryCode,
 }: {
   locale: string;
   page?: number;
-  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams;
+  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductListParams;
   sortBy?: SortOptions;
-  countryCode: string;
 }): Promise<{
   response: { products: HttpTypes.StoreProduct[]; count: number };
   nextPage: number | null;
   queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams;
 }> => {
   const limit = queryParams?.limit || 12;
+  const region = await getRegion();
 
   const {
     response: { products, count },
   } = await listProducts({
     locale,
-    pageParam: 0,
+    regionId: region?.id,
+    pageParam: page,
     queryParams: {
       ...queryParams,
       limit: 100,
     },
-    countryCode,
   });
 
   const sortedProducts = sortProducts(products, sortBy);

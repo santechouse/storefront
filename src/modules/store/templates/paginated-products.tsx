@@ -5,6 +5,7 @@ import { SortOptions } from "@/types/globals";
 interface PaginatedProductsProps {
   locale: string;
   page: number;
+  q?: string;
   category_id?: string;
   sortBy?: SortOptions;
 }
@@ -12,6 +13,7 @@ interface PaginatedProductsProps {
 export default async function PaginatedProducts({
   locale,
   page,
+  q,
   category_id,
   sortBy,
 }: PaginatedProductsProps) {
@@ -22,6 +24,7 @@ export default async function PaginatedProducts({
     page,
     sortBy,
     queryParams: {
+      q,
       category_id: category_id,
     },
   });

@@ -36,9 +36,9 @@ export default function BottomNav() {
             <Link
               key={link.href}
               href={link.href}
-              className={`flex flex-col items-center ${pathname === link.href ? "text-primary" : "text-muted-foreground"} gap-1 w-24`}
+              className={`flex flex-col items-center ${pathname === link.href ? "text-primary" : "text-muted-foreground"} gap-1 `}
             >
-              <link.icon className="size-4" />
+              <link.icon className="size-5" />
               <span className="text-xs font-medium">{link.label}</span>
             </Link>
           );

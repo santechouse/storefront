@@ -18,7 +18,7 @@ export default async function ProductPreview({ product }: ProductPreviewProps) {
   return (
     <Link href={`/products/${product.handle}`}>
       <div className="group flex flex-col gap-4 bg-transparent">
-        <div className="relative aspect-3/4 w-full overflow-hidden rounded-2xl bg-[#1a1a1e]">
+        <div className="relative aspect-6/7 w-full overflow-hidden rounded-xl">
           <Thumbnail thumbnail={product.thumbnail} />
         </div>
         <div className="flex flex-col">

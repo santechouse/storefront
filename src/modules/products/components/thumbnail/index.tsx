@@ -6,7 +6,7 @@ export type ThumbnailProps = {
 
 export default function Thumbnail({ thumbnail }: ThumbnailProps) {
   return (
-    <div className="relative aspect-3/4 w-full overflow-hidden rounded-2xl bg-[#1a1a1e]">
+    <div className="relative aspect-3/4 w-full overflow-hidden rounded-2xl">
       {thumbnail ? (
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"

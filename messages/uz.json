@@ -14,5 +14,25 @@
     "catalog": "Katalog",
     "cart": "Savat",
     "profile": "Profil"
+  },
+  "Footer": {
+    "description": "Yuqori sifatli santexnika buyumlarini onlayn xarid qiling. Quvurlar, aralash klapanlar, valflar, armaturalar, asbob-uskunalar va aksessuarlar – tezkor yetkazib berish va raqobatbardosh narxlar bilan."
+  },
+  "SortOption": {
+    "lastArrivals": "Yangi mahsulotlar",
+    "lowPrice": "Arzonroq",
+    "highPrice": "Qimmatroq"
+  },
+  "Product": {
+    "description": "Tavsif",
+    "select": "Tanlash",
+    "addToCart": "Savatga qo'shish",
+    "outOfStock": "Mavjud emas",
+    "from": "Dan",
+    "selectVariant": "Variantni tanlang"
+  },
+  "Catalog": {
+    "header": "Katalog",
+    "viewAll": "Hammasini ko'rish"
   }
 }

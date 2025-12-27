@@ -33,12 +33,10 @@ export default async function ProductRail({
         href={`/collections/${collection.handle}`}
         className="flex justify-between sm:justify-start items-end gap-2"
       >
-        <h2 className="text-xl text-primary sm:text-2xl font-bold">
-          {collection.title}
-        </h2>
+        <h2 className="text-xl sm:text-2xl font-bold">{collection.title}</h2>
         <ArrowRight className="size-6 sm:size-7 stroke-2" />
       </Link>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
         {products.map((product) => {
           return <ProductPreview key={product.id} product={product as any} />;
         })}

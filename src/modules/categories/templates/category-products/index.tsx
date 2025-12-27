@@ -6,11 +6,12 @@ import { CategoryHeader } from "./header";
 
 export default function CategoryProductsTemplate(props: {
   locale: string;
+  q?: string;
   sortBy?: SortOptions;
   page?: string;
   category: HttpTypes.StoreProductCategory;
 }) {
-  const { locale, category, sortBy, page } = props;
+  const { locale, category, sortBy, page, q } = props;
   const pageNumber = page ? parseInt(page) : 1;
   const sort = sortBy || "created_at";
 
@@ -22,14 +23,13 @@ export default function CategoryProductsTemplate(props: {
       />
       <div className="flex-1 min-w-0">
         <CategoryHeader sortBy={sort} category={category} />
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <PaginatedProducts
-            locale={locale}
-            page={pageNumber}
-            sortBy={sort}
-            category_id={category.id}
-          />
-        </div>
+        <PaginatedProducts
+          locale={locale}
+          q={q}
+          page={pageNumber}
+          sortBy={sort}
+          category_id={category.id}
+        />
       </div>
     </>
   );

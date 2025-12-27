@@ -1,5 +1,7 @@
+"use client";
 import { Link } from "@/i18n/navigation";
 import { HttpTypes } from "@medusajs/types";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
 export type CategoryLinkProps = React.ComponentProps<"base"> & {
@@ -12,16 +14,24 @@ export function CategoryLink({
   className,
 }: React.PropsWithChildren<CategoryLinkProps>) {
   const handle = category.handle;
-  const isChild = !!category.category_children.length;
-  return (
-    <Link
-      href={
-        isChild
-          ? { pathname: "catalog", query: { handle } }
-          : `/catalog/${handle}`
+  const hasChildren = category.category_children.length > 0;
+  const searchParams = useSearchParams();
+  const currentParams = Object.fromEntries(searchParams.entries());
+  const href = hasChildren
+    ? {
+        pathname: "/catalog",
+        query: { ...currentParams, handle }, // Keep params and add/update handle
       }
-      className={className}
-    >
+    : {
+        pathname: `/catalog/${handle}`,
+        // We omit 'handle' from the query because it's now in the URL path
+        query: (() => {
+          const { handle: _, ...rest } = currentParams;
+          return rest;
+        })(),
+      };
+  return (
+    <Link href={href} className={className}>
       {children}
     </Link>
   );

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/navigation";
-import { CircleXIcon } from "lucide-react";
+import { XIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import React, { useTransition } from "react";
@@ -17,7 +17,6 @@ export function SearchInput() {
 
   function onSearch(e: React.FormEvent) {
     e.preventDefault();
-
     const params = new URLSearchParams(searchParams.toString());
     value ? params.set("q", value) : params.delete("q");
 
@@ -28,14 +27,12 @@ export function SearchInput() {
 
   const handleClearInput = (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation();
     setValue("");
   };
 
   return (
-    <form onSubmit={onSearch} className="relative">
+    <form onSubmit={onSearch} className="flex">
       <Input
-        type="search"
         placeholder={t("searchPlaceholder")}
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -47,9 +44,9 @@ export function SearchInput() {
           variant="ghost"
           size="icon"
           onClick={handleClearInput}
-          className="text-muted-foreground focus-visible:ring-ring/50 absolute inset-y-0 right-0 rounded-l-none hover:bg-transparent"
+          className="ml-2"
         >
-          <CircleXIcon />
+          <XIcon />
         </Button>
       )}
     </form>

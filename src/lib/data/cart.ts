@@ -212,10 +212,12 @@ export async function deleteLineItem(lineId: string) {
     .deleteLineItem(cartId, lineId, {}, headers)
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts");
-      revalidateTag(cartCacheTag, "max");
+      // @ts-ignore
+      revalidateTag(cartCacheTag);
 
       const fulfillmentCacheTag = await getCacheTag("fulfillment");
-      revalidateTag(fulfillmentCacheTag, "max");
+      // @ts-ignore
+      revalidateTag(fulfillmentCacheTag);
     })
     .catch(medusaError);
 }

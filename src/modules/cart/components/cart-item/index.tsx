@@ -1,5 +1,5 @@
 "use client";
-import { updateLineItem } from "@/lib/data/cart";
+import { deleteLineItem, updateLineItem } from "@/lib/data/cart";
 import { HttpTypes } from "@medusajs/types";
 import React from "react";
 import CartItemSelect from "../cart-item-select";
@@ -30,6 +30,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         setUpdating(false);
       });
   };
+
+  const deleteItem = async () => {
+    await deleteLineItem(item.id);
+  };
   return (
     <div className="group bg-surface-light dark:bg-surface-dark rounded-xl p-4 sm:p-6 shadow-sm border border-[#e7ebf4] dark:border-gray-800 flex flex-col sm:flex-row gap-6">
       <div className="shrink-0">
@@ -58,7 +62,12 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             )}
             <p className="text-sm text-text-muted">Category: {item.category}</p>*/}
           </div>
-          <Button size="icon" variant="outline" title="Remove item">
+          <Button
+            onClick={deleteItem}
+            size="icon"
+            variant="outline"
+            title="Remove item"
+          >
             <Trash2Icon />
           </Button>
         </div>

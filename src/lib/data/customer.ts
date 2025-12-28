@@ -4,7 +4,6 @@ import { sdk } from "@lib/config";
 import medusaError from "@lib/util/medusa-error";
 import { HttpTypes } from "@medusajs/types";
 import { revalidateTag } from "next/cache";
-import { redirect } from "next/navigation";
 import {
   getAuthHeaders,
   getCacheOptions,
@@ -14,6 +13,7 @@ import {
   removeCartId,
   setAuthToken,
 } from "./cookies";
+import { redirect } from "next/navigation";
 
 export const retrieveCustomer =
   async (): Promise<HttpTypes.StoreCustomer | null> => {
@@ -97,11 +97,11 @@ export async function signup(_currentState: unknown, formData: FormData) {
     revalidateTag(customerCacheTag);
 
     await transferCart();
-
-    return createdCustomer;
   } catch (error: any) {
     return error.toString();
   }
+
+  redirect("/account/dashboard");
 }
 
 export async function login(_currentState: unknown, formData: FormData) {

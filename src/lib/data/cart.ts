@@ -44,9 +44,9 @@ export async function retrieveCart(cartId?: string, fields?: string) {
       query: {
         fields,
       },
-      headers,
       next,
-      cache: "force-cache",
+      headers,
+      cache: "no-cache",
     })
     .then(({ cart }: { cart: HttpTypes.StoreCart }) => cart)
     .catch(() => null);
@@ -105,10 +105,10 @@ export async function updateCart(data: HttpTypes.StoreUpdateCart) {
     .update(cartId, data, {}, headers)
     .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
       const cartCacheTag = await getCacheTag("carts");
-      revalidateTag(cartCacheTag, "max");
+      revalidateTag(cartCacheTag, {});
 
       const fulfillmentCacheTag = await getCacheTag("fulfillment");
-      revalidateTag(fulfillmentCacheTag, "max");
+      revalidateTag(fulfillmentCacheTag, {});
 
       return cart;
     })
@@ -183,10 +183,12 @@ export async function updateLineItem({
     .updateLineItem(cartId, lineId, { quantity }, {}, headers)
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts");
-      revalidateTag(cartCacheTag, "max");
+      // @ts-ignore
+      revalidateTag(cartCacheTag);
 
       const fulfillmentCacheTag = await getCacheTag("fulfillment");
-      revalidateTag(fulfillmentCacheTag, "max");
+      // @ts-ignore
+      revalidateTag(fulfillmentCacheTag);
     })
     .catch(medusaError);
 }

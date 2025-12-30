@@ -22,7 +22,7 @@ export const listCartShippingMethods = async (cartId: string) => {
           cart_id: cartId,
         },
         headers,
-        next,
+
         cache: "no-cache",
       },
     )

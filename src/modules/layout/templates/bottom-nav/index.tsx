@@ -29,7 +29,7 @@ export default function BottomNav() {
     },
   ];
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 backdrop-blur-md bg-background/80 border-t border-gray-200 dark:border-white/5 px-6 py-3 z-50">
+    <nav className="md:hidden sticky bottom-0 left-0 right-0 backdrop-blur-md bg-background/80 border-t border-gray-200 dark:border-white/5 px-6 py-3 z-50">
       <div className="flex items-center justify-between">
         {links.map((link) => {
           return (

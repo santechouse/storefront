@@ -11,12 +11,14 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
+import { useTranslations } from "next-intl";
 
 type AddressProps = {
   cart: HttpTypes.StoreCart;
 };
 
 const Address: React.FC<AddressProps> = ({ cart }) => {
+  const t = useTranslations("Checkout.address");
   const searchParams = useSearchParams();
   const [formData, setFormData] = React.useState<Record<string, any>>({
     "shipping_address.first_name": cart.shipping_address?.first_name || "",
@@ -59,10 +61,10 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
     <form action={formAction} className="flex-1 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-[#0d121c] dark:text-white text-3xl lg:text-4xl font-black leading-tight tracking-[-0.033em]">
-          Shipping Address
+          {t("title")}
         </h1>
         <p className="text-gray-500 dark:text-gray-400 text-base">
-          Where should we send your order?
+          {t("description")}
         </p>
       </div>
       {/*<section className="flex flex-col gap-5">
@@ -99,7 +101,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
       <hr className="border-gray-200 dark:border-gray-800 my-2" />
       <section className="flex flex-col gap-6">
         <h3 className="text-lg font-bold text-[#0d121c] dark:text-white">
-          Shipping Details
+          {t("details")}
         </h3>
         {/*<div className="p-4 border border-primary/30 rounded-lg bg-blue-50/30 dark:bg-primary/5 flex items-center gap-3 cursor-pointer ring-1 ring-primary/20">
           <HomeIcon className="size-4" />
@@ -118,7 +120,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <label className="flex flex-col w-full">
             <span className="text-[#0d121c] dark:text-gray-300 text-sm font-medium pb-2">
-              First name
+              {t("firstName")}
             </span>
             <Input
               value={formData["shipping_address.first_name"]}
@@ -131,7 +133,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
           </label>
           <label className="flex flex-col w-full">
             <span className="text-[#0d121c] dark:text-gray-300 text-sm font-medium pb-2">
-              Last name
+              {t("lastName")}
             </span>
             <Input
               value={formData["shipping_address.last_name"]}
@@ -145,7 +147,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
         </div>
         <label className="flex flex-col">
           <span className="text-[#0d121c] dark:text-gray-300 text-sm font-medium pb-2">
-            Country
+            {t("country")}
           </span>
           <NativeSelect
             name="shipping_address.country_code"
@@ -163,7 +165,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
         </label>
         <label className="flex flex-col w-full">
           <span className="text-[#0d121c] dark:text-gray-300 text-sm font-medium pb-2">
-            Address
+            {t("address")}
           </span>
           <Input
             value={formData["shipping_address.address_1"]}
@@ -177,7 +179,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
         <div className="grid grid-cols-1 md:grid-cols-3  gap-5">
           <label className="flex flex-col w-full">
             <span className="text-[#0d121c] dark:text-gray-300 text-sm font-medium pb-2">
-              City
+              {t("city")}
             </span>
             <Input
               value={formData["shipping_address.city"]}
@@ -190,7 +192,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
           </label>
           <label className="flex flex-col w-full">
             <span className="text-[#0d121c] dark:text-gray-300 text-sm font-medium pb-2">
-              State
+              {t("state")}
             </span>
             <Input
               value={formData["shipping_address.province"]}
@@ -204,7 +206,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
         </div>
         <label className="flex flex-col w-full">
           <span className="text-[#0d121c] dark:text-gray-300 text-sm font-medium pb-2">
-            Phone
+            {t("phone")}
           </span>
           <div className="relative">
             <Input
@@ -217,7 +219,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
             />
           </div>
           <span className="text-[10px] text-gray-400 mt-1 self-end">
-            In case we need to contact you about your order
+            {t("phoneHint")}
           </span>
         </label>
         {message && <p>{message}</p>}
@@ -226,10 +228,10 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
       <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
         <Button variant="ghost" className="text-primary">
           <ArrowLeft />
-          Return to cart
+          {t("return")}
         </Button>
         <Button type="submit" size="lg" className="w-full sm:w-auto">
-          Continue to shipping
+          {t("continue")}
           <ArrowRight />
         </Button>
       </div>

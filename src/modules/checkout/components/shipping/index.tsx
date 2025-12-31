@@ -7,6 +7,7 @@ import { setShippingMethod } from "@/lib/data/cart";
 import { convertToLocale } from "@/lib/util/money";
 import { HttpTypes } from "@medusajs/types";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
@@ -24,6 +25,7 @@ const Shipping: React.FC<ShippingProps> = ({
   cart,
   availableShippingMethods,
 }) => {
+  const t = useTranslations("Checkout.shipping");
   const [isLoading, setIsLoading] = React.useState(false);
   const [isLoadingPrices, setIsLoadingPrices] = React.useState(true);
   const router = useRouter();
@@ -85,33 +87,44 @@ const Shipping: React.FC<ShippingProps> = ({
         <div className=" flex items-center justify-between p-4">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full">
             <span className="text-gray-500 dark:text-gray-400 text-sm font-medium w-16">
-              Contact
+              {t("contact")}
             </span>
-            <span className="text-[#0d121c] dark:text-gray-200 text-sm font-medium truncate flex-1"></span>
+            <span className="text-[#0d121c] dark:text-gray-200 text-sm font-medium truncate flex-1">
+              {cart.shipping_address?.phone}
+            </span>
           </div>
-          <button className="text-primary hover:text-blue-700 text-xs font-semibold px-2 py-1 rounded transition-colors">
-            Change
-          </button>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="text-primary text-xs font-semibold px-2 py-1 rounded transition-colors"
+          >
+            {t("change")}
+          </Button>
         </div>
         <div className="flex items-center justify-between p-4">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full">
-            <span className="text-gray-500 dark:text-gray-400 text-sm font-medium w-16">
-              Ship to
+            <span className="text-gray-500 dark:text-gray-400 text-sm font-medium">
+              {t("shipTo")}
             </span>
-            <span className="text-[#0d121c] dark:text-gray-200 text-sm font-medium truncate flex-1"></span>
+            <span className="text-[#0d121c] dark:text-gray-200 text-sm font-medium truncate flex-1">
+              {cart.shipping_address?.address_1}
+            </span>
           </div>
-          <button className="text-primary hover:text-blue-700 text-xs font-semibold px-2 py-1 rounded transition-colors">
-            Change
-          </button>
+          <Button
+            variant="ghost"
+            className="text-primary text-xs font-semibold px-2 py-1 rounded transition-colors"
+          >
+            {t("change")}
+          </Button>
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
         <h2 className="text-[#0d121c] dark:text-white text-2xl font-bold leading-tight">
-          Shipping method
+          {t("title")}
         </h2>
         <p className="text-gray-500 dark:text-gray-400 text-sm">
-          Select how you want your items delivered.
+          {t("description")}
         </p>
       </div>
 
@@ -182,15 +195,19 @@ const Shipping: React.FC<ShippingProps> = ({
         ))}*/}
       </div>
       <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
-        <Button variant="ghost">
+        <Button
+          onClick={() => router.push("?step=address")}
+          variant="ghost"
+          className="text-primary"
+        >
           <ArrowLeft />
-          Return to information
+          {t("return")}
         </Button>
         <Button
           onClick={() => router.push(`?step=payment`)}
           className="w-full sm:w-auto"
         >
-          Continue to payment
+          {t("continue")}
           <ArrowRight />
         </Button>
       </div>

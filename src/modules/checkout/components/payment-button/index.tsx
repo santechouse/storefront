@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { isManual } from "@/lib/constants";
 import { placeOrder } from "@/lib/data/cart";
 import { HttpTypes } from "@medusajs/types";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 type PaymentButtonProps = {
@@ -27,6 +28,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ cart }) => {
 };
 
 const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
+  const t = useTranslations("Checkout.review");
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -53,7 +55,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         onClick={handlePayment}
         data-testid="submit-order-button"
       >
-        Place order
+        {t("placeOrder")}
       </Button>
     </>
   );

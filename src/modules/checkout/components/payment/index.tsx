@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { PaymentContainer } from "../payment-container";
 import { paymentInfoMap } from "@/lib/constants";
+import { useTranslations } from "next-intl";
 
 interface StepPaymentProps {
   cart: HttpTypes.StoreCart;
@@ -19,6 +20,7 @@ const Payment: React.FC<StepPaymentProps> = ({
   cart,
   availablePaymentMethods,
 }) => {
+  const t = useTranslations("Checkout.payment");
   const searchParams = useSearchParams();
   const isOpen = searchParams.get("step") === "payment";
   const activeSession = cart.payment_collection?.payment_sessions?.find(
@@ -150,10 +152,10 @@ const Payment: React.FC<StepPaymentProps> = ({
 
       <div className="flex flex-col gap-2">
         <h2 className="text-[#0d121c] dark:text-white text-2xl font-bold leading-tight">
-          Payment Method
+          {t("title")}
         </h2>
         <p className="text-gray-500 dark:text-gray-400 text-sm">
-          All transactions are secure and encrypted.
+          {t("description")}
         </p>
       </div>
 
@@ -175,12 +177,16 @@ const Payment: React.FC<StepPaymentProps> = ({
         </RadioGroup>
       </div>
       <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
-        <Button variant="ghost">
+        <Button
+          onClick={() => router.push("?step=delivery")}
+          variant="ghost"
+          className="text-primary"
+        >
           <ArrowLeft />
-          Return to shipping
+          {t("return")}
         </Button>
         <Button onClick={handleSubmit} className="w-full sm:w-auto ">
-          Review Order
+          {t("continue")}
           <ArrowRight />
         </Button>
       </div>

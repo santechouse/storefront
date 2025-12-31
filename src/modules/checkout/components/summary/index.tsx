@@ -1,7 +1,7 @@
 "use client";
 import { convertToLocale } from "@/lib/util/money";
-import LineItemPrice from "@/modules/common/components/line-item-price";
 import { HttpTypes } from "@medusajs/types";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 interface OrderSummaryProps {
@@ -9,15 +9,16 @@ interface OrderSummaryProps {
 }
 
 const Summary: React.FC<OrderSummaryProps> = ({ cart }) => {
+  const t = useTranslations("Checkout.summary");
   return (
     <div className="sticky top-28 flex flex-col gap-6">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-[#e7ebf4] dark:border-gray-700 overflow-hidden">
         <div className="p-6 border-b border-[#e7ebf4] dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center">
           <h2 className="text-lg font-bold text-[#0d121c] dark:text-white">
-            Order Summary
+            {t("title")}
           </h2>
           <span className="text-sm text-gray-500">
-            {cart.items?.length} Items
+            {cart.items?.length} {t("items")}
           </span>
         </div>
         <div className="p-6 flex flex-col gap-6">
@@ -37,7 +38,7 @@ const Summary: React.FC<OrderSummaryProps> = ({ cart }) => {
                 <h4 className="text-sm font-bold text-[#0d121c] dark:text-white">
                   {item.product_title}
                 </h4>
-                <p className="text-xs text-gray-500"></p>
+                <p className="text-xs text-gray-500">{item.variant_title}</p>
                 <p className="text-sm font-medium text-[#0d121c] dark:text-white mt-auto">
                   {convertToLocale({
                     amount: item.total || 0,
@@ -47,25 +48,10 @@ const Summary: React.FC<OrderSummaryProps> = ({ cart }) => {
               </div>
             </div>
           ))}
-
           <hr className="border-dashed border-gray-200 dark:border-gray-700" />
-
-          <div className="flex gap-2">
-            <input
-              className="form-input flex-1 rounded-lg border border-[#ced7e8] dark:border-gray-700 bg-white dark:bg-gray-800 text-sm h-10 px-3 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-primary"
-              placeholder="Discount code"
-              type="text"
-            />
-            <button className="px-4 h-10 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-              Apply
-            </button>
-          </div>
-
-          <hr className="border-dashed border-gray-200 dark:border-gray-700" />
-
           <div className="flex flex-col gap-2 text-sm">
             <div className="flex justify-between text-gray-600 dark:text-gray-400">
-              <span>Subtotal</span>
+              <span>{t("subtotal")}</span>
               <span className="font-medium text-[#0d121c] dark:text-white">
                 {convertToLocale({
                   amount: cart.item_subtotal,
@@ -74,15 +60,7 @@ const Summary: React.FC<OrderSummaryProps> = ({ cart }) => {
               </span>
             </div>
             <div className="flex justify-between text-gray-600 dark:text-gray-400">
-              <span className="flex items-center gap-1">
-                Shipping
-                <span
-                  className="material-symbols-outlined text-[14px] text-gray-400 cursor-help"
-                  title="Calculated based on selection"
-                >
-                  help
-                </span>
-              </span>
+              <span className="flex items-center gap-1">{t("shipping")}</span>
               <span className="font-medium text-[#0d121c] dark:text-white">
                 {convertToLocale({
                   amount: cart.shipping_total,
@@ -96,7 +74,7 @@ const Summary: React.FC<OrderSummaryProps> = ({ cart }) => {
 
           <div className="flex justify-between items-center">
             <span className="text-base font-bold text-[#0d121c] dark:text-white">
-              Total
+              {t("total")}
             </span>
             <div className="flex items-end gap-2">
               <span className="text-2xl font-semibold text-[#0d121c] dark:text-white tracking-tight">

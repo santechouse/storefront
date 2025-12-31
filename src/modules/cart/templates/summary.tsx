@@ -11,14 +11,12 @@ export function Summary(props: { cart: HttpTypes.StoreCart }) {
   return (
     <aside className="w-full lg:w-[380px] shrink-0">
       <div className="lg:sticky lg:top-24 flex flex-col gap-6">
-        <div className="bg-surface-light dark:bg-surface-dark rounded-xl border border-[#e7ebf4] dark:border-gray-800 shadow-sm p-6">
-          <h2 className="text-xl font-bold text-[#0d121c]  mb-6">
-            {t("summary")}
-          </h2>
+        <div className="bg-secondary rounded-xl border border-[#e7ebf4] dark:border-gray-800 shadow-sm p-6">
+          <h2 className="text-xl font-bold  mb-6">{t("summary")}</h2>
           <div className="space-y-4 mb-6">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-[#49659c]">{t("subtotal")}</span>
-              <span className="font-semibold text-[#0d121c] ">
+              <span className="">{t("subtotal")}</span>
+              <span className="font-semibold ">
                 {convertToLocale({
                   amount: cart.item_subtotal,
                   currency_code: cart.currency_code,
@@ -26,7 +24,7 @@ export function Summary(props: { cart: HttpTypes.StoreCart }) {
               </span>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-[#49659c]">{t("shipping")}</span>
+              <span className="">{t("shipping")}</span>
               <span className="font-medium">
                 {convertToLocale({
                   amount: cart.shipping_total,
@@ -35,12 +33,10 @@ export function Summary(props: { cart: HttpTypes.StoreCart }) {
               </span>
             </div>
           </div>
-          <div className="h-px w-full bg-[#e7ebf4] dark:bg-gray-800 mb-6"></div>
+          <div className="h-px w-full bg-[#e7ebf4] dark:bg-gray-600 mb-6"></div>
           <div className="flex justify-between items-center mb-6">
-            <span className="text-lg font-bold text-[#0d121c] ">
-              {t("total")}
-            </span>
-            <span className="text-lg font-bold text-[#0d121c] ">
+            <span className="text-lg font-bold">{t("total")}</span>
+            <span className="text-lg font-bold">
               {convertToLocale({
                 amount: cart.total,
                 currency_code: cart.currency_code,

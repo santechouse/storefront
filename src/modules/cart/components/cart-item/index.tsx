@@ -35,7 +35,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     await deleteLineItem(item.id);
   };
   return (
-    <div className="group bg-surface-light dark:bg-surface-dark rounded-xl p-4 sm:p-6 shadow-sm border border-[#e7ebf4] dark:border-gray-800 flex flex-col sm:flex-row gap-6">
+    <div className="group bg-secondary rounded-xl p-4 sm:p-6 shadow-sm border border-[#e7ebf4] dark:border-gray-800 flex flex-col sm:flex-row gap-6">
       <div className="shrink-0">
         <div
           className="size-24 sm:size-32 rounded-lg bg-gray-100 dark:bg-gray-800 bg-cover bg-center border border-gray-100 dark:border-gray-700"
@@ -49,11 +49,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             <h3 className="text-lg font-bold text-text-main dark:text-white leading-tight mb-1 group-hover:text-primary transition-colors">
               {item.product_title}
             </h3>
-
+            <p className="text-sm text-text-muted mb-1">{item.variant_title}</p>
             {/*{item.color && (
-              <p className="text-sm text-text-muted mb-1">
-                Color: {item.color}
-              </p>
             )}
             {item.condition && (
               <p className="text-sm text-text-muted mb-1">

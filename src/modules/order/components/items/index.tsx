@@ -1,5 +1,6 @@
 import { convertToLocale } from "@/lib/util/money";
 import { HttpTypes, RepositoryService } from "@medusajs/types";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
@@ -8,31 +9,32 @@ interface Props {
 }
 
 const Items: React.FC<Props> = ({ order }) => {
+  const t = useTranslations("Order");
   return (
     <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] overflow-hidden shadow-sm">
       <div className="px-6 py-4 border-b border-[#ced7e8] dark:border-[#2a3241] bg-gray-50 dark:bg-[#252c3b]">
         <h3 className="text-lg font-bold text-[#0d121c] dark:text-white">
-          Order Items{" "}
+          {t("orderItems")}
           <span className="text-sm font-medium text-gray-500 ml-1">
-            ({order.items?.length} items)
+            ({order.items?.length} {t("items")})
           </span>
         </h3>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto no-scrollbar">
         <table className="w-full text-left">
           <thead className="bg-white dark:bg-[#1e2433] border-b border-[#ced7e8] dark:border-[#2a3241]">
             <tr>
               <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider w-[50%]">
-                Product
+                {t("product")}
               </th>
               <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">
-                Price
+                {t("price")}
               </th>
               <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">
-                Qty
+                {t("quantity")}
               </th>
               <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">
-                Total
+                {t("total")}
               </th>
             </tr>
           </thead>

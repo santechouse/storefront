@@ -1,4 +1,5 @@
 import { HttpTypes } from "@medusajs/types";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 interface OrderHeaderProps {
@@ -6,16 +7,17 @@ interface OrderHeaderProps {
 }
 
 const Header: React.FC<OrderHeaderProps> = ({ order }) => {
+  const t = useTranslations("Order");
   const date = new Date(order.created_at).toLocaleString();
   return (
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-[#0d121c] dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">
-          Order #{order.display_id}
+          {t("order", { id: `${order.display_id}` })}
         </h1>
         <div className="flex items-center gap-2 text-[#49659c] dark:text-gray-400">
           <span className="text-sm font-normal leading-normal">
-            Placed on {date}
+            {t("placedOn", { date })}
           </span>
         </div>
       </div>

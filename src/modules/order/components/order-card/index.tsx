@@ -16,6 +16,8 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   const isDelivered = order.fulfillment_status === "delivered";
   const date = new Date(order.created_at).toLocaleString();
 
+  if (!order.items?.length) return;
+
   return (
     <div className="bg-white dark:bg-[#1a202c] rounded-xl border border-[#e7ebf4] dark:border-gray-800 shadow-sm overflow-hidden group">
       {/* Order Header */}
@@ -62,16 +64,16 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
               }`}
             >
               {isDelivered ? (
-                <Check className="size-6" />
+                <Check className="size-4" />
               ) : isShipped ? (
-                <TruckIcon className="size-6" />
+                <TruckIcon className="size-4" />
               ) : (
-                <ClockFading className="size-6" />
+                <ClockFading className="size-4" />
               )}
             </span>
             <div>
               <h3
-                className={`text-lg font-bold ${isShipped ? "text-primary" : "text-[#0d121c] dark:text-white"}`}
+                className={`font-bold ${isShipped ? "text-primary" : "text-[#0d121c] dark:text-white"}`}
               >
                 {order.status}
               </h3>

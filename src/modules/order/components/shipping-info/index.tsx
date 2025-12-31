@@ -1,21 +1,23 @@
 import { HttpTypes } from "@medusajs/types";
 import { MapPin, TruckIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   order: HttpTypes.StoreOrder;
 }
 
 const ShippingInfo: React.FC<Props> = ({ order }) => {
+  const t = useTranslations("Order");
   return (
     <div className="grid grid-cols-1 gap-6">
       <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-[#0d121c] dark:text-white">
-          <MapPin />
-          <h3 className="text-base font-bold">Shipping Address</h3>
+          <MapPin className="size-4" />
+          <h3 className="text-base font-bold">{t("address")}</h3>
         </div>
         <div className="pl-8">
           <p className="text-sm font-medium text-[#0d121c] dark:text-white">
-            Alex Morgan
+            {order.customer?.first_name} {order.customer?.last_name}
           </p>
           <p className="text-sm text-gray-500 mt-1">
             {order.shipping_address?.address_1}
@@ -25,7 +27,7 @@ const ShippingInfo: React.FC<Props> = ({ order }) => {
           </p>
           <div className="mt-4 pt-4 border-t border-[#ced7e8] dark:border-[#2a3241]">
             <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">
-              Contact
+              {t("contact")}
             </p>
             <p className="text-sm text-[#0d121c] dark:text-white">
               {order.shipping_address?.phone}
@@ -36,7 +38,7 @@ const ShippingInfo: React.FC<Props> = ({ order }) => {
       <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-[#0d121c] dark:text-white">
           <TruckIcon className="size-4" />
-          <h3 className="text-base font-bold">Shipping Method</h3>
+          <h3 className="text-base font-bold">{t("shippingMethod")}</h3>
         </div>
         {order.shipping_methods?.map((option) => {
           return (

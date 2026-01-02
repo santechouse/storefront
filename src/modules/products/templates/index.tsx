@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import ProductActions from "../components/product-actions";
 import ImageGallary from "../components/image-gallary";
 import { useTranslations } from "next-intl";
+import Breadcrumb from "@/modules/common/components/breadcrumb";
+import { LineChart } from "lucide-react";
 
 export type ProductTemplateProps = {
   product: HttpTypes.StoreProduct;
@@ -17,10 +19,23 @@ export default function ProductTemplate({
   images,
 }: ProductTemplateProps) {
   const t = useTranslations("Product");
+  const breadcrumb = [];
+  const category = product.categories?.[0];
+
+  if (category) {
+    breadcrumb.push({
+      name: category.name,
+      link: `/catalog/${category.handle}`,
+    });
+  }
+
+  breadcrumb.push({ name: product.title, link: `/products/${product.handle}` });
+
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full">
         <div className="lg:col-span-7 flex flex-col gap-4">
+          <Breadcrumb items={breadcrumb} />
           <ImageGallary images={images} />
           <div className="mt-8 hidden lg:block">
             <div className="border-b border-gray-200 dark:border-gray-700">

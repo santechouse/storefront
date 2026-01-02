@@ -1,11 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from "@/i18n/navigation";
 import { signup } from "@/lib/data/customer";
 import { EyeIcon, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 export default function RegisterTemplate() {
+  const t = useTranslations("Register");
   const [message, formAction] = React.useActionState(signup, null);
   return (
     <div className="flex justify-center min-h-[calc(100vh-80px)] w-full">
@@ -13,7 +16,7 @@ export default function RegisterTemplate() {
         <div className="mx-auto w-full max-w-md">
           <div className="mb-10">
             <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-              Welcome Back
+              {t("title")}
             </h1>
             <p className="mt-3 text-base text-slate-500 dark:text-slate-400">
               Please enter your details to sign in to your account.
@@ -22,14 +25,15 @@ export default function RegisterTemplate() {
           <form action={formAction} className="space-y-6">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                Email or Username
+                {t("phone")}
               </label>
               <div className="relative">
                 <Input
-                  name="email"
-                  placeholder="Enter your email"
-                  type="email"
+                  name="phone"
+                  placeholder={t("phonePlaceholder")}
+                  type="text"
                   className="bg-secondary"
+                  required
                 />
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
                   <Mail className="size-4" />
@@ -38,41 +42,42 @@ export default function RegisterTemplate() {
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                First name
+                {t("firstName")}
               </label>
               <div className="relative">
                 <Input
                   name="first_name"
-                  placeholder="First name"
                   type="text"
                   className="bg-secondary"
+                  required
                 />
               </div>
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                Last name
+                {t("lastName")}
               </label>
               <div className="relative">
                 <Input
                   name="last_name"
-                  placeholder="Last name"
                   type="text"
                   className="bg-secondary"
+                  required
                 />
               </div>
             </div>
 
             <div className="space-y-2">
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                Password
+                {t("password")}
               </label>
               <div className="relative">
                 <Input
                   name="password"
-                  placeholder="Enter your password"
+                  placeholder={t("passwordPlaceholder")}
                   type="password"
                   className="bg-secondary"
+                  required
                 />
                 <button
                   className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
@@ -85,7 +90,7 @@ export default function RegisterTemplate() {
             <div>
               {message && <p>{message}</p>}
               <Button type="submit" className="w-full">
-                Sign in
+                {t("createAccount")}
               </Button>
             </div>
           </form>
@@ -96,18 +101,18 @@ export default function RegisterTemplate() {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="bg-background-light dark:bg-background-dark px-2 text-slate-500 dark:text-slate-400">
-                  Or continue with
+                  {t("continue")}
                 </span>
               </div>
             </div>
           </div>
           <p className="mt-10 text-center text-sm text-slate-500 dark:text-slate-400">
-            <a
+            <Link
               className="font-semibold text-primary hover:text-primary/80 transition-colors"
-              href="#"
+              href="/account/login"
             >
-              Create an account
-            </a>
+              {t("signIn")}
+            </Link>
           </p>
         </div>
       </div>

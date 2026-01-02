@@ -1,27 +1,35 @@
 "use client";
 
 import { Link, usePathname } from "@/i18n/navigation";
+import { signout } from "@/lib/data/customer";
 import { HttpTypes } from "@medusajs/types";
 import { LogOut, Package2, User } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface AccountTemplateProps {
   customer: HttpTypes.StoreCustomer;
 }
 
 const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
+  const t = useTranslations("Account");
   const pathname = usePathname();
   const links = [
     {
       link: "/account/dashboard/orders",
-      label: "My Orders",
+      label: t("orders"),
       icon: <Package2 className="size-4" />,
     },
     {
       link: "/account/dashboard/profile",
-      label: "Profile",
+      label: t("profile"),
       icon: <User className="size-4" />,
     },
   ];
+
+  const handleLogout = async () => {
+    await signout();
+  };
+
   return (
     <aside className="w-full max-w-3xl shrink-0">
       <div className="bg-white dark:bg-[#1a2230] rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
@@ -49,13 +57,13 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
           })}
         </nav>
         <div className="p-4 mt-auto border-t border-slate-100 dark:border-slate-700">
-          <a
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors"
-            href="#"
+          <button
+            onClick={handleLogout}
+            className="flex items-center w-full gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors"
           >
             <LogOut className="size-4" />
-            <span className="text-sm">Logout</span>
-          </a>
+            <span className="text-sm">{t("logOut")}</span>
+          </button>
         </div>
       </div>
     </aside>

@@ -145,7 +145,7 @@ export function MobileRefinementList({ initialCategory, categories }: Props) {
         <div className="flex-1 overflow-y-auto">
           <div className="flex flex-col gap-1">
             <div className="uppercase text-muted-foreground text-xs ml-4 font-medium">
-              Categories
+              {t("categories")}
             </div>
             {displayItems.map((item) => {
               const isSelected = item.role === "selected";
@@ -186,7 +186,7 @@ export function MobileRefinementList({ initialCategory, categories }: Props) {
         <SheetFooter className="mt-auto pt-4 border-t">
           <SheetClose asChild>
             <Button className="w-full" onClick={handleApply}>
-              Apply Selection
+              {t("apply")}
             </Button>
           </SheetClose>
         </SheetFooter>

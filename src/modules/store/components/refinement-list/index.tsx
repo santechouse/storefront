@@ -2,6 +2,7 @@
 import { CategoryLink } from "@/modules/categories/components/category-link";
 import { HttpTypes } from "@medusajs/types";
 import { ChevronLeft, SlidersHorizontalIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface SidebarProps {
   initialCategory?: HttpTypes.StoreProductCategory;
@@ -12,17 +13,18 @@ const RefinementList: React.FC<SidebarProps> = ({
   initialCategory,
   categories,
 }) => {
+  const t = useTranslations("Filters");
   return (
     <aside className="w-full lg:w-64 shrink-0 hidden lg:block">
       <div className="sticky top-24 space-y-8">
         <div>
           <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4 flex items-center gap-2 ">
             <SlidersHorizontalIcon className="size-5" />
-            Filters
+            {t("title")}
           </h3>
           <div className="border-b border-slate-200 dark:border-slate-800 pb-5 mb-5">
             <h4 className="font-semibold text-sm text-slate-900 dark:text-white mb-3">
-              Categories
+              {t("categories")}
             </h4>
             <ul className="space-y-3">
               {initialCategory?.parent_category && (

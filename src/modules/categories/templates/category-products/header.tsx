@@ -1,19 +1,11 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import RefinementList from "@/modules/store/components/refinement-list";
+import Breadcrumb from "@/modules/common/components/breadcrumb";
+import { MobileRefinementList } from "@/modules/store/components/mobile-refinement-list";
 import { SortProducts } from "@/modules/store/components/refinement-list/sort-products";
 import { SortOptions } from "@/types/globals";
 import { HttpTypes } from "@medusajs/types";
-import { SlidersHorizontalIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
@@ -22,6 +14,7 @@ export function CategoryHeader(props: {
   category: HttpTypes.StoreProductCategory;
 }) {
   const { category, sortBy } = props;
+  const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -42,6 +35,12 @@ export function CategoryHeader(props: {
   };
   return (
     <div className="flex flex-col w-full md:flex-row md:items-end justify-between gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-6">
+      <Breadcrumb
+        items={[
+          { name: t("Breadcrumb.catalog"), link: `/catalog` },
+          { name: category.name, link: category.handle },
+        ]}
+      />
       <div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
           {category.name}
@@ -49,23 +48,10 @@ export function CategoryHeader(props: {
       </div>
       <div className="flex items-center gap-3">
         <div className="lg:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button
-                variant="outline"
-                className="bg-white dark:dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
-              >
-                <SlidersHorizontalIcon className="size-4" />
-                Filter
-              </Button>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle />
-                <SheetDescription />
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
+          <MobileRefinementList
+            initialCategory={category}
+            categories={[category, ...category.category_children]}
+          />
         </div>
         <div className="relative group">
           <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} />

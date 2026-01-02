@@ -62,15 +62,14 @@ export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
 export async function signup(_currentState: unknown, formData: FormData) {
   const password = formData.get("password") as string;
   const customerForm = {
-    email: formData.get("email") as string,
     first_name: formData.get("first_name") as string,
     last_name: formData.get("last_name") as string,
     phone: formData.get("phone") as string,
   };
 
   try {
-    const token = await sdk.auth.register("customer", "emailpass", {
-      email: customerForm.email,
+    const token = await sdk.auth.register("customer", "phonepass", {
+      phone: customerForm.phone,
       password: password,
     });
 
@@ -81,13 +80,13 @@ export async function signup(_currentState: unknown, formData: FormData) {
     };
 
     const { customer: createdCustomer } = await sdk.store.customer.create(
-      customerForm,
+      { ...customerForm, email: `+${customerForm.phone}@gmail.com` },
       {},
       headers,
     );
 
     const loginToken = await sdk.auth.login("customer", "emailpass", {
-      email: customerForm.email,
+      email: customerForm.phone,
       password,
     });
 
@@ -105,18 +104,19 @@ export async function signup(_currentState: unknown, formData: FormData) {
 }
 
 export async function login(_currentState: unknown, formData: FormData) {
-  const email = formData.get("email") as string;
+  const phone = formData.get("phone") as string;
   const password = formData.get("password") as string;
 
   try {
     await sdk.auth
-      .login("customer", "emailpass", { email, password })
+      .login("customer", "phonepass", { phone, password })
       .then(async (token) => {
         await setAuthToken(token as string);
         const customerCacheTag = await getCacheTag("customers");
         revalidateTag(customerCacheTag);
       });
   } catch (error: any) {
+    console.log(error);
     return error.toString();
   }
 
@@ -129,7 +129,7 @@ export async function login(_currentState: unknown, formData: FormData) {
   redirect("/account/dashboard");
 }
 
-export async function signout(countryCode: string) {
+export async function signout() {
   await sdk.auth.logout();
 
   await removeAuthToken();
@@ -143,7 +143,7 @@ export async function signout(countryCode: string) {
 
   revalidateTag(cartCacheTag);
 
-  redirect(`/${countryCode}/account`);
+  redirect(`/account`);
 }
 
 export async function transferCart() {

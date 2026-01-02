@@ -8,6 +8,7 @@ interface PaginatedProductsProps {
   page: number;
   q?: string;
   category_id?: string;
+  collection_id?: string;
   sortBy?: SortOptions;
 }
 
@@ -18,6 +19,7 @@ export default async function PaginatedProducts({
   page,
   q,
   category_id,
+  collection_id,
   sortBy,
 }: PaginatedProductsProps) {
   const {
@@ -30,6 +32,7 @@ export default async function PaginatedProducts({
       q,
       limit: PRODUCT_LIMIT,
       category_id: category_id,
+      collection_id: collection_id,
     },
   });
 

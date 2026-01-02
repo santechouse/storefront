@@ -1,12 +1,14 @@
 import { HttpTypes } from "@medusajs/types";
 import OrderCard from "../../components/order-card";
 import { Package2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   orders: HttpTypes.StoreOrder[];
 }
 
 export default function OrderListTemplate({ orders }: Props) {
+  const t = useTranslations("OrderList");
   if (!orders) return null;
   return (
     <div className="flex-1 flex flex-col gap-10">
@@ -14,10 +16,10 @@ export default function OrderListTemplate({ orders }: Props) {
         <div className="flex justify-between items-end flex-wrap gap-4 mt-2">
           <div>
             <h1 className="text-[#0d121c] dark:text-white text-3xl font-bold tracking-tight">
-              Your Orders
+              {t("title")}
             </h1>
             <p className="text-[#49659c] dark:text-gray-400 mt-1">
-              Track pending shipments, review history, or buy items again.
+              {t("description")}
             </p>
           </div>
         </div>

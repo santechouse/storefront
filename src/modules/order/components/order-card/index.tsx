@@ -5,12 +5,14 @@ import { Check, ClockFading, TruckIcon } from "lucide-react";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface OrderCardProps {
   order: HttpTypes.StoreOrder;
 }
 
 const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
+  const t = useTranslations("OrderList");
   const isMultiple = (order.items?.length || 0) > 1;
   const isShipped = order.fulfillment_status === "shipped";
   const isDelivered = order.fulfillment_status === "delivered";
@@ -25,7 +27,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
         <div className="flex flex-wrap gap-x-8 gap-y-2">
           <div className="flex flex-col">
             <span className="text-[#49659c] dark:text-gray-400 text-xs uppercase tracking-wider font-semibold">
-              Order Placed
+              {t("orderPlaced")}
             </span>
             <span className="text-[#0d121c] dark:text-white font-medium">
               {date}
@@ -33,7 +35,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
           </div>
           <div className="flex flex-col">
             <span className="text-[#49659c] dark:text-gray-400 text-xs uppercase tracking-wider font-semibold">
-              Total
+              {t("total")}
             </span>
             <span className="text-[#0d121c] dark:text-white font-medium">
               {convertToLocale({
@@ -45,7 +47,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
         </div>
         <div className="flex flex-col md:items-end">
           <span className="text-[#49659c] dark:text-gray-400 text-xs uppercase tracking-wider font-semibold">
-            Order # {order.display_id}
+            {t("order", { id: `${order.display_id}` })}
           </span>
         </div>
       </div>
@@ -75,7 +77,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
               <h3
                 className={`font-bold ${isShipped ? "text-primary" : "text-[#0d121c] dark:text-white"}`}
               >
-                {order.status}
+                {t(`statuses.${order.fulfillment_status}`)}
               </h3>
               <p
                 className={`text-sm ${isShipped ? "font-medium text-[#0d121c] dark:text-gray-200" : "text-[#49659c] dark:text-gray-400"}`}
@@ -139,11 +141,6 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                   <p className="text-xs text-secondary-foreground">
                     {order.items?.[0].variant_title}
                   </p>
-                  {isDelivered && (
-                    <button className="mt-2 w-fit px-3 py-1.5 rounded-md bg-primary text-white text-xs font-bold shadow-sm hover:bg-blue-700 transition">
-                      Buy it again
-                    </button>
-                  )}
                 </div>
               </div>
             )}
@@ -154,7 +151,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
         <div className="w-full md:w-56 shrink-0 flex flex-col gap-2">
           <Link href={`/account/dashboard/orders/details/${order.id}`}>
             <Button variant="outline" className="w-full">
-              Details
+              {t("details")}
             </Button>
           </Link>
         </div>

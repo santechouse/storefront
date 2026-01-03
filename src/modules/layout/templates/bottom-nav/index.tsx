@@ -23,7 +23,7 @@ export default function BottomNav() {
       label: t("cart"),
     },
     {
-      href: "/profile",
+      href: "/account",
       icon: User,
       label: t("profile"),
     },

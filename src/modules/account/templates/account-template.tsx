@@ -15,12 +15,12 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
   const pathname = usePathname();
   const links = [
     {
-      link: "/account/dashboard/orders",
+      link: "/account/orders",
       label: t("orders"),
       icon: <Package2 className="size-4" />,
     },
     {
-      link: "/account/dashboard/profile",
+      link: "/account/profile",
       label: t("profile"),
       icon: <User className="size-4" />,
     },

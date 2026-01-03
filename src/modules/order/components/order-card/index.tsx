@@ -149,7 +149,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
 
         {/* Right: Actions */}
         <div className="w-full md:w-56 shrink-0 flex flex-col gap-2">
-          <Link href={`/account/dashboard/orders/details/${order.id}`}>
+          <Link href={`/account/orders/details/${order.id}`}>
             <Button variant="outline" className="w-full">
               {t("details")}
             </Button>

@@ -7,6 +7,7 @@
     "description": "Yuqori sifatli santexnika buyumlarini onlayn xarid qiling. Quvurlar, aralash klapanlar, valflar, armaturalar, asbob-uskunalar va aksessuarlar – tezkor yetkazib berish va raqobatbardosh narxlar bilan."
   },
   "Nav": {
+    "catalog": "Katalog",
     "searchPlaceholder": "Izlash..."
   },
   "BottomNav": {
@@ -23,6 +24,15 @@
     "lowPrice": "Arzonroq",
     "highPrice": "Qimmatroq"
   },
+  "Filters": {
+    "title": "Saralash",
+    "categories": "Katalog",
+    "apply": "Qo'llash"
+  },
+  "Breadcrumb": {
+    "home": "Bosh sahifa",
+    "catalog": "Katalog"
+  },
   "Product": {
     "description": "Tavsif",
     "select": "Tanlash",
@@ -34,5 +44,126 @@
   "Catalog": {
     "header": "Katalog",
     "viewAll": "Hammasini ko'rish"
+  },
+  "Cart": {
+    "summary": "Ja'mi",
+    "subtotal": "Mahsulotlar",
+    "shipping": "Yetkazib berish",
+    "total": "Ja'mi",
+    "checkout": "To'lovga o'tish",
+    "empty": {
+      "title": "Savatingiz bo'sh",
+      "description": "Siz hali Savatingizga hech narsa qo'shmaganga o'xshaysiz. Bizning so'nggi to'plamlarimizni ko'rib chiqing!",
+      "startShopping": "Xarid qilishni boshlash"
+    }
+  },
+  "Login": {
+    "title": "Xush kelibsiz",
+    "description": "Hisobingizga kirish uchun ma'lumotlarni kiriting",
+    "phone": "Telefon raqam",
+    "phonePlaceholder": "Telefon raqamingizni kiriting",
+    "passwordPlaceholder": "Parolingizni kiriting",
+    "password": "Parol",
+    "signIn": "Kirish",
+    "continue": "Yoki davom eting",
+    "createAccount": "Hisob yarating"
+  },
+  "Register": {
+    "title": "Hisobingizni yarating",
+    "firstName": "Ism",
+    "lastName": "Familiya",
+    "phone": "Telefon raqam",
+    "password": "Parol",
+    "phonePlaceholder": "Telefon raqamingizni kiriting",
+    "passwordPlaceholder": "Parolingizni kiriting",
+    "createAccount": "Hisob yaratish",
+    "continue": "Yoki davom eting",
+    "signIn": "Kirish"
+  },
+  "Account": {
+    "orders": "Mening buyurtmalarim",
+    "profile": "Profil",
+    "logOut": "Chiqish"
+  },
+  "Checkout": {
+    "address": {
+      "title": "Yetkazib Berish Manzili",
+      "description": "Buyurtmangizni qaerga yuborishimiz kerak?",
+      "details": "Yetkazib berish tafsilotlari",
+      "firstName": "Ism",
+      "lastName": "Familiya",
+      "country": "Тamlakat",
+      "address": "Manzil",
+      "city": "Shahar",
+      "state": "Viloyat / Tuman",
+      "phone": "Telefon raqam",
+      "phoneHint": "Agar buyurtmangiz haqida siz bilan bog'lanishimiz kerak bo'lsa",
+      "return": "Savatga qaytish",
+      "continue": "Yetkazib berishga boring"
+    },
+    "shipping": {
+      "title": "Yetkazib berish usuli",
+      "description": "Mahsulotlaringizni etkazib berish usulini tanlang.",
+      "contact": "Kontakt",
+      "shipTo": "Yuborish",
+      "change": "O'zgartirish",
+      "return": "Ma'lumotlarga qaytish",
+      "continue": "To'lovga o'tish"
+    },
+    "payment": {
+      "title": "To'lov usuli",
+      "description": "Barcha tranzaktsiyalar himoyalangan va shifrlangan.",
+      "return": "Yetkazib berishga qaytish",
+      "continue": "Buyurtmani ko'rish"
+    },
+    "review": {
+      "title": "Buyurtmangizni tekshiring",
+      "description": "Buyurtma berishdan oldin quyidagi ma'lumotlarni tasdiqlang.",
+      "placeOrder": "Buyurtma berish"
+    },
+    "summary": {
+      "items": "mahsulotlar",
+      "title": "Ja'mi",
+      "subtotal": "Mahsulotlar",
+      "shipping": "Yetkazib berish",
+      "total": "Ja'mi"
+    }
+  },
+  "Order": {
+    "order": "Buyurtma #{id}",
+    "placedOn": "Buyurtma berilgan {date}",
+    "status": "Status",
+    "statuses": {
+      "not_fulfilled": "Buyurtma berilgan",
+      "fulfilled": "Jarayonda",
+      "shipped": "Yuborilgan",
+      "delivered": "Yetkazib berildi"
+    },
+    "orderItems": "Buyurtma berilgan mahsulotlar",
+    "items": "Mahsulotlar",
+    "product": "Mahsulot",
+    "price": "Narzi",
+    "quantity": "Miqdori",
+    "total": "Ja'mi",
+    "address": "Manzil",
+    "contact": "Kontakt",
+    "summary": "Ja'mi",
+    "subtotal": "Mahsulotlar",
+    "shipping": "Yetkazib berish",
+    "shippingMethod": "Yetkazib berish usuli"
+  },
+  "OrderList": {
+    "order": "Buyurtma #{id}",
+    "title": "Sizning buyurtmalaringiz",
+    "description": "Kutilayotgan jo'natmalarni kuzatib boring, tarixni ko'rib chiqing yoki tovarlarni qayta sotib oling.",
+    "orderPlaced": "Buyurtma berilgan",
+    "details": "Tafsilotlar",
+    "total": "Ja'mi",
+    "statuses": {
+      "not_fulfilled": "Buyurtma berilgan",
+      "fulfilled": "Jarayonda",
+      "shipped": "Yuborilgan",
+      "delivered": "Yetkazib berildi"
+    }
   }
 }

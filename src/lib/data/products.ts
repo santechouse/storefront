@@ -16,7 +16,8 @@ export const listProducts = async ({
 }: {
   locale: string;
   pageParam?: number;
-  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductListParams;
+  queryParams?: HttpTypes.FindParams &
+    HttpTypes.StoreProductListParams & { brand_id?: string };
   countryCode?: string;
   regionId?: string;
 }): Promise<{
@@ -58,7 +59,9 @@ export const listProducts = async ({
 
   return sdk.client
     .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
-      `/store/products`,
+      queryParams?.brand_id
+        ? `/store/brands/${queryParams.brand_id}/products`
+        : "/store/products",
       {
         method: "GET",
         query: {
@@ -68,6 +71,7 @@ export const listProducts = async ({
           fields:
             "*variants.calculated_price,+variants.inventory_quantity,*variants.images,+metadata,+tags",
           ...queryParams,
+          brand_id: undefined,
         },
         headers,
         next,
@@ -100,12 +104,14 @@ export const listProductsWithSort = async ({
 }: {
   locale: string;
   page?: number;
-  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductListParams;
+  queryParams?: HttpTypes.FindParams &
+    HttpTypes.StoreProductListParams & { brand_id?: string };
   sortBy?: SortOptions;
 }): Promise<{
   response: { products: HttpTypes.StoreProduct[]; count: number };
   nextPage: number | null;
-  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams;
+  queryParams?: HttpTypes.FindParams &
+    HttpTypes.StoreProductParams & { brand_id?: string };
 }> => {
   const limit = queryParams?.limit || 12;
   const region = await getRegion();

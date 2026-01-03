@@ -1,4 +1,4 @@
-import Medusa from "@medusajs/js-sdk";
+import Medusa, { FetchArgs, FetchInput } from "@medusajs/js-sdk";
 import { PayloadSDK } from "@payloadcms/sdk";
 
 let MEDUSA_BACKEND_URL = "http://localhost:9000";
@@ -30,3 +30,23 @@ export const payload = new PayloadSDK({
     },
   },
 });
+
+const originalFetch = sdk.client.fetch.bind(sdk.client);
+
+sdk.client.fetch = async <T>(
+  input: FetchInput,
+  init?: FetchArgs,
+): Promise<T> => {
+  const headers = init?.headers ?? {};
+  let localeHeader: Record<string, string | null> | undefined;
+
+  const newHeaders = {
+    ...localeHeader,
+    ...headers,
+  };
+  init = {
+    ...init,
+    headers: newHeaders,
+  };
+  return originalFetch(input, init);
+};

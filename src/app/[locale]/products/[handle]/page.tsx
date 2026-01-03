@@ -1,0 +1,90 @@
+import { listProducts } from "@/lib/data/products";
+import { getRegion } from "@/lib/data/regions";
+import ProductTemplate from "@/modules/products/templates";
+import { HttpTypes } from "@medusajs/types";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+interface Props extends PageProps<"/[locale]/products/[handle]"> {
+  searchParams: Promise<{ v_id?: string }>;
+}
+
+function getImagesForVariant(
+  product: HttpTypes.StoreProduct,
+  selectedVariantId?: string,
+) {
+  if (!selectedVariantId || !product.variants) {
+    return product.images;
+  }
+
+  const variant = product.variants!.find((v) => v.id === selectedVariantId);
+  if (!variant || !variant.images?.length) {
+    return product.images;
+  }
+
+  const imageIdsMap = new Map(variant.images.map((i) => [i.id, true]));
+  return product.images!.filter((i) => imageIdsMap.has(i.id));
+}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const { handle } = params;
+  const region = await getRegion();
+
+  if (!region) {
+    notFound();
+  }
+
+  const product = await listProducts({
+    locale: params.locale,
+    regionId: region.id,
+    queryParams: { handle },
+  }).then(({ response }) => response.products[0]);
+
+  if (!product) {
+    notFound();
+  }
+
+  return {
+    title: `${product.title}`,
+    description: `${product.title}`,
+    openGraph: {
+      title: `${product.title} | Santechouse`,
+      description: `${product.title}`,
+      images: product.thumbnail ? [product.thumbnail] : [],
+    },
+  };
+}
+
+export default async function ProductPage(props: Props) {
+  const params = await props.params;
+  const region = await getRegion("uz");
+  const searchParams = await props.searchParams;
+  const selectedVariantId = searchParams.v_id;
+
+  if (!region) {
+    notFound();
+  }
+
+  const pricedProduct = await listProducts({
+    locale: params.locale,
+    regionId: region.id,
+    queryParams: { handle: params.handle, fields: "+categories.*,+brand.*" },
+  }).then(({ response }) => response.products[0]);
+
+  const images = getImagesForVariant(pricedProduct, selectedVariantId);
+
+  if (!pricedProduct) {
+    notFound();
+  }
+
+  return (
+    <>
+      <ProductTemplate
+        product={pricedProduct}
+        region={region}
+        images={images || []}
+      />
+    </>
+  );
+}

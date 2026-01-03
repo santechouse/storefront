@@ -16,12 +16,12 @@ export default function CollectionsTemplate(props: {
   return (
     <>
       <RefinementList categories={categories} />
-      <CollectionHeader
-        collection={collection}
-        categories={categories}
-        sortBy={sortBy || "created_at"}
-      />
       <div className="flex-1 min-w-0">
+        <CollectionHeader
+          collection={collection}
+          categories={categories}
+          sortBy={sortBy || "created_at"}
+        />
         <PaginatedProducts
           locale={locale}
           q={q}

@@ -2,6 +2,7 @@ import RefinementList from "@/modules/store/components/refinement-list";
 import PaginatedProducts from "@/modules/store/templates/paginated-products";
 import { SortOptions } from "@/types/globals";
 import { HttpTypes } from "@medusajs/types";
+import { SearchyHeader } from "./header";
 
 export default function SearchPageTemplate(props: {
   locale: string;
@@ -18,6 +19,7 @@ export default function SearchPageTemplate(props: {
     <>
       <RefinementList categories={categories} />
       <div className="flex-1 min-w-0">
+        <SearchyHeader q={q} categories={categories} sortBy={sort} />
         <PaginatedProducts
           locale={locale}
           page={pageNumber}

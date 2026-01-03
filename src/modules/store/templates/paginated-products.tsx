@@ -7,6 +7,7 @@ interface PaginatedProductsProps {
   locale: string;
   page: number;
   q?: string;
+  brand_id?: string;
   category_id?: string;
   collection_id?: string;
   sortBy?: SortOptions;
@@ -18,6 +19,7 @@ export default async function PaginatedProducts({
   locale,
   page,
   q,
+  brand_id,
   category_id,
   collection_id,
   sortBy,
@@ -31,6 +33,7 @@ export default async function PaginatedProducts({
     queryParams: {
       q,
       limit: PRODUCT_LIMIT,
+      brand_id: brand_id,
       category_id: category_id,
       collection_id: collection_id,
     },

@@ -100,7 +100,7 @@ export async function signup(_currentState: unknown, formData: FormData) {
     return error.toString();
   }
 
-  redirect("/account/dashboard");
+  redirect("/account");
 }
 
 export async function login(_currentState: unknown, formData: FormData) {
@@ -126,7 +126,7 @@ export async function login(_currentState: unknown, formData: FormData) {
     return error.toString();
   }
 
-  redirect("/account/dashboard");
+  redirect("/account");
 }
 
 export async function signout() {

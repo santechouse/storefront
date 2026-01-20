@@ -12,6 +12,7 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { useTranslations } from "next-intl";
+import { count } from "console";
 
 type AddressProps = {
   cart: HttpTypes.StoreCart;
@@ -19,6 +20,7 @@ type AddressProps = {
 
 const Address: React.FC<AddressProps> = ({ cart }) => {
   const t = useTranslations("Checkout.address");
+  const tCountries = useTranslations("Countries");
   const searchParams = useSearchParams();
   const [formData, setFormData] = React.useState<Record<string, any>>({
     "shipping_address.first_name": cart.shipping_address?.first_name || "",
@@ -49,7 +51,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
 
     return cart.region.countries?.map((country) => ({
       value: country.iso_2,
-      label: country.display_name,
+      label: country.iso_2 ? tCountries(country.iso_2) : country.display_name,
     }));
   }, [cart]);
 
@@ -127,7 +129,6 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
               onChange={handleChange}
               name="shipping_address.first_name"
               className="bg-secondary"
-              placeholder="John"
               type="text"
             />
           </label>
@@ -140,7 +141,6 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
               onChange={handleChange}
               name="shipping_address.last_name"
               className="bg-secondary"
-              placeholder="Doe"
               type="text"
             />
           </label>
@@ -172,7 +172,6 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
             onChange={handleChange}
             name="shipping_address.address_1"
             className="bg-secondary"
-            placeholder="123 Main St"
             type="text"
           />
         </label>
@@ -186,7 +185,6 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
               onChange={handleChange}
               name="shipping_address.city"
               className="bg-secondary"
-              placeholder="New York"
               type="text"
             />
           </label>
@@ -199,7 +197,6 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
               onChange={handleChange}
               name="shipping_address.province"
               className="bg-secondary"
-              placeholder="New York"
               type="text"
             />
           </label>
@@ -213,7 +210,7 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
               value={formData["shipping_address.phone"]}
               onChange={handleChange}
               name="shipping_address.phone"
-              placeholder="(555) 555-5555"
+              placeholder="998991234567"
               type="tel"
               className="bg-secondary"
             />

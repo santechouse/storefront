@@ -29,6 +29,9 @@
     "categories": "Категории",
     "apply": "Применять"
   },
+  "Countries": {
+    "uz": "Узбекистан"
+  },
   "Breadcrumb": {
     "home": "Главная",
     "catalog": "Каталог"

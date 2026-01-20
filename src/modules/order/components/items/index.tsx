@@ -11,7 +11,7 @@ interface Props {
 const Items: React.FC<Props> = ({ order }) => {
   const t = useTranslations("Order");
   return (
-    <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] overflow-hidden shadow-sm">
+    <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] overflow-hidden">
       <div className="px-6 py-4 border-b border-[#ced7e8] dark:border-[#2a3241] bg-gray-50 dark:bg-[#252c3b]">
         <h3 className="text-lg font-bold text-[#0d121c] dark:text-white">
           {t("orderItems")}

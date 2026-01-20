@@ -21,7 +21,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   if (!order.items?.length) return;
 
   return (
-    <div className="bg-white dark:bg-[#1a202c] rounded-xl border border-[#e7ebf4] dark:border-gray-800 shadow-sm overflow-hidden group">
+    <div className="bg-white dark:bg-[#1a202c] rounded-xl border border-[#e7ebf4] dark:border-gray-800 overflow-hidden group">
       {/* Order Header */}
       <div className="bg-[#f8f9fc] dark:bg-gray-800/50 px-4 py-3 md:px-6 md:py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 text-sm border-b border-[#e7ebf4] dark:border-gray-800">
         <div className="flex flex-wrap gap-x-8 gap-y-2">

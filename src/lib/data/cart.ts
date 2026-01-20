@@ -428,7 +428,7 @@ export async function placeOrder(cartId?: string) {
     // @ts-ignore
     revalidateTag(orderCacheTag);
     removeCartId();
-    redirect(`/account/orders/${cartRes?.order.id}`);
+    redirect(`/account/orders/details/${cartRes?.order.id}`);
   }
 
   return cartRes.cart;

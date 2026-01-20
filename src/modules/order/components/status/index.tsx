@@ -46,7 +46,7 @@ const Status: React.FC<Props> = ({ order }) => {
   );
 
   return (
-    <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] p-6 shadow-sm">
+    <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] p-6">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-[#0d121c] dark:text-white">
           {t("status")}

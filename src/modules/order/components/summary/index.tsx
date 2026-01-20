@@ -9,7 +9,7 @@ interface Props {
 const Summary: React.FC<Props> = ({ order }) => {
   const t = useTranslations("Order");
   return (
-    <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] p-6 shadow-sm">
+    <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] p-6">
       <h3 className="mb-4 text-lg font-bold text-[#0d121c] dark:text-white">
         {t("summary")}
       </h3>

@@ -10,9 +10,7 @@ export default async function PreviewPrice({ price }: { price: VariantPrice }) {
       {price.price_type === "sale" && (
         <span className="font-bold">{price.original_price}</span>
       )}
-      <span className="text-muted-foreground font-bold">
-        {price.calculated_price}
-      </span>
+      <span className="font-bold">{price.calculated_price}</span>
     </>
   );
 }

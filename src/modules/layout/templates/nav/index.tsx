@@ -55,7 +55,7 @@ export default function Nav() {
                 <ShoppingCart className="size-4" />
               </Button>
             </Link>
-            <Link href="/profile" className="hidden lg:block">
+            <Link href="/account" className="hidden lg:block">
               <Button size="icon" variant="secondary" className="rounded-full">
                 <UserIcon className="size-4" />
               </Button>

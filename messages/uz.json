@@ -29,6 +29,9 @@
     "categories": "Katalog",
     "apply": "Qo'llash"
   },
+  "Countries": {
+    "uz": "O'zbekiston"
+  },
   "Breadcrumb": {
     "home": "Bosh sahifa",
     "catalog": "Katalog"

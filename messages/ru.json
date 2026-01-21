@@ -87,6 +87,12 @@
     "orders": "Мои заказы",
     "profile": "Профиль",
     "language": "Язык",
+    "theme": "Тема",
+    "themes": {
+      "light": "Светлая",
+      "dark": "Темная",
+      "system": "Системная"
+    },
     "logOut": "Выйти"
   },
   "Checkout": {
@@ -148,7 +154,6 @@
     "product": "Товар",
     "price": "Цена",
     "quantity": "Количество",
-    "total": "Итог",
     "address": "Адрес",
     "contact": "Контакт",
     "summary": "Итоги заказа",

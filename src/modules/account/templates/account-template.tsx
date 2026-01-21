@@ -3,8 +3,9 @@
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { signout } from "@/lib/data/customer";
 import { HttpTypes } from "@medusajs/types";
-import { Languages, LogOut, Package2, User } from "lucide-react";
+import { Languages, LogOut, Monitor, Moon, Package2, Sun, User } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
 
 interface AccountTemplateProps {
   customer: HttpTypes.StoreCustomer;
@@ -15,6 +16,7 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const links = [
     {
       link: "/account/orders",
@@ -66,29 +68,73 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
           <div className="px-4 py-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
             {t("language")}
           </div>
-          <button
-            onClick={() => handleLanguageChange("ru")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
-              locale === "ru"
-                ? "bg-primary/5 text-primary"
-                : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
-            }`}
-          >
-            <Languages className="size-4" />
-            <span className="text-sm">Русский</span>
-          </button>
-          <button
-            onClick={() => handleLanguageChange("uz")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
-              locale === "uz"
-                ? "bg-primary/5 text-primary"
-                : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
-            }`}
-          >
-            <Languages className="size-4" />
-            <span className="text-sm">O&apos;zbekcha</span>
-          </button>
-          <div className="my-2 border-t border-slate-100 dark:border-slate-700" />
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => handleLanguageChange("ru")}
+              className={`flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium transition-colors ${locale === "ru"
+                  ? "bg-primary/10 text-primary border border-primary/20"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent"
+                }`}
+            >
+              <span className="text-sm">Русский</span>
+            </button>
+            <button
+              onClick={() => handleLanguageChange("uz")}
+              className={`flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium transition-colors ${locale === "uz"
+                  ? "bg-primary/10 text-primary border border-primary/20"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent"
+                }`}
+            >
+              <span className="text-sm">O&apos;zbekcha</span>
+            </button>
+          </div>
+
+          <div className="mt-4 px-4 py-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            {t("theme")}
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <button
+              onClick={() => setTheme("light")}
+              className={`flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg transition-colors border ${theme === "light"
+                  ? "bg-primary/10 text-primary border-primary/20"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 border-transparent"
+                }`}
+              title={t("themes.light")}
+            >
+              <Sun className="size-4" />
+              <span className="text-[10px] uppercase font-bold tracking-tight">
+                {t("themes.light")}
+              </span>
+            </button>
+            <button
+              onClick={() => setTheme("dark")}
+              className={`flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg transition-colors border ${theme === "dark"
+                  ? "bg-primary/10 text-primary border-primary/20"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 border-transparent"
+                }`}
+              title={t("themes.dark")}
+            >
+              <Moon className="size-4" />
+              <span className="text-[10px] uppercase font-bold tracking-tight">
+                {t("themes.dark")}
+              </span>
+            </button>
+            <button
+              onClick={() => setTheme("system")}
+              className={`flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg transition-colors border ${theme === "system"
+                  ? "bg-primary/10 text-primary border-primary/20"
+                  : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 border-transparent"
+                }`}
+              title={t("themes.system")}
+            >
+              <Monitor className="size-4" />
+              <span className="text-[10px] uppercase font-bold tracking-tight">
+                {t("themes.system")}
+              </span>
+            </button>
+          </div>
+
+          <div className="my-3 border-t border-slate-100 dark:border-slate-700" />
           <button
             onClick={handleLogout}
             className="flex items-center w-full gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors"

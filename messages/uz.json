@@ -87,6 +87,12 @@
     "orders": "Mening buyurtmalarim",
     "profile": "Profil",
     "language": "Til",
+    "theme": "Mavzu",
+    "themes": {
+      "light": "Yorug'",
+      "dark": "Qorong'u",
+      "system": "Tizim"
+    },
     "logOut": "Chiqish"
   },
   "Checkout": {

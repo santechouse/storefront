@@ -86,6 +86,7 @@
   "Account": {
     "orders": "Mening buyurtmalarim",
     "profile": "Profil",
+    "language": "Til",
     "logOut": "Chiqish"
   },
   "Checkout": {

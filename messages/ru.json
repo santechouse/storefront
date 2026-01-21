@@ -86,6 +86,7 @@
   "Account": {
     "orders": "Мои заказы",
     "profile": "Профиль",
+    "language": "Язык",
     "logOut": "Выйти"
   },
   "Checkout": {

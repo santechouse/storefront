@@ -1,10 +1,10 @@
 "use client";
 
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { signout } from "@/lib/data/customer";
 import { HttpTypes } from "@medusajs/types";
-import { LogOut, Package2, User } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { Languages, LogOut, Package2, User } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
 interface AccountTemplateProps {
   customer: HttpTypes.StoreCustomer;
@@ -13,6 +13,8 @@ interface AccountTemplateProps {
 const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
   const t = useTranslations("Account");
   const pathname = usePathname();
+  const router = useRouter();
+  const locale = useLocale();
   const links = [
     {
       link: "/account/orders",
@@ -28,6 +30,10 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
 
   const handleLogout = async () => {
     await signout();
+  };
+
+  const handleLanguageChange = (newLocale: "ru" | "uz") => {
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (
@@ -56,7 +62,33 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
             );
           })}
         </nav>
-        <div className="p-4 mt-auto border-t border-slate-100 dark:border-slate-700">
+        <div className="p-4 mt-auto border-t border-slate-100 dark:border-slate-700 flex flex-col gap-1">
+          <div className="px-4 py-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            {t("language")}
+          </div>
+          <button
+            onClick={() => handleLanguageChange("ru")}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
+              locale === "ru"
+                ? "bg-primary/5 text-primary"
+                : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+            }`}
+          >
+            <Languages className="size-4" />
+            <span className="text-sm">Русский</span>
+          </button>
+          <button
+            onClick={() => handleLanguageChange("uz")}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
+              locale === "uz"
+                ? "bg-primary/5 text-primary"
+                : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+            }`}
+          >
+            <Languages className="size-4" />
+            <span className="text-sm">O&apos;zbekcha</span>
+          </button>
+          <div className="my-2 border-t border-slate-100 dark:border-slate-700" />
           <button
             onClick={handleLogout}
             className="flex items-center w-full gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors"

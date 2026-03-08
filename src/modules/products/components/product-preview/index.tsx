@@ -5,6 +5,7 @@ import PreviewPrice from "./price";
 import { PayloadProduct } from "@/types/payload";
 import { Brand } from "@/types/brand";
 import Thumbnail from "../thumbnail";
+import AddToCart from "./add-to-cart";
 
 export type ProductPreviewProps = {
   product: HttpTypes.StoreProduct & {
@@ -16,8 +17,8 @@ export type ProductPreviewProps = {
 export default async function ProductPreview({ product }: ProductPreviewProps) {
   const { cheapestPrice } = getProductPrice({ product });
   return (
-    <Link href={`/products/${product.handle}`}>
-      <div className="group flex flex-col gap-4 bg-transparent">
+    <div className="group flex flex-col gap-4 bg-transparent h-full">
+      <Link href={`/products/${product.handle}`} className="flex flex-col gap-4">
         <div className="relative aspect-6/7 w-full overflow-hidden rounded-xl">
           <Thumbnail thumbnail={product.thumbnail} />
         </div>
@@ -32,7 +33,10 @@ export default async function ProductPreview({ product }: ProductPreviewProps) {
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
         </div>
+      </Link>
+      <div className="mt-auto">
+        <AddToCart product={product} />
       </div>
-    </Link>
+    </div>
   );
 }

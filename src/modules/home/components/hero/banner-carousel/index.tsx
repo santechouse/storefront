@@ -29,7 +29,7 @@ export default function BannerCarousel({ banners }: BannerCarouselProps) {
                 <Card className="p-0 overflow-hidden">
                   <CardContent className="relative p-0 h-62.5 md:h-87.5">
                     <Image
-                      src={`${banner.image.url}`}
+                      src={`http://localhost:3000${banner.image.url}`}
                       alt={banner.image.alt}
                       fill
                       className="object-cover"

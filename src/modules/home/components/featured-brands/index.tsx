@@ -15,10 +15,10 @@ export default async function FeaturedBrands() {
             <Link
               key={index}
               href={brand.link}
-              className="flex h-10 shrink-0 bg-white dark:bg-[#282e39] items-center gap-3 rounded-full transition-colors px-6 group"
+              className="flex h-10 shrink-0 bg-white dark:bg-[#282e39] items-center gap-3 rounded-xl transition-colors px-6 group"
             >
               <Image
-                src={`${brand.logo.url}` || ""}
+                src={`http://localhost:3000${brand.logo.url}` || ""}
                 width={16}
                 height={16}
                 alt={brand.name}

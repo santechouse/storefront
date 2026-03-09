@@ -5,10 +5,12 @@ import ProductActions from "../components/product-actions";
 import ImageGallary from "../components/image-gallary";
 import { useTranslations } from "next-intl";
 import Breadcrumb from "@/modules/common/components/breadcrumb";
-import { LineChart } from "lucide-react";
+import { Brand } from "@/types/brand";
 
 export type ProductTemplateProps = {
-  product: HttpTypes.StoreProduct;
+  product: HttpTypes.StoreProduct & {
+    brand?: Brand;
+  };
   region: HttpTypes.StoreRegion;
   images: HttpTypes.StoreProductImage[];
 };

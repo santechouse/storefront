@@ -42,7 +42,12 @@
     "addToCart": "Savatga qo'shish",
     "outOfStock": "Mavjud emas",
     "from": "Dan",
-    "selectVariant": "Variantni tanlang"
+    "selectVariant": "Variantni tanlang",
+    "selectQuantity": "Miqdorni tanlang",
+    "quantity": "Miqdori",
+    "subtotal": "Ja'mi",
+    "cancel": "Bekor qilish",
+    "confirm": "Tasdiqlash"
   },
   "Catalog": {
     "header": "Katalog",

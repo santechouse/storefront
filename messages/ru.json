@@ -42,7 +42,12 @@
     "addToCart": "Добавить в корзину",
     "outOfStock": "Нет в наличии",
     "from": "От",
-    "selectVariant": "Выберите вариант"
+    "selectVariant": "Выберите вариант",
+    "selectQuantity": "Выберите количество",
+    "quantity": "Количество",
+    "subtotal": "Итого",
+    "cancel": "Отмена",
+    "confirm": "Подтвердить"
   },
   "Catalog": {
     "header": "Каталог",

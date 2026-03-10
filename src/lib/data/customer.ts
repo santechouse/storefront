@@ -88,8 +88,8 @@ export async function signup(_currentState: unknown, formData: FormData) {
       headers,
     );
 
-    const loginToken = await sdk.auth.login("customer", "emailpass", {
-      email: customerForm.phone,
+    const loginToken = await sdk.auth.login("customer", "phonepass", {
+      phone: customerForm.phone,
       password,
     });
 

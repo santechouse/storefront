@@ -74,6 +74,7 @@
   },
   "Register": {
     "title": "Hisobingizni yarating",
+    "description": "Hisob yaratish uchun ma'lumotlarni kiriting",
     "firstName": "Ism",
     "lastName": "Familiya",
     "phone": "Telefon raqam",

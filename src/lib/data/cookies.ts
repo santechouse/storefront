@@ -24,13 +24,30 @@ export const getCacheTag = async (tag: string): Promise<string> => {
     const cacheId = cookies.get("_medusa_cache_id")?.value;
 
     if (!cacheId) {
-      return "";
+      return tag;
     }
 
     return `${tag}-${cacheId}`;
   } catch (error) {
-    return "";
+    return tag;
   }
+};
+
+export const setCacheId = async (cacheId: string) => {
+  const cookies = await nextCookies();
+  cookies.set("_medusa_cache_id", cacheId, {
+    maxAge: 60 * 60 * 24 * 7,
+    httpOnly: true,
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
+  });
+};
+
+export const removeCacheId = async () => {
+  const cookies = await nextCookies();
+  cookies.set("_medusa_cache_id", "", {
+    maxAge: -1,
+  });
 };
 
 export const getCacheOptions = async (

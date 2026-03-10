@@ -12,6 +12,8 @@ import {
   removeAuthToken,
   removeCartId,
   setAuthToken,
+  setCacheId,
+  removeCacheId,
 } from "./cookies";
 import { redirect } from "next/navigation";
 
@@ -92,6 +94,7 @@ export async function signup(_currentState: unknown, formData: FormData) {
     });
 
     await setAuthToken(loginToken as string);
+    await setCacheId(crypto.randomUUID());
 
     const customerCacheTag = await getCacheTag("customers");
     // @ts-ignore
@@ -114,6 +117,7 @@ export async function login(_currentState: unknown, formData: FormData) {
       .login("customer", "phonepass", { phone, password })
       .then(async (token) => {
         await setAuthToken(token as string);
+        await setCacheId(crypto.randomUUID());
         const customerCacheTag = await getCacheTag("customers");
         // @ts-ignore
         revalidateTag(customerCacheTag);
@@ -136,6 +140,7 @@ export async function signout() {
   await sdk.auth.logout();
 
   await removeAuthToken();
+  await removeCacheId();
 
   const customerCacheTag = await getCacheTag("customers");
   // @ts-ignore

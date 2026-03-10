@@ -68,6 +68,7 @@
     "passwordPlaceholder": "Parolingizni kiriting",
     "password": "Parol",
     "signIn": "Kirish",
+    "signingIn": "Kirish...",
     "continue": "Yoki davom eting",
     "createAccount": "Hisob yarating"
   },

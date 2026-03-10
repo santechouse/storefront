@@ -68,6 +68,7 @@
     "passwordPlaceholder": "Введите свой пароль",
     "password": "Пароль",
     "signIn": "Войти",
+    "signingIn": "Вход...",
     "continue": "Или продолжить с",
     "createAccount": "Создать учетную запись"
   },

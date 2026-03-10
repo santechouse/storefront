@@ -2,13 +2,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { login } from "@/lib/data/customer";
-import { EyeIcon, Mail } from "lucide-react";
+import { EyeIcon, EyeOffIcon, Phone, AlertCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
+import { Link } from "@/i18n/navigation";
 
 export default function LoginTemplate() {
   const t = useTranslations("Login");
-  const [message, formAction] = React.useActionState(login, null);
+  const [message, formAction, isPending] = React.useActionState(login, null);
+  const [showPassword, setShowPassword] = React.useState(false);
+
   return (
     <div className="flex justify-center min-h-[calc(100vh-80px)] w-full">
       <div className="flex w-full flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:w-1/2 xl:px-24">
@@ -31,11 +34,11 @@ export default function LoginTemplate() {
                   name="phone"
                   placeholder={t("phonePlaceholder")}
                   type="text"
-                  className="bg-secondary"
+                  className="bg-secondary pr-10"
                   required
                 />
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                  <Mail className="size-4" />
+                  <Phone className="size-4" />
                 </div>
               </div>
             </div>
@@ -47,22 +50,32 @@ export default function LoginTemplate() {
                 <Input
                   name="password"
                   placeholder={t("passwordPlaceholder")}
-                  type="text"
-                  className="bg-secondary"
+                  type={showPassword ? "text" : "password"}
+                  className="bg-secondary pr-10"
                   required
                 />
                 <button
                   className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
                   type="button"
+                  onClick={() => setShowPassword(!showPassword)}
                 >
-                  <EyeIcon className="size-4" />
+                  {showPassword ? (
+                    <EyeOffIcon className="size-4" />
+                  ) : (
+                    <EyeIcon className="size-4" />
+                  )}
                 </button>
               </div>
             </div>
             <div>
-              {message && <p>{message}</p>}
-              <Button type="submit" className="w-full">
-                {t("signIn")}
+              {message && (
+                <div className="mb-4 flex items-center gap-2 p-3 text-sm text-red-600 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg animate-in fade-in slide-in-from-top-1">
+                  <AlertCircle className="size-4 shrink-0" />
+                  <p>{message}</p>
+                </div>
+              )}
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {isPending ? t("signingIn") || "..." : t("signIn")}
               </Button>
             </div>
           </form>
@@ -79,12 +92,12 @@ export default function LoginTemplate() {
             </div>
           </div>
           <p className="mt-10 text-center text-sm text-slate-500 dark:text-slate-400">
-            <a
+            <Link
               className="font-semibold text-primary hover:text-primary/80 transition-colors"
-              href="#"
+              href="/account/register"
             >
               {t("createAccount")}
-            </a>
+            </Link>
           </p>
         </div>
       </div>

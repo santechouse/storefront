@@ -21,6 +21,11 @@ export default async function ProductPreview({ product }: ProductPreviewProps) {
       <Link href={`/products/${product.handle}`} className="flex flex-col gap-4">
         <div className="relative aspect-6/7 w-full overflow-hidden rounded-xl">
           <Thumbnail thumbnail={product.thumbnail} />
+          {cheapestPrice?.price_type === "sale" && (
+            <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm">
+              -{cheapestPrice.percentage_diff}%
+            </div>
+          )}
         </div>
         <div className="flex flex-col">
           <h3 className="h-8 text-sm line-clamp-2 font-bold leading-tight ">

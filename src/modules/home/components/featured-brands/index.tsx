@@ -7,23 +7,27 @@ export default async function FeaturedBrands() {
   const locale = await getLocale();
   const featuredBrands = await getFeaturedBrands({ locale });
   return (
-    <section className="flex flex-col gap-6">
-      <h2 className="text-xl sm:text-2xl font-bold">{featuredBrands.title}</h2>
-      <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
+    <section className="flex flex-col gap-8 md:gap-10">
+      <div className="flex gap-8 overflow-x-auto pb-6 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
         {featuredBrands.brands.map((brand, index) => {
           return (
             <Link
               key={index}
               href={brand.link}
-              className="flex h-10 shrink-0 bg-white dark:bg-[#282e39] items-center gap-3 rounded-xl transition-colors px-6 group"
+              className="group relative flex flex-col items-center justify-center rounded-xl"
             >
-              <Image
-                src={`http://localhost:3000${brand.logo.url}` || ""}
-                width={16}
-                height={16}
-                alt={brand.name}
-              />
-              <span className="font-medium text-sm">{brand.name}</span>
+              <div className="relative h-16 w-16 mb-2 flex items-center justify-center">
+                <Image
+                  src={`http://localhost:3000${brand.logo.url}` || ""}
+                  fill
+                  className="object-contain transition-all duration-500"
+                  alt={brand.name}
+                  sizes="(max-width: 640px) 40px, 48px"
+                />
+              </div>
+              <span className="font-medium text-xs sm:text-sm text-muted-foreground text-center line-clamp-1">
+                {brand.name}
+              </span>
             </Link>
           );
         })}

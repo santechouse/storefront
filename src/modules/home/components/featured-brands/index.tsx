@@ -16,7 +16,7 @@ export default async function FeaturedBrands() {
               href={brand.link}
               className="group relative flex flex-col items-center justify-center rounded-xl"
             >
-              <div className="relative h-16 w-16 mb-2 flex items-center justify-center">
+              <div className="relative h-16 w-16 mb-2 flex items-center justify-center rounded-lg">
                 <Image
                   src={`http://localhost:3000${brand.logo.url}` || ""}
                   fill

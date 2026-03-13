@@ -3,12 +3,18 @@
 import { sdk } from "@lib/config";
 import { HttpTypes } from "@medusajs/types";
 import { getCacheOptions } from "./cookies";
-import { getLocale } from "../util/get-locale";
+import { getLocale, MEDUSA_LOCALE_HEADER } from "../util/get-locale";
 
-export const retrieveCollection = async (id: string) => {
+export const retrieveCollection = async (id: string, locale?: string) => {
   const next = {
     ...(await getCacheOptions("collections")),
   };
+
+  const headers: Record<string, string> = locale
+    ? {
+        [MEDUSA_LOCALE_HEADER]: getLocale(locale),
+      }
+    : {};
 
   return sdk.client
     .fetch<{ collection: HttpTypes.StoreCollection }>(
@@ -16,6 +22,7 @@ export const retrieveCollection = async (id: string) => {
       {
         next,
         cache: "force-cache",
+        headers,
       },
     )
     .then(({ collection }) => collection);
@@ -30,7 +37,7 @@ export const listCollections = async (
   };
 
   const headers = {
-    MEDUSA_LOCALE_HEADER: getLocale(locale),
+    [MEDUSA_LOCALE_HEADER]: getLocale(locale),
   };
 
   queryParams.limit = queryParams.limit || "100";
@@ -51,16 +58,24 @@ export const listCollections = async (
 
 export const getCollectionByHandle = async (
   handle: string,
+  locale?: string,
 ): Promise<HttpTypes.StoreCollection> => {
   const next = {
     ...(await getCacheOptions("collections")),
   };
+
+  const headers: Record<string, string> = locale
+    ? {
+        [MEDUSA_LOCALE_HEADER]: getLocale(locale),
+      }
+    : {};
 
   return sdk.client
     .fetch<HttpTypes.StoreCollectionListResponse>(`/store/collections`, {
       query: { handle, fields: "*products" },
       next,
       cache: "force-cache",
+      headers,
     })
     .then(({ collections }) => collections[0]);
 };

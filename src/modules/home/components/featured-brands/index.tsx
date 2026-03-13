@@ -16,11 +16,11 @@ export default async function FeaturedBrands() {
               href={brand.link}
               className="group relative flex flex-col items-center justify-center rounded-xl"
             >
-              <div className="relative h-16 w-16 mb-2 flex items-center justify-center rounded-lg overflow-hidden bg-secondary/50 border border-border/50 p-2">
+              <div className="relative h-16 w-16 mb-2 flex items-center justify-center rounded-lg overflow-hidden bg-secondary/50 border border-border/50">
                 <Image
                   src={`http://localhost:3000${brand.logo.url}` || ""}
                   fill
-                  className="object-contain transition-all duration-500 p-2"
+                  className="object-contain transition-all duration-500"
                   alt={brand.name}
                   sizes="(max-width: 640px) 40px, 48px"
                 />

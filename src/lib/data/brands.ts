@@ -50,3 +50,9 @@ export const listBrandProducts = async (
       };
     });
 };
+
+export const listBrands = async () => {
+  return sdk.client.fetch<{ brands: Brand[] }>(`/store/brands`).then(({ brands }) => {
+    return brands;
+  });
+}

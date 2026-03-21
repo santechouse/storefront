@@ -15,9 +15,9 @@ export default async function Page({ params }: PageProps<"/[locale]">) {
   }
 
   return (
-    <div className="w-full flex flex-col gap-8 md:gap-12">  
-    <Hero />
-    <FeaturedBrands />
+    <div className="w-full flex flex-col gap-8 md:gap-12">
+      <Hero />
+      <FeaturedBrands />
       <FeaturedProducts
         locale={locale}
         region={region}

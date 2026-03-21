@@ -182,5 +182,9 @@
       "shipped": "Yuborilgan",
       "delivered": "Yetkazib berildi"
     }
+  },
+  "Brands": {
+    "title": "Brendlar",
+    "description": "Barcha brendlarimizni o'rganing"
   }
 }

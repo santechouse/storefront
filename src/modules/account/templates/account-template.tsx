@@ -25,11 +25,6 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
       label: t("orders"),
       icon: <Package2 className="size-4" />,
     },
-    {
-      link: "/account/profile",
-      label: t("profile"),
-      icon: <User className="size-4" />,
-    },
   ];
 
   const handleLogout = async () => {
@@ -43,10 +38,10 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
   const cashbackAccount = customer?.cashback_accounts?.[0];
   const formattedBalance = cashbackAccount
     ? convertToLocale({
-        amount: cashbackAccount.balance,
-        currency_code: cashbackAccount.currency_code,
-        locale: locale === "uz" ? "uz-UZ" : "ru-RU",
-      })
+      amount: cashbackAccount.balance,
+      currency_code: cashbackAccount.currency_code,
+      locale: locale === "uz" ? "uz-UZ" : "ru-RU",
+    })
     : null;
 
   return (

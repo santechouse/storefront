@@ -52,7 +52,17 @@ export const listBrandProducts = async (
 };
 
 export const listBrands = async () => {
-  return sdk.client.fetch<{ brands: Brand[] }>(`/store/brands`).then(({ brands }) => {
+  const next = {
+    ...(await getCacheOptions("brands")),
+  };
+
+  return sdk.client.fetch<{ brands: Brand[] }>(`/store/brands`, {
+    query: {
+      offset: 0,
+      limit: 1000
+    },
+    next
+  }).then(({ brands }) => {
     return brands;
   });
 }

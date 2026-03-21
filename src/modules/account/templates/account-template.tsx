@@ -1,14 +1,15 @@
 "use client";
 
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { signout } from "@/lib/data/customer";
+import { ExtendedStoreCustomer, signout } from "@/lib/data/customer";
+import { convertToLocale } from "@/lib/util/money";
 import { HttpTypes } from "@medusajs/types";
-import { Languages, LogIn, LogOut, Monitor, Moon, Package2, Sun, User } from "lucide-react";
+import { Languages, LogIn, LogOut, Monitor, Moon, Package2, Sun, User, Wallet } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
 interface AccountTemplateProps {
-  customer: HttpTypes.StoreCustomer | null;
+  customer: ExtendedStoreCustomer | null;
 }
 
 const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
@@ -39,20 +40,54 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
     router.replace(pathname, { locale: newLocale });
   };
 
+  const cashbackAccount = customer?.cashback_accounts?.[0];
+  const formattedBalance = cashbackAccount
+    ? convertToLocale({
+        amount: cashbackAccount.balance,
+        currency_code: cashbackAccount.currency_code,
+        locale: locale === "uz" ? "uz-UZ" : "ru-RU",
+      })
+    : null;
+
   return (
     <aside className="w-full max-w-3xl shrink-0">
       <div className="bg-white dark:bg-[#1a2230] rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
         {customer ? (
           <>
             <div className="p-6 border-b border-slate-100 dark:border-slate-700">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-slate-900 dark:text-white font-semibold text-base">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider mb-1">
+                    {t("profile")}
+                  </p>
+                  <h3 className="text-slate-900 dark:text-white font-semibold text-lg">
                     {customer.first_name} {customer.last_name}
                   </h3>
                 </div>
+                <div className="size-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
+                  <User className="size-6 text-slate-600 dark:text-slate-400" />
+                </div>
               </div>
             </div>
+
+            {formattedBalance && (
+              <div className="p-6 border-b border-slate-100 dark:border-slate-700 bg-primary/[0.03] dark:bg-primary/[0.02]">
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider mb-1">
+                      {t("cashback")}
+                    </span>
+                    <span className="text-2xl font-bold text-primary dark:text-primary tracking-tight">
+                      {formattedBalance}
+                    </span>
+                  </div>
+                  <div className="size-12 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center shadow-inner">
+                    <Wallet className="size-6 text-primary" />
+                  </div>
+                </div>
+              </div>
+            )}
+
             <nav className="p-4 flex flex-col gap-1">
               {links.map((link) => {
                 const isActive = link.link === pathname;

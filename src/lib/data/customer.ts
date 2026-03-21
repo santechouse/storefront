@@ -17,8 +17,18 @@ import {
 } from "./cookies";
 import { redirect } from "next/navigation";
 
+export interface StoreCashbackAccount {
+  id: string;
+  balance: number;
+  currency_code: string;
+}
+
+export type ExtendedStoreCustomer = HttpTypes.StoreCustomer & {
+  cashback_accounts?: StoreCashbackAccount[];
+};
+
 export const retrieveCustomer =
-  async (): Promise<HttpTypes.StoreCustomer | null> => {
+  async (): Promise<ExtendedStoreCustomer | null> => {
     const authHeaders = await getAuthHeaders();
 
     if (!authHeaders) return null;
@@ -32,10 +42,10 @@ export const retrieveCustomer =
     };
 
     return await sdk.client
-      .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
+      .fetch<{ customer: ExtendedStoreCustomer }>(`/store/customers/me`, {
         method: "GET",
         query: {
-          fields: "*orders",
+          fields: "*orders,cashback_accounts.*",
         },
         headers,
         next,

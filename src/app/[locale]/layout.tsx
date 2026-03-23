@@ -9,6 +9,7 @@ import { ThemeProvider } from "next-themes";
 import Nav from "@/modules/layout/templates/nav";
 import BottomNav from "@/modules/layout/templates/bottom-nav";
 import Footer from "@/modules/layout/templates/footer";
+import { retrieveCart } from "@/lib/data/cart";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,20 +55,23 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
+  const cart = await retrieveCart();
+  const cartCount = cart?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
+
   return (
     <html className="h-full" lang={locale} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-display transition-colors duration-300`}
       >
         <NextIntlClientProvider>
-          <Nav />
+          <Nav cartCount={cartCount} />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <main className="flex-1 flex flex-col justify-center lg:flex-row max-w-360 mx-auto w-full px-4 md:px-6 lg:px-8 py-6 gap-8">
               {children}
             </main>
           </ThemeProvider>
           <Footer />
-          <BottomNav />
+          <BottomNav cartCount={cartCount} />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -8,7 +8,7 @@ import { MobileSearchInput } from "../../components/mobile-search-input";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
-export default function Nav() {
+export default function Nav({ cartCount = 0 }: { cartCount?: number }) {
   const t = useTranslations("Nav");
   const [isMobileSearch, setMobileSearch] = React.useState(false);
   if (isMobileSearch) {
@@ -50,10 +50,15 @@ export default function Nav() {
             >
               <SearchIcon className="size-4" />
             </Button>
-            <Link href="/cart" className="hidden lg:block">
+            <Link href="/cart" className="hidden lg:block relative">
               <Button size="icon" variant="secondary" className="rounded-full">
                 <ShoppingCart className="size-4" />
               </Button>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground shadow-sm">
+                  {cartCount > 9 ? "9+" : cartCount}
+                </span>
+              )}
             </Link>
             <Link href="/account" className="hidden lg:block">
               <Button size="icon" variant="secondary" className="rounded-full">

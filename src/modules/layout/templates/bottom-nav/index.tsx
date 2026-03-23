@@ -3,7 +3,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { Home, ShoppingCart, TextSearch, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-export default function BottomNav() {
+export default function BottomNav({ cartCount = 0 }: { cartCount?: number }) {
   const t = useTranslations("BottomNav");
   const pathname = usePathname();
   const links = [
@@ -21,6 +21,7 @@ export default function BottomNav() {
       href: "/cart",
       icon: ShoppingCart,
       label: t("cart"),
+      count: cartCount,
     },
     {
       href: "/account",
@@ -38,7 +39,14 @@ export default function BottomNav() {
               href={link.href}
               className={`flex flex-col items-center ${pathname === link.href ? "text-primary" : "text-muted-foreground"} gap-1 `}
             >
-              <link.icon className="size-5" />
+              <div className="relative">
+                <link.icon className="size-5" />
+                {link.count !== undefined && link.count > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+                    {link.count > 9 ? "9+" : link.count}
+                  </span>
+                )}
+              </div>
               <span className="text-xs font-medium">{link.label}</span>
             </Link>
           );

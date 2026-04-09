@@ -1,7 +1,7 @@
 import { retrieveCustomer } from "@/lib/data/customer";
-import AccountTemplate from "@/modules/account/templates/account-template";
+import AccountPage from "@/features/account";
 
-export default async function AccountPage() {
+export default async function Page() {
   const customer = await retrieveCustomer();
-  return <AccountTemplate customer={customer} />;
+  return <AccountPage customer={customer} />;
 }

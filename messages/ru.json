@@ -101,7 +101,8 @@
       "system": "Системная"
     },
     "cashback": "Кешбэк",
-    "logOut": "Выйти"
+    "logOut": "Выйти",
+    "logIn": "Войти"
   },
   "Checkout": {
     "address": {

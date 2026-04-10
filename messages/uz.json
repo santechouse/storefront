@@ -92,6 +92,7 @@
   },
   "Account": {
     "orders": "Mening buyurtmalarim",
+    "addressesNav": "Mening manzillarim",
     "profile": "Profil",
     "language": "Til",
     "theme": "Mavzu",
@@ -102,7 +103,22 @@
     },
     "cashback": "Keshbek",
     "logIn": "Kirish",
-    "logOut": "Chiqish"
+    "logOut": "Chiqish",
+    "addresses": {
+      "eyebrow": "Manzillar kitobi",
+      "title": "Saqlangan manzillar",
+      "description": "Profilingizga biriktirilgan yetkazib berish va to'lov manzillarini shu yerda ko'rishingiz mumkin.",
+      "savedCount": "Jami manzil",
+      "count": "{count, plural, one {# ta manzil} other {# ta manzil}}",
+      "defaultShipping": "Asosiy yetkazib berish",
+      "defaultBilling": "Asosiy to'lov",
+      "fallbackLabel": "Mijoz manzili",
+      "emptyTitle": "Hozircha saqlangan manzil yo'q",
+      "emptyDescription": "Birinchi buyurtmadan keyin saqlangan manzillaringiz shu yerda ko'rinadi va keyingi safar tanlash osonlashadi.",
+      "emptyCta": "Rasmiylashtirishga o'tish",
+      "loginDescription": "Profilingizga saqlangan manzillarni ko'rish uchun hisobingizga kiring.",
+      "loginCta": "Hisobga kirish"
+    }
   },
   "Checkout": {
     "address": {

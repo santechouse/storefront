@@ -45,7 +45,7 @@ export const retrieveCustomer =
       .fetch<{ customer: ExtendedStoreCustomer }>(`/store/customers/me`, {
         method: "GET",
         query: {
-          fields: "*orders,cashback_accounts.*",
+          fields: "*orders,*addresses,cashback_accounts.*",
         },
         headers,
         next,
@@ -92,7 +92,7 @@ export async function signup(_currentState: unknown, formData: FormData) {
       ...(await getAuthHeaders()),
     };
 
-    const { customer: createdCustomer } = await sdk.store.customer.create(
+    await sdk.store.customer.create(
       { ...customerForm, email: `+${customerForm.phone}@gmail.com` },
       {},
       headers,
@@ -209,7 +209,7 @@ export const addCustomerAddress = async (
 
   return sdk.store.customer
     .createAddress(address, {}, headers)
-    .then(async ({ customer }) => {
+    .then(async () => {
       const customerCacheTag = await getCacheTag("customers");
       // @ts-ignore
       revalidateTag(customerCacheTag);

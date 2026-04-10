@@ -3,8 +3,7 @@
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { ExtendedStoreCustomer, signout } from "@/lib/data/customer";
 import { convertToLocale } from "@/lib/util/money";
-import { HttpTypes } from "@medusajs/types";
-import { Languages, LogIn, LogOut, Monitor, Moon, Package2, Sun, User, Wallet } from "lucide-react";
+import { LogIn, LogOut, MapPinned, Monitor, Moon, Package2, Sun, User, Wallet } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
@@ -18,12 +17,17 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const links = [
     {
       link: "/account/orders",
       label: t("orders"),
       icon: <Package2 className="size-4" />,
+    },
+    {
+      link: "/account/addresses",
+      label: t("addressesNav"),
+      icon: <MapPinned className="size-4" />,
     },
   ];
 

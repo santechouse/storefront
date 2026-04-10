@@ -6,7 +6,11 @@ import { ExtendedStoreCustomer } from "@/lib/data/customer";
 import { LogIn } from "./log-in";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
-import { ArrowRight01Icon, Package01Icon } from "@hugeicons/core-free-icons";
+import {
+  ArrowRight01Icon,
+  Location01Icon,
+  Package01Icon,
+} from "@hugeicons/core-free-icons";
 import { useRouter } from "@/i18n/navigation";
 
 export const Settings = ({
@@ -26,6 +30,21 @@ export const Settings = ({
           <div className="flex gap-3 items-center">
             <HugeiconsIcon className="size-5" icon={Package01Icon} />
             <h3 className="font-medium">{t("orders")}</h3>
+          </div>
+          <HugeiconsIcon icon={ArrowRight01Icon} />
+        </div>
+      ),
+      requiresAuth: true,
+    },
+    {
+      component: (
+        <div
+          onClick={() => router.push("/account/addresses")}
+          className="flex justify-between items-center"
+        >
+          <div className="flex gap-3 items-center">
+            <HugeiconsIcon className="size-5" icon={Location01Icon} />
+            <h3 className="font-medium">{t("addressesNav")}</h3>
           </div>
           <HugeiconsIcon icon={ArrowRight01Icon} />
         </div>

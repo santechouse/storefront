@@ -184,9 +184,14 @@ export const addCustomerAddress = async (
   currentState: Record<string, unknown>,
   formData: FormData,
 ): Promise<any> => {
-  const isDefaultBilling = (currentState.isDefaultBilling as boolean) || false;
+  const isDefaultBilling =
+    formData.get("is_default_billing") === "on" ||
+    (currentState.isDefaultBilling as boolean) ||
+    false;
   const isDefaultShipping =
-    (currentState.isDefaultShipping as boolean) || false;
+    formData.get("is_default_shipping") === "on" ||
+    (currentState.isDefaultShipping as boolean) ||
+    false;
 
   const address = {
     first_name: formData.get("first_name") as string,

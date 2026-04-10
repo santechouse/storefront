@@ -10,6 +10,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import AddressForm from "./address-form";
 
 interface AddressListPageProps {
   customer: ExtendedStoreCustomer | null;
@@ -87,6 +88,8 @@ export default function AddressListPage({ customer }: AddressListPageProps) {
           </div>
         </div>
       </section>
+
+      <AddressForm />
 
       {addresses.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2">

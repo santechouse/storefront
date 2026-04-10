@@ -108,6 +108,11 @@
       "eyebrow": "Manzillar kitobi",
       "title": "Saqlangan manzillar",
       "description": "Profilingizga biriktirilgan yetkazib berish va to'lov manzillarini shu yerda ko'rishingiz mumkin.",
+      "newAddressEyebrow": "Yangi manzil",
+      "newAddressTitle": "Yangi mijoz manzilini qo'shing",
+      "newAddressDescription": "Buyurtmalarni tezroq rasmiylashtirish uchun yangi yetkazib berish yoki to'lov manzilini profilingizga saqlang.",
+      "formBadge": "Tezkor qo'shish",
+      "formBadgeValue": "Yangi manzil",
       "savedCount": "Jami manzil",
       "count": "{count, plural, one {# ta manzil} other {# ta manzil}}",
       "defaultShipping": "Asosiy yetkazib berish",
@@ -117,7 +122,38 @@
       "emptyDescription": "Birinchi buyurtmadan keyin saqlangan manzillaringiz shu yerda ko'rinadi va keyingi safar tanlash osonlashadi.",
       "emptyCta": "Rasmiylashtirishga o'tish",
       "loginDescription": "Profilingizga saqlangan manzillarni ko'rish uchun hisobingizga kiring.",
-      "loginCta": "Hisobga kirish"
+      "loginCta": "Hisobga kirish",
+      "fields": {
+        "firstName": "Ism",
+        "lastName": "Familiya",
+        "phone": "Telefon raqam",
+        "company": "Kompaniya",
+        "address1": "Asosiy manzil",
+        "address2": "Qo'shimcha manzil",
+        "city": "Shahar",
+        "province": "Viloyat / Tuman",
+        "postalCode": "Pochta indeksi",
+        "country": "Mamlakat",
+        "defaultShipping": "Asosiy yetkazib berish manzili sifatida belgilash",
+        "defaultBilling": "Asosiy to'lov manzili sifatida belgilash"
+      },
+      "placeholders": {
+        "firstName": "Ismingiz",
+        "lastName": "Familiyangiz",
+        "phone": "998901234567",
+        "company": "Kompaniya nomi",
+        "address1": "Ko'cha, uy, xonadon",
+        "address2": "Mo'ljal, qavat yoki qo'shimcha ma'lumot",
+        "city": "Masalan, Toshkent",
+        "province": "Masalan, Yunusobod tumani",
+        "postalCode": "Masalan, 100000"
+      },
+      "defaultShippingHint": "Kelajakdagi buyurtmalarda ushbu manzil avtomatik tanlanadi.",
+      "defaultBillingHint": "To'lov uchun standart manzil sifatida ishlatiladi.",
+      "helperText": "Majburiy maydonlarni to'ldirib, manzilni profilingizga saqlang.",
+      "submit": "Manzilni saqlash",
+      "submitting": "Saqlanmoqda...",
+      "successMessage": "Yangi manzil muvaffaqiyatli saqlandi."
     }
   },
   "Checkout": {

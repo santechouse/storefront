@@ -25,7 +25,7 @@ export const LogOut = () => {
   };
   return (
     <Drawer>
-      <DrawerTrigger>
+      <DrawerTrigger className="w-full">
         <div className="flex justify-between items-center text-rose-500">
           <div className="flex gap-3 items-center">
             <HugeiconsIcon className="size-5" icon={LogoutSquare01Icon} />

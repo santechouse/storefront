@@ -4,13 +4,34 @@ import { DarkMode } from "./dark-mode";
 import { LogOut } from "./log-out";
 import { ExtendedStoreCustomer } from "@/lib/data/customer";
 import { LogIn } from "./log-in";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslations } from "next-intl";
+import { ArrowRight01Icon, Package01Icon } from "@hugeicons/core-free-icons";
+import { useRouter } from "@/i18n/navigation";
 
 export const Settings = ({
   customer,
 }: {
   customer: ExtendedStoreCustomer | null;
 }) => {
+  const t = useTranslations("Account");
+  const router = useRouter();
   const components = [
+    {
+      component: (
+        <div
+          onClick={() => router.push("/account/orders")}
+          className="flex justify-between items-center"
+        >
+          <div className="flex gap-3 items-center">
+            <HugeiconsIcon className="size-5" icon={Package01Icon} />
+            <h3 className="font-medium">{t("orders")}</h3>
+          </div>
+          <HugeiconsIcon icon={ArrowRight01Icon} />
+        </div>
+      ),
+      requiresAuth: true,
+    },
     { component: <DarkMode /> },
     { component: <LanguageSelect /> },
     { component: <LogIn />, guestOnly: true },

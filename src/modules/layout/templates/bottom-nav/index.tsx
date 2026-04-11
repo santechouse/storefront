@@ -43,7 +43,7 @@ export default function BottomNav({ cartCount = 0 }: { cartCount?: number }) {
                 <link.icon className="size-5" />
                 {link.count !== undefined && link.count > 0 && (
                   <span className="absolute -top-1.5 -right-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
-                    {link.count > 9 ? "9+" : link.count}
+                    {link.count > 99 ? "99+" : link.count}
                   </span>
                 )}
               </div>

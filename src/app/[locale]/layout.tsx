@@ -56,7 +56,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const cart = await retrieveCart();
-  const cartCount = cart?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
+  const cartCount = cart?.items?.length || 0;
 
   return (
     <html className="h-full" lang={locale} suppressHydrationWarning>

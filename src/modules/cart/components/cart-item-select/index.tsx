@@ -14,6 +14,18 @@ const CartItemSelect: React.FC<CartItemSelectProps> = ({
   onChange,
 }) => {
   const [count, setCount] = React.useState(defaultValue);
+
+  React.useEffect(() => {
+    setCount(defaultValue);
+  }, [defaultValue]);
+
+  const handleCountChange = (value: number) => {
+    const nextCount = Number.isFinite(value) ? Math.max(1, value) : 1;
+
+    setCount(nextCount);
+    onChange(nextCount);
+  };
+
   const handleIncrement = () => {
     const newCount = count + 1;
     setCount(newCount);
@@ -21,7 +33,12 @@ const CartItemSelect: React.FC<CartItemSelectProps> = ({
   };
 
   const handleDecrement = () => {
-    const newCount = count - 1;
+    const newCount = Math.max(1, count - 1);
+
+    if (newCount === count) {
+      return;
+    }
+
     setCount(newCount);
     onChange(newCount);
   };
@@ -29,6 +46,7 @@ const CartItemSelect: React.FC<CartItemSelectProps> = ({
     <NumberField
       value={count}
       minValue={1}
+      onChange={handleCountChange}
       className="w-full max-w-40 space-y-2"
     >
       <Group className="border-input data-focus-within:border-ring data-focus-within:ring-ring/50 data-focus-within:has-aria-invalid:ring-destructive/20 dark:data-focus-within:has-aria-invalid:ring-destructive/40 data-focus-within:has-aria-invalid:border-destructive relative inline-flex h-9 w-full min-w-0 items-center overflow-hidden rounded-md border bg-transparent text-base whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-within:ring-[3px] md:text-sm">

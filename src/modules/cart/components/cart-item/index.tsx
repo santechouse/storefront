@@ -1,6 +1,7 @@
 "use client";
 import { deleteLineItem, updateLineItem } from "@/lib/data/cart";
 import { HttpTypes } from "@medusajs/types";
+import { useRouter } from "next/navigation";
 import React from "react";
 import CartItemSelect from "../cart-item-select";
 import { Trash2Icon } from "lucide-react";
@@ -13,26 +14,22 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const [updating, setUpdating] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
-  const changeQuantity = async (quantity: number) => {
-    setError(null);
-    setUpdating(true);
+  const router = useRouter();
 
+  const changeQuantity = async (quantity: number) => {
     await updateLineItem({
       lineId: item.id,
       quantity,
     })
-      .catch((err) => {
-        setError(err.message);
+      .then(() => {
+        router.refresh();
       })
-      .finally(() => {
-        setUpdating(false);
-      });
+      .catch(() => {});
   };
 
   const deleteItem = async () => {
     await deleteLineItem(item.id);
+    router.refresh();
   };
   return (
     <div className="group bg-secondary rounded-xl p-4 sm:p-6 shadow-sm border border-[#e7ebf4] dark:border-gray-800 flex flex-col sm:flex-row gap-6">

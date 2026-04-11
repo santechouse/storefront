@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useTranslations } from "next-intl"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { Loader2, ShoppingCart } from "lucide-react"
 import { HttpTypes } from "@medusajs/types"
 
@@ -37,6 +37,7 @@ export default function AddToCartDrawer({
     const [quantity, setQuantity] = useState(1)
     const t = useTranslations("Product")
     const { locale } = useParams()
+    const router = useRouter()
 
     const variant = product.variants?.[0]
     const { cheapestPrice } = getProductPrice({ product })
@@ -52,6 +53,7 @@ export default function AddToCartDrawer({
                 variantId: variant.id,
                 quantity,
             })
+            router.refresh()
             setOpen(false)
         } finally {
             setIsAdding(false)

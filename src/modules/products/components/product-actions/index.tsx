@@ -104,6 +104,7 @@ export default function ProductActions({
         variantId: selectedVariant.id,
         quantity: 1,
       });
+      router.refresh();
     } finally {
       setIsAdding(false);
     }

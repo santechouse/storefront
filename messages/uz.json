@@ -111,12 +111,18 @@
       "newAddressEyebrow": "Yangi manzil",
       "newAddressTitle": "Yangi mijoz manzilini qo'shing",
       "newAddressDescription": "Buyurtmalarni tezroq rasmiylashtirish uchun yangi yetkazib berish yoki to'lov manzilini profilingizga saqlang.",
+      "editAddressEyebrow": "Manzilni tahrirlash",
+      "editAddressTitle": "Saqlangan manzilni yangilang",
+      "editAddressDescription": "Manzil tafsilotlarini o'zgartiring va profilingizdagi ma'lumotlarni yangilang.",
       "formBadge": "Tezkor qo'shish",
       "formBadgeValue": "Yangi manzil",
+      "editFormBadgeValue": "Tahrirlash",
       "savedCount": "Jami manzil",
       "count": "{count, plural, one {# ta manzil} other {# ta manzil}}",
       "defaultShipping": "Asosiy yetkazib berish",
       "defaultBilling": "Asosiy to'lov",
+      "edit": "Tahrirlash",
+      "cancelEdit": "Bekor qilish",
       "fallbackLabel": "Mijoz manzili",
       "emptyTitle": "Hozircha saqlangan manzil yo'q",
       "emptyDescription": "Birinchi buyurtmadan keyin saqlangan manzillaringiz shu yerda ko'rinadi va keyingi safar tanlash osonlashadi.",
@@ -152,8 +158,9 @@
       "defaultBillingHint": "To'lov uchun standart manzil sifatida ishlatiladi.",
       "helperText": "Majburiy maydonlarni to'ldirib, manzilni profilingizga saqlang.",
       "submit": "Manzilni saqlash",
+      "saveChanges": "O'zgarishlarni saqlash",
       "submitting": "Saqlanmoqda...",
-      "successMessage": "Yangi manzil muvaffaqiyatli saqlandi."
+      "successMessage": "Manzil muvaffaqiyatli saqlandi."
     }
   },
   "Checkout": {

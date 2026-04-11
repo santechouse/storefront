@@ -1,3 +1,6 @@
+"use client";
+
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ExtendedStoreCustomer } from "@/lib/data/customer";
@@ -5,6 +8,7 @@ import { HttpTypes } from "@medusajs/types";
 import {
   ArrowRight,
   BookUser,
+  PencilLine,
   MapPinned,
   PackageCheck,
   ShieldCheck,
@@ -34,6 +38,9 @@ const getAddressLines = (address: HttpTypes.StoreCustomerAddress) => {
 export default function AddressListPage({ customer }: AddressListPageProps) {
   const t = useTranslations("Account.addresses");
   const addresses = customer?.addresses || [];
+  const [editingAddressId, setEditingAddressId] = React.useState<string | null>(
+    null,
+  );
 
   if (!customer) {
     return (
@@ -125,6 +132,21 @@ export default function AddressListPage({ customer }: AddressListPageProps) {
                         {t("defaultBilling")}
                       </span>
                     )}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        setEditingAddressId((currentId) =>
+                          currentId === address.id ? null : address.id,
+                        )
+                      }
+                    >
+                      <PencilLine className="size-4" />
+                      {editingAddressId === address.id
+                        ? t("cancelEdit")
+                        : t("edit")}
+                    </Button>
                   </div>
                 </div>
 
@@ -133,6 +155,15 @@ export default function AddressListPage({ customer }: AddressListPageProps) {
                     <p key={`${address.id}-${line}`}>{line}</p>
                   ))}
                 </div>
+
+                {editingAddressId === address.id && (
+                  <div className="mt-6 border-t border-slate-200 pt-6 dark:border-slate-800">
+                    <AddressForm
+                      address={address}
+                      onSuccess={() => setEditingAddressId(null)}
+                    />
+                  </div>
+                )}
               </article>
             );
           })}

@@ -7,8 +7,18 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
-import { addCustomerAddress } from "@/lib/data/customer";
-import { CheckCircle2, MapPinned, Plus, TriangleAlert } from "lucide-react";
+import {
+  addCustomerAddress,
+  updateCustomerAddress,
+} from "@/lib/data/customer";
+import { HttpTypes } from "@medusajs/types";
+import {
+  CheckCircle2,
+  MapPinned,
+  PencilLine,
+  Plus,
+  TriangleAlert,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const initialState = {
@@ -16,51 +26,74 @@ const initialState = {
   error: null as string | null,
 };
 
-export default function AddressForm() {
+interface AddressFormProps {
+  address?: HttpTypes.StoreCustomerAddress;
+  onSuccess?: () => void;
+}
+
+export default function AddressForm({
+  address,
+  onSuccess,
+}: AddressFormProps) {
   const t = useTranslations("Account.addresses");
   const tCountries = useTranslations("Countries");
+  const isEditing = Boolean(address);
   const [state, formAction, isPending] = React.useActionState(
-    addCustomerAddress,
+    isEditing
+      ? updateCustomerAddress
+      : addCustomerAddress,
     initialState,
   );
   const formRef = React.useRef<HTMLFormElement>(null);
 
   React.useEffect(() => {
     if (state?.success) {
-      formRef.current?.reset();
+      if (isEditing) {
+        onSuccess?.();
+      } else {
+        formRef.current?.reset();
+      }
     }
-  }, [state]);
+  }, [isEditing, onSuccess, state]);
 
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-[#111827]">
       <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">
-            {t("newAddressEyebrow")}
+            {isEditing ? t("editAddressEyebrow") : t("newAddressEyebrow")}
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            {t("newAddressTitle")}
+            {isEditing ? t("editAddressTitle") : t("newAddressTitle")}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-            {t("newAddressDescription")}
+            {isEditing
+              ? t("editAddressDescription")
+              : t("newAddressDescription")}
           </p>
         </div>
         <div className="inline-flex items-center gap-3 self-start rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-900/70">
           <div className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-            <Plus className="size-5" />
+            {isEditing ? (
+              <PencilLine className="size-5" />
+            ) : (
+              <Plus className="size-5" />
+            )}
           </div>
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
               {t("formBadge")}
             </p>
             <p className="text-lg font-semibold text-slate-900 dark:text-white">
-              {t("formBadgeValue")}
+              {isEditing ? t("editFormBadgeValue") : t("formBadgeValue")}
             </p>
           </div>
         </div>
       </div>
 
       <form ref={formRef} action={formAction} className="mt-6 space-y-6">
+        {isEditing && <input type="hidden" name="addressId" value={address?.id} />}
+
         <div className="grid gap-5 md:grid-cols-2">
           <label className="space-y-2">
             <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -70,6 +103,7 @@ export default function AddressForm() {
               name="first_name"
               placeholder={t("placeholders.firstName")}
               className="bg-secondary"
+              defaultValue={address?.first_name ?? ""}
               required
             />
           </label>
@@ -81,6 +115,7 @@ export default function AddressForm() {
               name="last_name"
               placeholder={t("placeholders.lastName")}
               className="bg-secondary"
+              defaultValue={address?.last_name ?? ""}
               required
             />
           </label>
@@ -93,6 +128,7 @@ export default function AddressForm() {
               type="tel"
               placeholder={t("placeholders.phone")}
               className="bg-secondary"
+              defaultValue={address?.phone ?? ""}
               required
             />
           </label>
@@ -104,6 +140,7 @@ export default function AddressForm() {
               name="company"
               placeholder={t("placeholders.company")}
               className="bg-secondary"
+              defaultValue={address?.company ?? ""}
             />
           </label>
         </div>
@@ -117,6 +154,7 @@ export default function AddressForm() {
               name="address_1"
               placeholder={t("placeholders.address1")}
               className="bg-secondary"
+              defaultValue={address?.address_1 ?? ""}
               required
             />
           </label>
@@ -128,6 +166,7 @@ export default function AddressForm() {
               name="address_2"
               placeholder={t("placeholders.address2")}
               className="bg-secondary"
+              defaultValue={address?.address_2 ?? ""}
             />
           </label>
           <label className="space-y-2">
@@ -138,6 +177,7 @@ export default function AddressForm() {
               name="city"
               placeholder={t("placeholders.city")}
               className="bg-secondary"
+              defaultValue={address?.city ?? ""}
               required
             />
           </label>
@@ -149,6 +189,7 @@ export default function AddressForm() {
               name="province"
               placeholder={t("placeholders.province")}
               className="bg-secondary"
+              defaultValue={address?.province ?? ""}
             />
           </label>
           <label className="space-y-2">
@@ -159,6 +200,7 @@ export default function AddressForm() {
               name="postal_code"
               placeholder={t("placeholders.postalCode")}
               className="bg-secondary"
+              defaultValue={address?.postal_code ?? ""}
             />
           </label>
           <label className="space-y-2">
@@ -168,7 +210,7 @@ export default function AddressForm() {
             <NativeSelect
               name="country_code"
               className="w-full min-w-full bg-secondary"
-              defaultValue="uz"
+              defaultValue={address?.country_code ?? "uz"}
               required
             >
               <NativeSelectOption value="uz">
@@ -184,6 +226,7 @@ export default function AddressForm() {
               name="is_default_shipping"
               type="checkbox"
               className="mt-1 size-4 rounded border-slate-300 text-primary focus:ring-primary"
+              defaultChecked={address?.is_default_shipping ?? false}
             />
             <div>
               <p className="text-sm font-medium text-slate-900 dark:text-white">
@@ -199,6 +242,7 @@ export default function AddressForm() {
               name="is_default_billing"
               type="checkbox"
               className="mt-1 size-4 rounded border-slate-300 text-primary focus:ring-primary"
+              defaultChecked={address?.is_default_billing ?? false}
             />
             <div>
               <p className="text-sm font-medium text-slate-900 dark:text-white">
@@ -231,7 +275,11 @@ export default function AddressForm() {
             <span>{t("helperText")}</span>
           </div>
           <Button type="submit" size="lg" disabled={isPending}>
-            {isPending ? t("submitting") : t("submit")}
+            {isPending
+              ? t("submitting")
+              : isEditing
+                ? t("saveChanges")
+                : t("submit")}
           </Button>
         </div>
       </form>

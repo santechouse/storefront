@@ -1,4 +1,4 @@
-import AddressListPage from "@/features/account/address-list";
+import AddressListPage from "@/modules/account/components/address-list";
 import { retrieveCustomer } from "@/lib/data/customer";
 
 export default async function CustomerAddressesPage() {

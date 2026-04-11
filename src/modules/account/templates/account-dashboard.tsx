@@ -1,9 +1,9 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 import { ExtendedStoreCustomer } from "@/lib/data/customer";
-import { Settings } from "./components/settings";
-import { CustomerInfo } from "./components/customer-info";
-import { CashbackInfo } from "./components/cashback-info";
+import { Settings } from "../components/settings";
+import { CustomerInfo } from "../components/customer-info";
+import { CashbackInfo } from "../components/cashback-info";
 
 export default function AccountTemplate({
   customer,

@@ -1,5 +1,4 @@
 "use client";
-import { Separator } from "@/components/ui/separator";
 import { ExtendedStoreCustomer } from "@/lib/data/customer";
 import { Settings } from "../components/settings";
 import { CustomerInfo } from "../components/customer-info";
@@ -11,12 +10,11 @@ export default function AccountTemplate({
   customer: ExtendedStoreCustomer | null;
 }) {
   return (
-    <div className="grid gap-5">
+    <div className="flex flex-col gap-6 pb-6">
       {customer && (
         <>
           <CustomerInfo customer={customer} />
           <CashbackInfo customer={customer} />
-          <Separator />
         </>
       )}
       <Settings customer={customer} />

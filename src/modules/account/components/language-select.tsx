@@ -29,9 +29,11 @@ export const LanguageSelect = ({ className }: { className?: string }) => {
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
+
   const handleLanguageChange = (newLocale: string) => {
     router.replace(pathname, { locale: newLocale });
   };
+
   return (
     <Select
       onValueChange={(value) => handleLanguageChange(value)}
@@ -40,21 +42,22 @@ export const LanguageSelect = ({ className }: { className?: string }) => {
       <SelectTrigger asChild>
         <div
           className={cn(
-            "flex justify-between items-center cursor-pointer transition-all outline-none",
+            "flex items-center justify-between cursor-pointer active:bg-muted/60 transition-colors outline-none",
             className,
           )}
         >
-          <div className="flex gap-3 items-center">
-            <HugeiconsIcon icon={LanguageSquareIcon} className="size-5" />
-            <h3 className="font-medium">{t("language")}</h3>
-          </div>
           <div className="flex items-center gap-3">
-            <p className="text-sm">
-              {languages.find((l) => l.value == locale)?.label} (
-              {locale.toUpperCase()})
-            </p>
+            <span className="opacity-70">
+              <HugeiconsIcon icon={LanguageSquareIcon} className="size-5" />
+            </span>
+            <span className="text-sm font-medium">{t("language")}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground">
+              {languages.find((l) => l.value === locale)?.label}
+            </span>
             <SelectIcon>
-              <HugeiconsIcon icon={ArrowRight01Icon} />
+              <HugeiconsIcon icon={ArrowRight01Icon} className="size-4 opacity-40" />
             </SelectIcon>
           </div>
         </div>
@@ -76,11 +79,8 @@ export const LanguageSelect = ({ className }: { className?: string }) => {
                   "focus:bg-accent focus:text-accent-foreground data-[state=checked]:font-semibold data-[state=checked]:bg-primary/5",
                 )}
               >
-                <div className="flex items-center gap-3">
-                  <SelectItemText>{lang.label}</SelectItemText>
-                </div>
-
-                <SelectItemIndicator></SelectItemIndicator>
+                <SelectItemText>{lang.label}</SelectItemText>
+                <SelectItemIndicator />
               </SelectItem>
             ))}
           </SelectViewport>

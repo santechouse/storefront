@@ -25,13 +25,15 @@ export const LogOut = () => {
   };
   return (
     <Drawer>
-      <DrawerTrigger className="w-full">
-        <div className="flex justify-between items-center text-rose-500">
-          <div className="flex gap-3 items-center">
-            <HugeiconsIcon className="size-5" icon={LogoutSquare01Icon} />
-            <h3 className="font-medium">{t("logOut")}</h3>
+      <DrawerTrigger asChild>
+        <div className="flex items-center justify-between px-4 py-3.5 cursor-pointer active:bg-rose-50 dark:active:bg-rose-950/20 transition-colors text-rose-500">
+          <div className="flex items-center gap-3">
+            <span className="opacity-70">
+              <HugeiconsIcon className="size-5" icon={LogoutSquare01Icon} />
+            </span>
+            <span className="text-sm font-medium">{t("logOut")}</span>
           </div>
-          <HugeiconsIcon icon={ArrowRight01Icon} />
+          <HugeiconsIcon icon={ArrowRight01Icon} className="size-4 opacity-40" />
         </div>
       </DrawerTrigger>
       <DrawerContent>

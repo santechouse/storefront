@@ -7,10 +7,7 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
-import {
-  addCustomerAddress,
-  updateCustomerAddress,
-} from "@/lib/data/customer";
+import { addCustomerAddress, updateCustomerAddress } from "@/lib/data/customer";
 import { HttpTypes } from "@medusajs/types";
 import { CheckCircle2, TriangleAlert } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -58,7 +55,7 @@ export default function AddressForm({
       )}
 
       {/* Name + contact */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3">
         <label className="flex flex-col gap-1.5">
           <span className="text-xs font-medium text-muted-foreground">
             {t("fields.firstName")}
@@ -93,16 +90,6 @@ export default function AddressForm({
             required
           />
         </label>
-        <label className="flex flex-col gap-1.5">
-          <span className="text-xs font-medium text-muted-foreground">
-            {t("fields.company")}
-          </span>
-          <Input
-            name="company"
-            placeholder={t("placeholders.company")}
-            defaultValue={address?.company ?? ""}
-          />
-        </label>
       </div>
 
       {/* Address lines */}
@@ -129,9 +116,7 @@ export default function AddressForm({
           />
         </label>
       </div>
-
-      {/* City / province / postal / country */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3">
         <label className="flex flex-col gap-1.5">
           <span className="text-xs font-medium text-muted-foreground">
             {t("fields.city")}
@@ -153,31 +138,6 @@ export default function AddressForm({
             defaultValue={address?.province ?? ""}
           />
         </label>
-        <label className="flex flex-col gap-1.5">
-          <span className="text-xs font-medium text-muted-foreground">
-            {t("fields.postalCode")}
-          </span>
-          <Input
-            name="postal_code"
-            placeholder={t("placeholders.postalCode")}
-            defaultValue={address?.postal_code ?? ""}
-          />
-        </label>
-        <label className="flex flex-col gap-1.5">
-          <span className="text-xs font-medium text-muted-foreground">
-            {t("fields.country")}
-          </span>
-          <NativeSelect
-            name="country_code"
-            className="w-full"
-            defaultValue={address?.country_code ?? "uz"}
-            required
-          >
-            <NativeSelectOption value="uz">
-              {tCountries("uz")}
-            </NativeSelectOption>
-          </NativeSelect>
-        </label>
       </div>
 
       {/* Default flags */}
@@ -195,22 +155,6 @@ export default function AddressForm({
             </span>
             <span className="text-xs text-muted-foreground">
               {t("defaultShippingHint")}
-            </span>
-          </div>
-        </label>
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input
-            name="is_default_billing"
-            type="checkbox"
-            className="mt-0.5 size-4 rounded border-border accent-primary"
-            defaultChecked={address?.is_default_billing ?? false}
-          />
-          <div className="flex flex-col gap-0.5">
-            <span className="text-sm font-medium leading-none">
-              {t("fields.defaultBilling")}
-            </span>
-            <span className="text-xs text-muted-foreground">
-              {t("defaultBillingHint")}
             </span>
           </div>
         </label>

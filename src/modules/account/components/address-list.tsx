@@ -20,7 +20,6 @@ import {
   PackageCheck,
   PencilLine,
   Plus,
-  ShieldCheck,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import AddressForm from "./address-form";
@@ -30,13 +29,10 @@ interface AddressListPageProps {
 }
 
 const getAddressLines = (address: HttpTypes.StoreCustomerAddress) => {
-  const cityLine = [address.city, address.province, address.postal_code]
-    .filter(Boolean)
-    .join(", ");
+  const cityLine = [address.city, address.province].filter(Boolean).join(", ");
 
   return [
     [address.first_name, address.last_name].filter(Boolean).join(" ").trim(),
-    address.company,
     address.address_1,
     address.address_2,
     cityLine,
@@ -113,20 +109,12 @@ function AddressCard({
       </div>
 
       {/* Default badges */}
-      {(address.is_default_shipping || address.is_default_billing) && (
+      {address.is_default_shipping && (
         <div className="flex flex-wrap gap-2 px-4 pb-4 border-t border-border pt-3">
-          {address.is_default_shipping && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
-              <PackageCheck className="size-3.5" />
-              {t("defaultShipping")}
-            </span>
-          )}
-          {address.is_default_billing && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-foreground">
-              <ShieldCheck className="size-3.5" />
-              {t("defaultBilling")}
-            </span>
-          )}
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+            <PackageCheck className="size-3.5" />
+            {t("defaultShipping")}
+          </span>
         </div>
       )}
     </article>

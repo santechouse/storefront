@@ -1,5 +1,5 @@
 import { HttpTypes } from "@medusajs/types";
-import { MapPin, TruckIcon } from "lucide-react";
+import { MapPinIcon, TruckIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface Props {
@@ -9,49 +9,73 @@ interface Props {
 const ShippingInfo: React.FC<Props> = ({ order }) => {
   const t = useTranslations("Order");
   return (
-    <div className="grid grid-cols-1 gap-6">
-      <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] p-6">
-        <div className="flex items-center gap-2 mb-4 text-[#0d121c] dark:text-white">
-          <MapPin className="size-4" />
-          <h3 className="text-base font-bold">{t("address")}</h3>
+    <div className="flex flex-col gap-4">
+      {/* Delivery address */}
+      <div className="rounded-2xl border border-border bg-background px-5 py-4">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="size-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+            <MapPinIcon className="size-3.5 text-primary" />
+          </div>
+          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            {t("address")}
+          </span>
         </div>
-        <div className="pl-8">
-          <p className="text-sm font-medium text-[#0d121c] dark:text-white">
+        <div className="flex flex-col gap-0.5 pl-9">
+          <p className="text-sm font-medium text-foreground">
             {order.customer?.first_name} {order.customer?.last_name}
           </p>
-          <p className="text-sm text-gray-500 mt-1">
-            {order.shipping_address?.address_1}
-            <br />
-            {order.shipping_address?.city}, {order.shipping_address?.province}
-            <br />
-          </p>
-          <div className="mt-4 pt-4 border-t border-[#ced7e8] dark:border-[#2a3241]">
-            <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">
-              {t("contact")}
+          {order.shipping_address?.address_1 && (
+            <p className="text-sm text-muted-foreground">
+              {order.shipping_address.address_1}
             </p>
-            <p className="text-sm text-[#0d121c] dark:text-white">
-              {order.shipping_address?.phone}
+          )}
+          {(order.shipping_address?.city ||
+            order.shipping_address?.province) && (
+            <p className="text-sm text-muted-foreground">
+              {[order.shipping_address.city, order.shipping_address.province]
+                .filter(Boolean)
+                .join(", ")}
             </p>
-          </div>
+          )}
+          {order.shipping_address?.phone && (
+            <>
+              <div className="h-px bg-border my-2" />
+              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t("contact")}
+              </p>
+              <p className="text-sm text-foreground mt-0.5">
+                {order.shipping_address.phone}
+              </p>
+            </>
+          )}
         </div>
       </div>
-      <div className="rounded-xl border border-[#ced7e8] dark:border-[#2a3241] bg-white dark:bg-[#1e2433] p-6 shadow-sm">
-        <div className="flex items-center gap-2 mb-4 text-[#0d121c] dark:text-white">
-          <TruckIcon className="size-4" />
-          <h3 className="text-base font-bold">{t("shippingMethod")}</h3>
-        </div>
-        {order.shipping_methods?.map((option) => {
-          return (
-            <div key={option.id} className="pl-8">
-              <p className="text-sm font-medium text-[#0d121c] dark:text-white">
+
+      {/* Shipping method */}
+      {order.shipping_methods && order.shipping_methods.length > 0 && (
+        <div className="rounded-2xl border border-border bg-background px-5 py-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="size-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+              <TruckIcon className="size-3.5 text-primary" />
+            </div>
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {t("shippingMethod")}
+            </span>
+          </div>
+          {order.shipping_methods.map((option) => (
+            <div key={option.id} className="pl-9">
+              <p className="text-sm font-medium text-foreground">
                 {option.name}
               </p>
-              <p className="text-sm text-gray-500 mt-1">{option.description}</p>
-              <p className="text-sm text-gray-500 mt-1"></p>
+              {option.description && (
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  {option.description}
+                </p>
+              )}
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

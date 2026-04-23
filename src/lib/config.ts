@@ -13,7 +13,7 @@ if (process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL) {
 }
 
 if (process.env.NEXT_PUBLIC_PAYLOAD_URL) {
-  PAYLOAD_URL = process.env.NEXT_PUBLIC_PAYLOAD_URL;
+  PAYLOAD_URL = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api`;
 }
 
 export const sdk = new Medusa({

@@ -19,37 +19,44 @@ export default function ProductPrice({
   const selectedPrice = variant ? variantPrice : cheapestPrice;
 
   if (!selectedPrice) {
-    return <div className="block w-32 h-9 bg-gray-100 animate-pulse" />;
+    return <div className="h-9 w-32 rounded-md bg-muted animate-pulse" />;
   }
 
+  const isOnSale = selectedPrice.price_type === "sale";
+
   return (
-    <div className="flex flex-col">
-      <span
-        className={cn("text-lg font-semibold", {
-          "text-ui-fg-interactive": selectedPrice.price_type === "sale",
-        })}
-      >
-        {!variant && t("from")} &nbsp;
-        <span data-value={selectedPrice.calculated_price_number}>
-          {selectedPrice.calculated_price}
-        </span>
-      </span>
-      {selectedPrice.price_type === "sale" && (
-        <>
-          <p>
-            <span className="text-ui-fg-subtle">Original: </span>
-            <span
-              className="line-through"
-              data-testid="original-product-price"
-              data-value={selectedPrice.original_price_number}
-            >
-              {selectedPrice.original_price}
+    <div className="flex flex-col gap-1">
+      <div className="flex items-baseline gap-2">
+        <span
+          className={cn("text-xl font-bold tabular-nums tracking-[-0.033em]", {
+            "text-primary": isOnSale,
+          })}
+        >
+          {!variant && (
+            <span className="text-sm font-normal text-muted-foreground mr-1">
+              {t("from")}
             </span>
-          </p>
-          <span className="text-ui-fg-interactive">
-            -{selectedPrice.percentage_diff}%
+          )}
+          <span data-value={selectedPrice.calculated_price_number}>
+            {selectedPrice.calculated_price}
           </span>
-        </>
+        </span>
+
+        {isOnSale && (
+          <span
+            className="text-sm line-through text-muted-foreground tabular-nums"
+            data-testid="original-product-price"
+            data-value={selectedPrice.original_price_number}
+          >
+            {selectedPrice.original_price}
+          </span>
+        )}
+      </div>
+
+      {isOnSale && (
+        <span className="inline-flex w-fit items-center rounded-full bg-primary/10 border border-primary/20 px-2.5 py-0.5 text-xs font-medium text-primary">
+          −{selectedPrice.percentage_diff}%
+        </span>
       )}
     </div>
   );

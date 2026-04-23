@@ -16,30 +16,41 @@ export type ProductPreviewProps = {
 
 export default async function ProductPreview({ product }: ProductPreviewProps) {
   const { cheapestPrice } = getProductPrice({ product });
+  const isOnSale = cheapestPrice?.price_type === "sale";
+
   return (
-    <div className="group flex flex-col gap-4 bg-transparent h-full">
-      <Link href={`/products/${product.handle}`} className="flex flex-col gap-4">
-        <div className="relative aspect-6/7 w-full overflow-hidden rounded-xl">
+    <div className="group flex flex-col h-full rounded-2xl border border-border overflow-hidden bg-background transition-colors hover:border-border/80">
+      <Link href={`/products/${product.handle}`} className="flex flex-col flex-1">
+        {/* Image */}
+        <div className="relative aspect-square w-full bg-muted/30 overflow-hidden">
           <Thumbnail thumbnail={product.thumbnail} />
-          {cheapestPrice?.price_type === "sale" && (
-            <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm">
-              -{cheapestPrice.percentage_diff}%
+          {isOnSale && (
+            <div className="absolute top-2.5 left-2.5 inline-flex items-center rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-[10px] font-semibold text-primary">
+              −{cheapestPrice!.percentage_diff}%
             </div>
           )}
         </div>
-        <div className="flex flex-col">
-          <h3 className="h-8 text-sm line-clamp-2 font-bold leading-tight ">
+
+        {/* Info */}
+        <div className="flex flex-col gap-0.5 px-3 pt-3 pb-2">
+          <h3 className="text-sm font-medium text-foreground line-clamp-2 leading-snug">
             {product.title}
           </h3>
-          <div className="flex flex-col gap-1 mt-2">
-            <p className="text-secondary-foreground text-sm line-clamp-1">
-              {product.brand?.name}
-            </p>
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-          </div>
+          {product.brand?.name && (
+            <span className="text-xs text-muted-foreground line-clamp-1">
+              {product.brand.name}
+            </span>
+          )}
+          {cheapestPrice && (
+            <div className="mt-1.5">
+              <PreviewPrice price={cheapestPrice} />
+            </div>
+          )}
         </div>
       </Link>
-      <div className="mt-auto">
+
+      {/* Add to cart */}
+      <div className="px-3 pb-3">
         <AddToCart product={product} />
       </div>
     </div>

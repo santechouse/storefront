@@ -11,13 +11,9 @@ export default async function Hero() {
   const { collections } = await listCollections(locale);
 
   return (
-    <section className="@container">
-      <div className="flex flex-col gap-6 lg:gap-8">
-        <CollectionBadges collections={collections} />
-        <div className="flex flex-col-reverse lg:flex-row gap-8 lg:gap-16 items-center">
-          <BannerCarousel banners={banners as Banner[]} />
-        </div>
-      </div>
+    <section className="flex flex-col gap-3">
+      <BannerCarousel banners={banners as Banner[]} />
+      <CollectionBadges collections={collections} />
     </section>
   );
 }

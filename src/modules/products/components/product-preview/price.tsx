@@ -1,22 +1,22 @@
 import { VariantPrice } from "@/types/globals";
 import { cn } from "@/lib/utils";
 
-export default async function PreviewPrice({ price }: { price: VariantPrice }) {
-  if (!price) {
-    return null;
-  }
+export default function PreviewPrice({ price }: { price: VariantPrice }) {
+  if (!price) return null;
+
+  const isOnSale = price.price_type === "sale";
 
   return (
-    <div className="flex items-center gap-2 flex-wrap">
+    <div className="flex items-baseline gap-2 flex-wrap">
       <span
-        className={cn("font-bold text-sm", {
-          "text-primary": price.price_type === "sale",
+        className={cn("text-sm font-semibold tabular-nums", {
+          "text-primary": isOnSale,
         })}
       >
         {price.calculated_price}
       </span>
-      {price.price_type === "sale" && (
-        <span className="text-muted-foreground text-xs line-through decoration-muted-foreground/50">
+      {isOnSale && (
+        <span className="text-xs tabular-nums text-muted-foreground line-through">
           {price.original_price}
         </span>
       )}

@@ -1,22 +1,24 @@
+import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 
 export type ThumbnailProps = {
-  thumbnail: string | null;
+  thumbnail: string | null | undefined;
 };
 
 export default function Thumbnail({ thumbnail }: ThumbnailProps) {
   return (
-    <div className="relative aspect-3/4 w-full overflow-hidden rounded-2xl">
+    <div className="relative w-full h-full overflow-hidden rounded-xl bg-muted/30">
       {thumbnail ? (
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-          data-alt="Green high-top sneakers on dark background"
-          style={{
-            backgroundImage: `url("${thumbnail}")`,
-          }}
-        ></div>
+        <Image
+          src={thumbnail}
+          alt=""
+          fill
+          className="object-contain transition-transform duration-500 group-hover:scale-105"
+        />
       ) : (
-        <ImageIcon />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <ImageIcon className="size-8 text-muted-foreground/40" />
+        </div>
       )}
     </div>
   );

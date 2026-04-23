@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.santechouse.uz",
       },
+      {
+        protocol: "https",
+        hostname: "cms.santechouse.uz",
+      },
     ],
     dangerouslyAllowLocalIP: true,
     dangerouslyAllowSVG: true,

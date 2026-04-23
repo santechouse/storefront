@@ -66,7 +66,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <Nav cartCount={cartCount} />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <main className="flex-1 flex flex-col justify-center lg:flex-row max-w-360 mx-auto w-full px-4 md:px-6 lg:px-8 py-6 gap-8">
+            <main className="flex-1 flex flex-col justify-center lg:flex-row max-w-360 mx-auto w-full px-4 md:px-6 lg:px-8 py-4 gap-6">
               {children}
             </main>
           </ThemeProvider>

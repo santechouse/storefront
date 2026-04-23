@@ -35,40 +35,52 @@ export default function ProductTemplate({
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full">
-        <div className="lg:col-span-7 flex flex-col gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full">
+        {/* Left: image gallery */}
+        <div className="lg:col-span-7 flex flex-col gap-3">
           <Breadcrumb items={breadcrumb} />
           <ImageGallary images={images} />
-          <div className="mt-8 hidden lg:block">
-            <div className="border-b border-gray-200 dark:border-gray-700">
-              <nav aria-label="Tabs" className="-mb-px flex gap-8">
-                <span className="border-primary text-primary whitespace-nowrap border-b-2 py-4 px-1 text-sm font-bold">
+
+          {/* Description — desktop */}
+          {product.description && (
+            <div className="hidden lg:block mt-4">
+              <div className="px-0 pt-5 pb-1.5">
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   {t("description")}
                 </span>
-              </nav>
+              </div>
+              <div className="rounded-2xl border border-border px-5 py-4 text-sm text-muted-foreground leading-relaxed">
+                {product.description}
+              </div>
             </div>
-            <div className="py-6 text-gray-600 dark:text-gray-300 leading-relaxed">
-              {product.description}
-            </div>
-          </div>
+          )}
         </div>
-        <div className="lg:col-span-5 relative">
-          <div className="sticky top-24 space-y-6">
-            <div>
-              <span className="flex mb-2">{product.categories?.[0].name}</span>
-              <h1 className="text-2xl font-bold tracking-tight mb-2">
+
+        {/* Right: product info */}
+        <div className="lg:col-span-5">
+          <div className="sticky top-24 flex flex-col gap-5">
+            {/* Identity */}
+            <div className="flex flex-col gap-1">
+              {category && (
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  {category.name}
+                </span>
+              )}
+              <h1 className="text-xl font-semibold tracking-[-0.033em] text-foreground">
                 {product.title}
               </h1>
-              <span>{product.brand?.name}</span>
+              {product.brand?.name && (
+                <span className="text-sm text-muted-foreground">
+                  {product.brand.name}
+                </span>
+              )}
             </div>
-            <div className="h-px bg-gray-200 dark:bg-gray-700 w-full"></div>
+
+            <div className="border-t border-border" />
+
             <Suspense
               fallback={
-                <ProductActions
-                  locale={"ru"}
-                  disabled={true}
-                  product={product}
-                />
+                <ProductActions locale="ru" disabled product={product} />
               }
             >
               <ProductActionsWrapper id={product.id} region={region} />
@@ -76,18 +88,20 @@ export default function ProductTemplate({
           </div>
         </div>
       </div>
-      <div className="lg:hidden mt-12 mb-8">
-        <div className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
-          <nav aria-label="Tabs" className="-mb-px flex gap-6">
-            <span className="border-primary text-primary whitespace-nowrap border-b-2 py-3 px-1 text-sm font-bold">
+
+      {/* Description — mobile */}
+      {product.description && (
+        <div className="lg:hidden mt-8 mb-6 flex flex-col gap-2">
+          <div className="pt-5 pb-1.5">
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t("description")}
             </span>
-          </nav>
+          </div>
+          <div className="rounded-2xl border border-border px-5 py-4 text-sm text-muted-foreground leading-relaxed">
+            {product.description}
+          </div>
         </div>
-        <div className="py-4 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-          <p>{product.description}</p>
-        </div>
-      </div>
+      )}
     </>
   );
 }

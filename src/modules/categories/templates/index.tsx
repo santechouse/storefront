@@ -17,15 +17,15 @@ export default function CatalogTemplate({ categories, category }: Props) {
 
   return (
     <div className="flex-1">
-      <div className="mb-6  w-full">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+      <div className="mb-6">
+        <h1 className="text-xl font-bold tracking-[-0.033em] text-foreground">
           {t("header")}
         </h1>
       </div>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:gap-x-8">
-        {categories.map((category, i) => {
-          return <CategoryCard category={category} key={i} />;
-        })}
+      <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+        {categories.map((category, i) => (
+          <CategoryCard category={category} key={i} />
+        ))}
       </div>
     </div>
   );

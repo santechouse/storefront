@@ -1,10 +1,10 @@
 "use client";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import Breadcrumb from "@/modules/common/components/breadcrumb";
 import { MobileRefinementList } from "@/modules/store/components/mobile-refinement-list";
 import { SortProducts } from "@/modules/store/components/refinement-list/sort-products";
 import { SortOptions } from "@/types/globals";
 import { HttpTypes } from "@medusajs/types";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import React from "react";
@@ -23,7 +23,6 @@ export function CategoryHeader(props: {
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams);
       params.set(name, value);
-
       return params.toString();
     },
     [searchParams],
@@ -33,29 +32,24 @@ export function CategoryHeader(props: {
     const query = createQueryString(name, value);
     router.push(`${pathname}?${query}`);
   };
+
   return (
-    <div className="flex flex-col w-full md:flex-row md:items-end justify-between gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-6">
-      <Breadcrumb
-        items={[
-          { name: t("Breadcrumb.catalog"), link: `/catalog` },
-          { name: category.name, link: category.handle },
-        ]}
-      />
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-          {category.name}
-        </h1>
+    <div className="flex items-center justify-between gap-4 mb-5 pb-4 border-b border-border">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground min-w-0">
+        <Link href="/catalog" className="hover:text-foreground transition-colors shrink-0">
+          {t("Breadcrumb.catalog")}
+        </Link>
+        <span className="opacity-40">/</span>
+        <span className="text-foreground font-medium truncate">{category.name}</span>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 shrink-0">
         <div className="lg:hidden">
           <MobileRefinementList
             initialCategory={category}
             categories={[category, ...category.category_children]}
           />
         </div>
-        <div className="relative group">
-          <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} />
-        </div>
+        <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} />
       </div>
     </div>
   );

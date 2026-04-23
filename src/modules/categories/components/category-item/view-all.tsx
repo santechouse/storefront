@@ -12,19 +12,14 @@ export function CategoryViewAll({ category }: Props) {
   return (
     <CategoryLink
       category={{ ...category, category_children: [] }}
-      className="group flex flex-col gap-4 p-5 bg-white dark:bg-[#1a202c] rounded-xl border border-[#e7ebf4] dark:border-[#2a3447] shadow-sm hover:shadow-md hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300"
+      className="group flex items-center gap-4 px-4 py-3.5 rounded-2xl border border-primary/20 bg-primary/5 active:bg-primary/10 transition-colors"
     >
-      <div className="flex justify-between items-start">
-        <div className="size-12 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-          <LayoutGridIcon />
-        </div>
-        <span className="text-[#94a3b8] group-hover:text-primary transition-colors material-symbols-outlined text-[20px]"></span>
+      <div className="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+        <LayoutGridIcon className="size-5 text-primary" />
       </div>
-      <div>
-        <h3 className="text-lg font-bold text-[#0d121c] dark:text-white mb-1">
-          {t("viewAll")}
-        </h3>
-        <p className="text-sm text-[#49659c] dark:text-gray-400 line-clamp-1"></p>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-primary">{t("viewAll")}</p>
+        <p className="text-xs text-primary/60 mt-0.5">{t("viewAllSub")}</p>
       </div>
     </CategoryLink>
   );

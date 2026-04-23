@@ -11,21 +11,21 @@ export function CategoryCard(props: {
   return (
     <CategoryLink
       category={category}
-      className="group flex flex-col items-center text-center"
+      className="group flex flex-col items-center gap-3"
     >
-      <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-surface-light dark:bg-surface-dark transition-transform duration-300 group-hover:scale-105">
+      <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border bg-muted transition-colors group-hover:border-primary/40">
         {image && (
           <Image
             alt={category.name}
             src={image.url}
-            className="object-cover"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             fill
           />
         )}
       </div>
-      <h3 className="mt-4 text-base font-medium text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+      <p className="text-xs font-medium text-center text-foreground group-hover:text-primary transition-colors leading-tight">
         {category.name}
-      </h3>
+      </p>
     </CategoryLink>
   );
 }

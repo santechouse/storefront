@@ -9,34 +9,36 @@ export function CategoryItem(props: {
 }) {
   const { category } = props;
   const [image] = category.images || [];
+  const hasChildren = category.category_children.length > 0;
+
   return (
     <CategoryLink
       category={category}
-      className="group flex flex-col gap-4 p-5 bg-white dark:bg-[#1a202c] rounded-xl border border-[#e7ebf4] dark:border-[#2a3447] shadow-sm hover:shadow-md hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300"
+      className="group flex items-center gap-4 px-4 py-3.5 rounded-2xl border border-border bg-background active:bg-muted/40 transition-colors"
     >
       {image && (
-        <div className="flex justify-between items-start">
-          <div className="relative overflow-hidden size-14 rounded-lg flex items-center justify-center text-primary  transition-colors">
-            <Image
-              src={image.url}
-              alt={category.name}
-              className="object-cover"
-              fill
-            />
-          </div>
-          <span className="text-[#94a3b8] group-hover:text-primary transition-colors material-symbols-outlined text-[20px]">
-            {!!category.category_children.length && <ArrowRightIcon />}
-          </span>
+        <div className="relative size-12 rounded-xl overflow-hidden bg-muted shrink-0 border border-border">
+          <Image
+            src={image.url}
+            alt={category.name}
+            className="object-cover"
+            fill
+          />
         </div>
       )}
-      <div>
-        <h3 className="text-lg font-bold text-[#0d121c] dark:text-white">
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
           {category.name}
-        </h3>
-        <p className="text-sm text-[#49659c] dark:text-gray-400 line-clamp-1">
-          {category.category_children.map((c) => c.name).join(", ")}
         </p>
+        {category.category_children.length > 0 && (
+          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+            {category.category_children.map((c) => c.name).join(", ")}
+          </p>
+        )}
       </div>
+      {hasChildren && (
+        <ArrowRightIcon className="size-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 opacity-60" />
+      )}
     </CategoryLink>
   );
 }

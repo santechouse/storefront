@@ -51,7 +51,8 @@
   },
   "Catalog": {
     "header": "Katalog",
-    "viewAll": "Hammasini ko'rish"
+    "viewAll": "Hammasini ko'rish",
+    "viewAllSub": "Barcha mahsulotlar"
   },
   "Cart": {
     "summary": "Ja'mi",
@@ -211,6 +212,7 @@
     "order": "Buyurtma #{id}",
     "placedOn": "Buyurtma berilgan {date}",
     "status": "Status",
+    "backToOrders": "Buyurtmalarga qaytish",
     "statuses": {
       "not_fulfilled": "Buyurtma berilgan",
       "fulfilled": "Jarayonda",
@@ -237,6 +239,9 @@
     "orderPlaced": "Buyurtma berilgan",
     "details": "Tafsilotlar",
     "total": "Ja'mi",
+    "moreItems": "ta mahsulot yana",
+    "emptyTitle": "Buyurtmalar topilmadi",
+    "emptyDescription": "Hali birorta buyurtma bermagansiz.",
     "statuses": {
       "not_fulfilled": "Buyurtma berilgan",
       "fulfilled": "Jarayonda",

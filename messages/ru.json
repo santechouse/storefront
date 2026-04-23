@@ -51,7 +51,8 @@
   },
   "Catalog": {
     "header": "Каталог",
-    "viewAll": "Посмотреть все"
+    "viewAll": "Посмотреть все",
+    "viewAllSub": "Все товары"
   },
   "Cart": {
     "summary": "Итоги",
@@ -211,6 +212,7 @@
     "order": "Заказ #{id}",
     "placedOn": "Заказ оформлен {date}",
     "status": "Статус",
+    "backToOrders": "Вернуться к заказам",
     "statuses": {
       "not_fulfilled": "Заказ оформлен",
       "fulfilled": "В обработке",
@@ -237,6 +239,9 @@
     "orderPlaced": "Заказ оформлен",
     "details": "Детали",
     "total": "Итого",
+    "moreItems": "ещё товаров",
+    "emptyTitle": "Заказы не найдены",
+    "emptyDescription": "Вы ещё не оформили ни одного заказа.",
     "statuses": {
       "not_fulfilled": "Заказ оформлен",
       "fulfilled": "В обработке",

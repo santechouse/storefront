@@ -1,6 +1,11 @@
 "use client";
 import { Link } from "@/i18n/navigation";
-import { SearchIcon, ShoppingCart, UserIcon } from "lucide-react";
+import {
+  Search01Icon,
+  ShoppingCart01Icon,
+  UserCircle02Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import React from "react";
 import { SearchInput } from "../../components/search-input";
@@ -15,57 +20,52 @@ export default function Nav({ cartCount = 0 }: { cartCount?: number }) {
     return <MobileSearchInput onClose={() => setMobileSearch(false)} />;
   }
   return (
-    <div className=" sticky top-0 z-50 w-full px-4 py-4 md:px-6 lg:px-8 flex justify-center backdrop-blur-md bg-white/80 dark:bg-background/80 border-b border-slate-200 dark:border-[#282e39]/50">
-      <div className="flex w-full items-center justify-between gap-4">
-        <div className="flex items-center gap-8 md:gap-12">
+    <div className="sticky top-0 z-50 w-full px-4 py-4 md:px-6 lg:px-8 flex items-center justify-between gap-4 backdrop-blur-md bg-background/80 border-b border-border">
+      <div className="flex items-center gap-8 md:gap-12">
+        <Link href="/" className="flex items-center gap-3">
+          <div className="size-8 text-primary">
+            <Image src="/logo.svg" width={40} height={40} alt="Logo" />
+          </div>
+          <h2 className="text-xl font-bold leading-tight tracking-[-0.015em]">
+            Santechouse
+          </h2>
+        </Link>
+        <nav className="hidden lg:flex items-center gap-8">
           <Link
-            href="/"
-            className="flex items-center gap-3 text-slate-900 dark:text-white"
+            className="text-sm bg-secondary px-3 py-1.5 rounded-lg font-medium hover:text-primary transition-colors"
+            href="/catalog"
           >
-            <div className="size-8 text-primary">
-              <Image src="/logo.svg" width={40} height={40} alt="Logo" />
-            </div>
-            <h2 className="text-xl font-bold leading-tight tracking-[-0.015em]">
-              Santechouse
-            </h2>
+            {t("catalog")}
           </Link>
-          <nav className="hidden lg:flex items-center gap-8">
-            <Link
-              className="text-sm bg-secondary px-3 py-1.5 rounded-lg font-medium hover:text-primary transition-colors"
-              href="/catalog"
-            >
-              {t("catalog")}
-            </Link>
-          </nav>
+        </nav>
+      </div>
+      <div className="flex items-center justify-end gap-4 md:gap-6 flex-1">
+        <div className="hidden md:flex min-w-40 max-w-64 flex-1">
+          <SearchInput />
         </div>
-        <div className="flex items-center justify-end gap-4 md:gap-6 flex-1">
-          <div className="hidden md:flex flex-col min-w-40 h-10 max-w-64 flex-1">
-            <SearchInput />
-          </div>
-          <div className="flex gap-3">
-            <Button
-              onClick={() => setMobileSearch(true)}
-              variant="secondary"
-              className="rounded-full lg:hidden"
-            >
-              <SearchIcon className="size-4" />
+        <div className="flex gap-3">
+          <Button
+            onClick={() => setMobileSearch(true)}
+            variant="secondary"
+            className="rounded-full lg:hidden"
+          >
+            <HugeiconsIcon icon={Search01Icon} className="size-4" />
+          </Button>
+          <Link href="/cart" className="hidden md:flex relative">
+            <Button size="icon" variant="secondary" className="rounded-full">
+              <HugeiconsIcon icon={ShoppingCart01Icon} className="size-4" />
             </Button>
-            <Link href="/cart" className="hidden md:flex relative">
-              <Button size="icon" variant="secondary" className="rounded-full">
-                <ShoppingCart className="size-4" />
-              </Button>
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground shadow-sm">
-                  {cartCount > 99 ? "99+" : cartCount}
-                </span>
-              )}
-            </Link>
-            <Link href="/account" className="hidden lg:block">
-              <Button size="icon" variant="secondary" className="rounded-full">
-                <UserIcon className="size-4" />
-              </Button>
-            </Link>
-          </div>
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+                {cartCount > 99 ? "99+" : cartCount}
+              </span>
+            )}
+          </Link>
+          <Link href="/account" className="hidden lg:block">
+            <Button size="icon" variant="secondary" className="rounded-full">
+              <HugeiconsIcon icon={UserCircle02Icon} className="size-4" />
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

@@ -13,15 +13,15 @@ const Review: React.FC<StepReviewProps> = ({ cart }) => {
   const t = useTranslations("Checkout.review");
   const searchParams = useSearchParams();
   const isOpen = searchParams.get("step") === "review";
-  if (!isOpen) return;
+  if (!isOpen) return null;
 
   return (
-    <div className="space-y-6">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight text-[#0d121c] dark:text-white mb-2">
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1.5">
+        <h2 className="text-foreground text-2xl font-bold leading-tight tracking-[-0.033em]">
           {t("title")}
-        </h1>
-        <p className="text-gray-500 dark:text-gray-400">{t("description")}</p>
+        </h2>
+        <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <PaymentButton cart={cart} />
     </div>

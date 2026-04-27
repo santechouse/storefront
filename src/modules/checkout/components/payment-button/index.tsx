@@ -23,7 +23,11 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ cart }) => {
     case isManual(paymentSession?.provider_id):
       return <ManualTestPaymentButton notReady={notReady} />;
     default:
-      return <Button disabled>Select a payment method</Button>;
+      return (
+        <Button disabled className="w-full sm:w-auto opacity-50 pointer-events-none">
+          Select a payment method
+        </Button>
+      );
   }
 };
 
@@ -32,32 +36,28 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const onPaymentCompleted = async () => {
-    await placeOrder()
-      .catch((err) => {
-        setErrorMessage(err.message);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
-  };
-
-  const handlePayment = () => {
+  const handlePayment = async () => {
     setSubmitting(true);
-
-    onPaymentCompleted();
+    await placeOrder()
+      .catch((err) => setErrorMessage(err.message))
+      .finally(() => setSubmitting(false));
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-3">
       <Button
-        disabled={notReady}
+        disabled={notReady || submitting}
         onClick={handlePayment}
+        size="lg"
+        className="w-full"
         data-testid="submit-order-button"
       >
-        {t("placeOrder")}
+        {submitting ? t("placing") : t("placeOrder")}
       </Button>
-    </>
+      {errorMessage && (
+        <p className="text-sm text-destructive">{errorMessage}</p>
+      )}
+    </div>
   );
 };
 

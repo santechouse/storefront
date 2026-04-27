@@ -18,201 +18,139 @@ type ShippingProps = {
     | null;
 };
 
-const PICKUP_OPTION_ON = "__PICKUP_ON";
-const PICKUP_OPTION_OFF = "__PICKUP_OFF";
-
 const Shipping: React.FC<ShippingProps> = ({
   cart,
   availableShippingMethods,
 }) => {
   const t = useTranslations("Checkout.shipping");
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isLoadingPrices, setIsLoadingPrices] = React.useState(true);
-  const router = useRouter();
-
-  const [showPickupOptions, setShowPickupOptions] =
-    React.useState<string>(PICKUP_OPTION_OFF);
-  const [calculatedPricesMap, setCalculatedPricesMap] = React.useState<
-    Record<string, number>
-  >({});
   const [error, setError] = React.useState<string | null>(null);
   const [shippingMethodId, setShippingMethodId] = React.useState<string | null>(
     cart.shipping_methods?.at(-1)?.shipping_option_id || null,
   );
+  const router = useRouter();
   const searchParams = useSearchParams();
   const isOpen = searchParams.get("step") === "delivery";
+
   const _shippingMethods = availableShippingMethods?.filter(
     (sm) => sm.service_zone?.fulfillment_set?.type !== "pickup",
   );
 
-  const _pickupMethods = availableShippingMethods?.filter(
-    (sm) => sm.service_zone?.fulfillment_set?.type === "pickup",
-  );
-  const handleSetShippingMethod = async (
-    id: string,
-    variant: "shipping" | "pickup",
-  ) => {
-    if (variant === "pickup") {
-      setShowPickupOptions(PICKUP_OPTION_ON);
-    } else {
-      setShowPickupOptions(PICKUP_OPTION_OFF);
-    }
-
+  const handleSetShippingMethod = async (id: string) => {
     let currentId: string | null = null;
     setIsLoading(true);
     setShippingMethodId((prev) => {
       currentId = prev;
       return id;
     });
-
     await setShippingMethod({ cartId: cart.id, shippingMethodId: id })
       .catch((err) => {
         setShippingMethodId(currentId);
-
         setError(err.message);
       })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   };
 
-  if (!isOpen) {
-    return null;
-  }
+  if (!isOpen) return null;
 
   return (
     <div className="flex flex-1 flex-col gap-8">
-      {/* Information Review Block */}
-      <div className=" rounded-lg border border-[#e7ebf4] dark:border-gray-700 bg-white dark:bg-[#1a2233] divide-y divide-[#e7ebf4] dark:divide-gray-700 overflow-hidden shadow-sm">
-        <div className=" flex items-center justify-between p-4">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full">
-            <span className="text-gray-500 dark:text-gray-400 text-sm font-medium w-16">
-              {t("contact")}
-            </span>
-            <span className="text-[#0d121c] dark:text-gray-200 text-sm font-medium truncate flex-1">
-              {cart.shipping_address?.phone}
-            </span>
-          </div>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="text-primary text-xs font-semibold px-2 py-1 rounded transition-colors"
-          >
-            {t("change")}
-          </Button>
-        </div>
-        <div className="flex items-center justify-between p-4">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full">
-            <span className="text-gray-500 dark:text-gray-400 text-sm font-medium">
-              {t("shipTo")}
-            </span>
-            <span className="text-[#0d121c] dark:text-gray-200 text-sm font-medium truncate flex-1">
-              {cart.shipping_address?.address_1}
-            </span>
-          </div>
-          <Button
-            variant="ghost"
-            className="text-primary text-xs font-semibold px-2 py-1 rounded transition-colors"
-          >
-            {t("change")}
-          </Button>
-        </div>
+      {/* Summary of previous steps */}
+      <div className="rounded-2xl border border-border overflow-hidden divide-y divide-border">
+        <InfoRow label={t("contact")} value={cart.shipping_address?.phone} />
+        <InfoRow label={t("shipTo")} value={cart.shipping_address?.address_1} />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <h2 className="text-[#0d121c] dark:text-white text-2xl font-bold leading-tight">
+      <div className="flex flex-col gap-1.5">
+        <h2 className="text-foreground text-2xl font-bold leading-tight tracking-[-0.033em]">
           {t("title")}
         </h2>
-        <p className="text-gray-500 dark:text-gray-400 text-sm">
-          {t("description")}
-        </p>
+        <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <RadioGroup
-          value={shippingMethodId || ""}
-          onValueChange={(v) => {
-            if (v) return handleSetShippingMethod(v, "shipping");
-          }}
-        >
-          {_shippingMethods?.map((option) => {
-            const isDisabled = false;
-            return (
-              <div
-                key={option.id}
-                className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-all hover:bg-gray-50 dark:hover:bg-gray-800/50 group`}
-              >
-                <RadioGroupItem
-                  id={option.id}
-                  checked={shippingMethodId === option.id}
-                  value={option.id}
-                />
-                <Label
-                  id={option.id}
-                  htmlFor={option.id}
-                  className="flex flex-1 justify-between items-center ml-4"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[#0d121c] dark:text-white font-semibold text-sm">
-                      {option.name}
-                    </span>
-                  </div>
-                  <span className="font-bold text-[#0d121c] dark:text-white">
-                    {convertToLocale({
-                      amount: option.amount,
-                      currency_code: cart.currency_code,
-                    })}
-                  </span>
-                </Label>
-              </div>
-            );
-          })}
-        </RadioGroup>
-        {/*{_shippingMethods?.map((method) => (
-          <label
-            key={method.id}
-            className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-all hover:bg-gray-50 dark:hover:bg-gray-800/50 group`}
-          >
-            <input
-              type="radio"
-              name="shipping_method"
-              className="peer h-5 w-5 text-primary border-gray-300 focus:ring-primary dark:bg-gray-700"
-            />
-            <div className="flex flex-1 justify-between items-center ml-4">
-              <div className="flex flex-col">
-                <span className="text-[#0d121c] dark:text-white font-semibold text-sm">
-                  {method.name}
-                </span>
-              </div>
-              <span className="font-bold text-[#0d121c] dark:text-white">
-                {convertToLocale({
-                  amount: method.amount,
-                  currency_code: cart.currency_code,
-                })}
-              </span>
-            </div>
-          </label>
-        ))}*/}
-      </div>
-      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
+      <RadioGroup
+        value={shippingMethodId || ""}
+        onValueChange={(v) => v && handleSetShippingMethod(v)}
+        className="flex flex-col gap-3"
+      >
+        {_shippingMethods?.map((option) => (
+          <OptionCard
+            key={option.id}
+            id={option.id}
+            selected={shippingMethodId === option.id}
+            label={option.name}
+            trailing={convertToLocale({
+              amount: option.amount,
+              currency_code: cart.currency_code,
+            })}
+          />
+        ))}
+      </RadioGroup>
+
+      {error && <p className="text-sm text-destructive">{error}</p>}
+
+      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 pt-6 border-t border-border">
         <Button
           onClick={() => router.push("?step=address")}
           variant="ghost"
           className="text-primary"
         >
-          <ArrowLeft />
+          <ArrowLeft className="size-4" />
           {t("return")}
         </Button>
         <Button
-          onClick={() => router.push(`?step=payment`)}
+          onClick={() => router.push("?step=payment")}
           className="w-full sm:w-auto"
+          disabled={isLoading}
         >
           {t("continue")}
-          <ArrowRight />
+          <ArrowRight className="size-4" />
         </Button>
       </div>
     </div>
   );
 };
+
+const InfoRow = ({ label, value }: { label: string; value?: string | null }) => (
+  <div className="flex items-center justify-between px-4 py-3.5">
+    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 flex-1 min-w-0">
+      <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground shrink-0 w-20">
+        {label}
+      </span>
+      <span className="text-sm font-medium text-foreground truncate">{value}</span>
+    </div>
+  </div>
+);
+
+const OptionCard = ({
+  id,
+  selected,
+  label,
+  trailing,
+}: {
+  id: string;
+  selected: boolean;
+  label: string;
+  trailing: string;
+}) => (
+  <div
+    className={`relative flex items-center px-4 py-3.5 border rounded-xl cursor-pointer transition-colors ${
+      selected
+        ? "border-primary/40 bg-primary/5"
+        : "border-border hover:bg-muted/60"
+    }`}
+  >
+    <RadioGroupItem id={id} value={id} checked={selected} />
+    <Label
+      htmlFor={id}
+      className="flex flex-1 justify-between items-center ml-4 cursor-pointer"
+    >
+      <span className="text-sm font-medium text-foreground">{label}</span>
+      <span className="text-sm font-semibold text-foreground tabular-nums">
+        {trailing}
+      </span>
+    </Label>
+  </div>
+);
 
 export default Shipping;

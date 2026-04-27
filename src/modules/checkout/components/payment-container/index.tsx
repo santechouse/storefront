@@ -16,30 +16,31 @@ export const PaymentContainer: React.FC<PaymentContainerProps> = ({
   selectedPaymentOptionId,
   paymentInfoMap,
   disabled = false,
-  children,
 }) => {
+  const selected = selectedPaymentOptionId === paymentProviderId;
+  const info = paymentInfoMap[paymentProviderId];
+
   return (
     <div
-      className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-all hover:bg-gray-50 dark:hover:bg-gray-800/50 group`}
+      className={`relative flex items-center px-4 py-3.5 border rounded-xl cursor-pointer transition-colors ${
+        selected
+          ? "border-primary/40 bg-primary/5"
+          : "border-border hover:bg-muted/60"
+      } ${disabled ? "opacity-50 pointer-events-none" : ""}`}
     >
       <RadioGroupItem
         id={paymentProviderId}
-        checked={selectedPaymentOptionId === paymentProviderId}
+        checked={selected}
         value={paymentProviderId}
       />
       <Label
-        id={paymentProviderId}
         htmlFor={paymentProviderId}
-        className="flex flex-1 justify-between items-center ml-4"
+        className="flex flex-1 justify-between items-center ml-4 cursor-pointer"
       >
-        <div className="flex flex-col">
-          <span className="text-[#0d121c] dark:text-white font-semibold text-sm">
-            {paymentInfoMap[paymentProviderId].title || paymentProviderId}
-          </span>
-        </div>
-        <span className="font-bold text-[#0d121c] dark:text-white">
-          {paymentInfoMap[paymentProviderId].icon}
+        <span className="text-sm font-medium text-foreground">
+          {info?.title || paymentProviderId}
         </span>
+        <span className="text-muted-foreground">{info?.icon}</span>
       </Label>
     </div>
   );

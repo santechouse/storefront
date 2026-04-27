@@ -11,35 +11,36 @@ interface OrderSummaryProps {
 const Summary: React.FC<OrderSummaryProps> = ({ cart }) => {
   const t = useTranslations("Checkout.summary");
   return (
-    <div className="sticky top-28 flex flex-col gap-6">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-[#e7ebf4] dark:border-gray-700 overflow-hidden">
-        <div className="p-6 border-b border-[#e7ebf4] dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center">
-          <h2 className="text-lg font-bold text-[#0d121c] dark:text-white">
-            {t("title")}
-          </h2>
-          <span className="text-sm text-gray-500">
+    <div className="sticky top-28 flex flex-col gap-4">
+      <div className="rounded-2xl border border-border overflow-hidden">
+        {/* Header */}
+        <div className="flex justify-between items-center px-5 py-4 border-b border-border">
+          <h2 className="text-sm font-semibold text-foreground">{t("title")}</h2>
+          <span className="text-xs text-muted-foreground">
             {cart.items?.length} {t("items")}
           </span>
         </div>
-        <div className="p-6 flex flex-col gap-6">
+
+        {/* Items */}
+        <div className="flex flex-col divide-y divide-border">
           {cart.items?.map((item) => (
-            <div key={item.id} className="flex gap-4">
-              <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-100 flex-shrink-0">
+            <div key={item.id} className="flex gap-4 px-5 py-4">
+              <div className="relative size-16 rounded-xl overflow-hidden border border-border bg-muted shrink-0">
                 <img
-                  src={item.thumbnail}
-                  alt={item.product_title}
+                  src={item.thumbnail || ""}
+                  alt={item.product_title || ""}
                   className="w-full h-full object-cover"
                 />
-                <span className="absolute top-0 right-0 bg-gray-500/80 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-bl-md">
-                  x{item.quantity}
+                <span className="absolute top-0 right-0 bg-foreground/70 text-background text-[10px] font-bold px-1.5 py-0.5 rounded-bl-md">
+                  ×{item.quantity}
                 </span>
               </div>
-              <div className="flex flex-col flex-1 gap-1">
-                <h4 className="text-sm font-bold text-[#0d121c] dark:text-white">
+              <div className="flex flex-col flex-1 gap-1 min-w-0">
+                <p className="text-sm font-medium text-foreground leading-snug line-clamp-2">
                   {item.product_title}
-                </h4>
-                <p className="text-xs text-gray-500">{item.variant_title}</p>
-                <p className="text-sm font-medium text-[#0d121c] dark:text-white mt-auto">
+                </p>
+                <p className="text-xs text-muted-foreground">{item.variant_title}</p>
+                <p className="text-sm font-semibold text-foreground mt-auto tabular-nums">
                   {convertToLocale({
                     amount: item.total || 0,
                     currency_code: cart.currency_code,
@@ -48,47 +49,47 @@ const Summary: React.FC<OrderSummaryProps> = ({ cart }) => {
               </div>
             </div>
           ))}
-          <hr className="border-dashed border-gray-200 dark:border-gray-700" />
-          <div className="flex flex-col gap-2 text-sm">
-            <div className="flex justify-between text-gray-600 dark:text-gray-400">
-              <span>{t("subtotal")}</span>
-              <span className="font-medium text-[#0d121c] dark:text-white">
-                {convertToLocale({
-                  amount: cart.item_subtotal,
-                  currency_code: cart.currency_code,
-                })}
-              </span>
-            </div>
-            <div className="flex justify-between text-gray-600 dark:text-gray-400">
-              <span className="flex items-center gap-1">{t("shipping")}</span>
-              <span className="font-medium text-[#0d121c] dark:text-white">
-                {convertToLocale({
-                  amount: cart.shipping_total,
-                  currency_code: cart.currency_code,
-                })}
-              </span>
-            </div>
-          </div>
+        </div>
 
-          <hr className="border-gray-200 dark:border-gray-700" />
-
+        {/* Totals */}
+        <div className="flex flex-col gap-2 px-5 py-4 border-t border-border">
+          <LineItem
+            label={t("subtotal")}
+            value={convertToLocale({
+              amount: cart.item_subtotal,
+              currency_code: cart.currency_code,
+            })}
+          />
+          <LineItem
+            label={t("shipping")}
+            value={convertToLocale({
+              amount: cart.shipping_total,
+              currency_code: cart.currency_code,
+            })}
+          />
+          <hr className="border-border my-1" />
           <div className="flex justify-between items-center">
-            <span className="text-base font-bold text-[#0d121c] dark:text-white">
+            <span className="text-sm font-semibold text-foreground">
               {t("total")}
             </span>
-            <div className="flex items-end gap-2">
-              <span className="text-2xl font-semibold text-[#0d121c] dark:text-white tracking-tight">
-                {convertToLocale({
-                  amount: cart.total,
-                  currency_code: cart.currency_code,
-                })}
-              </span>
-            </div>
+            <span className="text-xl font-bold text-foreground tabular-nums tracking-tight">
+              {convertToLocale({
+                amount: cart.total,
+                currency_code: cart.currency_code,
+              })}
+            </span>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+const LineItem = ({ label, value }: { label: string; value: string }) => (
+  <div className="flex justify-between items-center">
+    <span className="text-sm text-muted-foreground">{label}</span>
+    <span className="text-sm font-medium text-foreground tabular-nums">{value}</span>
+  </div>
+);
 
 export default Summary;

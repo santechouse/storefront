@@ -1,32 +1,99 @@
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 
 export default function Footer() {
   const t = useTranslations("Footer");
+
+  const navLinks = [
+    { href: "/catalog", label: t("catalog") },
+    { href: "/catalog?category=pipes", label: t("pipes") },
+    { href: "/catalog?category=fittings", label: t("fittings") },
+    { href: "/catalog?category=faucets", label: t("faucets") },
+    { href: "/catalog?category=tools", label: t("tools") },
+  ];
+
+  const infoLinks = [
+    { href: "/account", label: t("account") },
+    { href: "/cart", label: t("cart") },
+  ];
+
   return (
-    <footer className="mt-12 border-t bg-secondary py-12 px-4 md:px-10 lg:px-20 flex justify-center">
-      <div className="w-full max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-2">
-              <div className="relative size-6">
-                <Image
-                  src="/logo.svg"
-                  className="object-cover"
-                  alt="santechouse"
-                  fill
-                />
+    <footer className="hidden md:block border-t border-border bg-secondary">
+      <div className="max-w-360 mx-auto px-4 md:px-6 lg:px-8 py-10">
+        <div className="grid grid-cols-3 gap-10">
+          {/* Brand */}
+          <div className="flex flex-col gap-4">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="size-7 text-primary">
+                <Image src="/logo.svg" width={28} height={28} alt="Logo" />
               </div>
-              <h3 className="text-lg font-bold">Santechouse</h3>
-            </div>
-            <p className="text-text-secondary text-xs leading-relaxed">
+              <span className="text-base font-bold tracking-[-0.015em]">Santechouse</span>
+            </Link>
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-56">
               {t("description")}
             </p>
+            <address className="not-italic flex flex-col gap-1">
+              <a
+                href="tel:+998712345678"
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                +998 71 234-56-78
+              </a>
+              <a
+                href="mailto:info@santechouse.uz"
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                info@santechouse.uz
+              </a>
+            </address>
+          </div>
+
+          {/* Catalog */}
+          <div className="flex flex-col gap-3">
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {t("catalogTitle")}
+            </span>
+            <ul className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Account & info */}
+          <div className="flex flex-col gap-3">
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {t("accountTitle")}
+            </span>
+            <ul className="flex flex-col gap-2">
+              {infoLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-text-secondary text-sm">
-            © 2025 Santechouse. All rights reserved.
+
+        <div className="mt-10 pt-6 border-t border-border flex items-center justify-between">
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} Santechouse. {t("rights")}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {t("country")}
           </p>
         </div>
       </div>

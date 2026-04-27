@@ -75,7 +75,7 @@ function AddressCard({
   }
 
   return (
-    <article className="rounded-2xl border border-border bg-card">
+    <article className="rounded-2xl border border-border">
       {/* Header row */}
       <div className="flex items-start justify-between gap-3 px-4 pt-4 pb-3">
         <div className="flex items-start gap-3">

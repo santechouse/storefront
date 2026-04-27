@@ -11,6 +11,7 @@ interface OrderCardProps {
 }
 
 function StatusBadge({ status }: { status: string }) {
+  const t = useTranslations("OrderList");
   const isDelivered = status === "delivered";
   const isShipped = status === "shipped";
   const isFulfilled = status === "fulfilled";
@@ -19,7 +20,7 @@ function StatusBadge({ status }: { status: string }) {
     return (
       <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 px-2.5 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50">
         <CheckIcon className="size-3" />
-        Delivered
+        {t("statuses.delivered")}
       </span>
     );
   }
@@ -27,7 +28,7 @@ function StatusBadge({ status }: { status: string }) {
     return (
       <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary border border-primary/20">
         <TruckIcon className="size-3" />
-        Shipped
+        {t("statuses.shipped")}
       </span>
     );
   }
@@ -35,14 +36,14 @@ function StatusBadge({ status }: { status: string }) {
     return (
       <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 dark:bg-amber-950/30 px-2.5 py-1 text-xs font-medium text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/50">
         <ClockIcon className="size-3" />
-        Processing
+        {t("statuses.fulfilled")}
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground border border-border">
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-muted-foreground border border-border">
       <PackageIcon className="size-3" />
-      Placed
+      {t("statuses.not_fulfilled")}
     </span>
   );
 }

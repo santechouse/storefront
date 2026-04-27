@@ -17,7 +17,18 @@
     "profile": "Profil"
   },
   "Footer": {
-    "description": "Yuqori sifatli santexnika buyumlarini onlayn xarid qiling. Quvurlar, aralash klapanlar, valflar, armaturalar, asbob-uskunalar va aksessuarlar – tezkor yetkazib berish va raqobatbardosh narxlar bilan."
+    "description": "Yuqori sifatli santexnika buyumlarini onlayn xarid qiling. Quvurlar, klapanlar, valflar, armaturalar va asboblar – tezkor yetkazib berish bilan.",
+    "catalogTitle": "Katalog",
+    "catalog": "Barcha mahsulotlar",
+    "pipes": "Quvurlar",
+    "fittings": "Armaturalar",
+    "faucets": "Aralash klapanlar",
+    "tools": "Asboblar",
+    "accountTitle": "Shaxsiy kabinet",
+    "account": "Profil",
+    "cart": "Savatcha",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "country": "O'zbekiston"
   },
   "SortOption": {
     "lastArrivals": "Yangi mahsulotlar",
@@ -89,7 +100,30 @@
     "passwordPlaceholder": "Parolingizni kiriting",
     "createAccount": "Hisob yaratish",
     "continue": "Yoki davom eting",
-    "signIn": "Kirish"
+    "signIn": "Kirish",
+    "privacyAgreementPrefix": "Men",
+    "privacyPolicyLink": "Maxfiylik siyosati",
+    "privacyAgreementSuffix": "ni qabul qilaman va shaxsiy ma'lumotlarni qayta ishlashga rozilik beraman."
+  },
+  "PrivacyPolicy": {
+    "title": "Maxfiylik siyosati",
+    "lastUpdated": "Oxirgi yangilanish: 2026-yil 28-aprel",
+    "section1Title": "1. Umumiy qoidalar",
+    "section1Body": "Ushbu Maxfiylik siyosati Santechouse (keyingi o'rinlarda — «Biz» yoki «Kompaniya») internet-do'konimiz foydalanuvchilarining shaxsiy ma'lumotlarini qanday yig'ishini, ishlatishini va himoyalashini tavsiflaydi.",
+    "section2Title": "2. Qanday ma'lumotlar yig'iladi",
+    "section2Body": "Ro'yxatdan o'tish va buyurtma berish jarayonida siz taqdim etgan ma'lumotlar: ism, familiya, telefon raqami, yetkazib berish manzili. Bundan tashqari, tahlil va xavfsizlik maqsadida texnik ma'lumotlar (IP-manzil, brauzer turi, tashrif sahifalari) avtomatik ravishda to'planadi.",
+    "section3Title": "3. Ma'lumotlarni qayta ishlash maqsadlari",
+    "section3Body": "Sizning ma'lumotlaringiz quyidagi maqsadlarda ishlatiladi: buyurtmalarni bajarish va tovarlarni yetkazib berish; buyurtmalar bo'yicha siz bilan bog'lanish; xizmat sifatini yaxshilash; O'zbekiston Respublikasi qonunchiligiga rioya qilish.",
+    "section4Title": "4. Ma'lumotlarni uchinchi shaxslarga uzatish",
+    "section4Body": "Biz sizning roziligingizisiz shaxsiy ma'lumotlaringizni uchinchi shaxslarga sotmaymiz va uzatmaymiz, qonunchilik talablariga muvofiq hollar bundan mustasno. Yetkazib berish xizmatlariga faqat buyurtmani bajarish uchun zarur bo'lgan hajmda ma'lumot uzatiladi.",
+    "section5Title": "5. Ma'lumotlarni saqlash va himoya qilish",
+    "section5Body": "Ma'lumotlaringiz himoyalangan serverlarda saqlanadi. Biz ruxsatsiz kirishdan, o'zgartirishdan, oshkor qilishdan yoki yo'q qilishdan himoya qilish uchun texnik va tashkiliy chora-tadbirlarni qo'llaymiz.",
+    "section6Title": "6. Foydalanuvchi huquqlari",
+    "section6Body": "Siz shaxsiy ma'lumotlaringizga kirish, ularni to'g'irlash yoki o'chirish talabini qo'yish huquqiga egasiz. Buning uchun quyida ko'rsatilgan kontaktlar orqali biz bilan bog'laning.",
+    "section7Title": "7. Siyosatni o'zgartirish",
+    "section7Body": "Biz ushbu Maxfiylik siyosatini yangilash huquqiga egamiz. O'zgartirishlar haqida ushbu sahifada xabar beramiz. Oxirgi yangilanish sanasi hujjat boshida ko'rsatilgan.",
+    "contactTitle": "Aloqa ma'lumotlari",
+    "contactBody": "Shaxsiy ma'lumotlarni qayta ishlash bilan bog'liq barcha savollar bo'yicha biz bilan bog'laning: santechouse.uz | Toshkent, O'zbekiston."
   },
   "Account": {
     "orders": "Mening buyurtmalarim",

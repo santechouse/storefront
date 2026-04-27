@@ -7,12 +7,14 @@ import { EyeIcon, EyeOffIcon, AlertCircle, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
 import { useMaskInput } from "use-mask-input";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function RegisterTemplate() {
   const t = useTranslations("Register");
   const [message, formAction, isPending] = React.useActionState(signup, null);
   const [showPassword, setShowPassword] = React.useState(false);
   const [phoneMasked, setPhoneMasked] = React.useState("");
+  const [agreedToPrivacy, setAgreedToPrivacy] = React.useState(false);
   const phoneRef = useMaskInput({ mask: "99 999 99 99" });
 
   return (
@@ -92,6 +94,22 @@ export default function RegisterTemplate() {
               </div>
             </div>
 
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="privacy"
+                checked={agreedToPrivacy}
+                onCheckedChange={(v) => setAgreedToPrivacy(!!v)}
+                className="mt-0.5 shrink-0"
+              />
+              <label htmlFor="privacy" className="text-sm text-muted-foreground leading-snug cursor-pointer select-none">
+                {t("privacyAgreementPrefix")}{" "}
+                <Link href="/privacy" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">
+                  {t("privacyPolicyLink")}
+                </Link>
+                {" "}{t("privacyAgreementSuffix")}
+              </label>
+            </div>
+
             <div>
               {message && (
                 <div className="mb-4 flex items-center gap-2 p-3 text-sm text-rose-500 bg-rose-50 dark:bg-rose-950/20 rounded-xl border border-rose-200 dark:border-rose-900/40 animate-in fade-in slide-in-from-top-1">
@@ -99,7 +117,7 @@ export default function RegisterTemplate() {
                   <p>{message}</p>
                 </div>
               )}
-              <Button type="submit" className="w-full" disabled={isPending}>
+              <Button type="submit" className="w-full" disabled={isPending || !agreedToPrivacy}>
                 {isPending ? t("signingIn") || "..." : t("createAccount")}
               </Button>
             </div>

@@ -61,7 +61,7 @@ export default async function LocaleLayout({
   return (
     <html className="h-full" lang={locale} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-display transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-display transition-colors duration-300 pb-16 md:pb-0`}
       >
         <NextIntlClientProvider>
           <Nav cartCount={cartCount} />

@@ -22,7 +22,7 @@ export default function BottomNav({ cartCount = 0 }: { cartCount?: number }) {
   ];
 
   return (
-    <nav className="md:hidden sticky bottom-0 left-0 right-0 bg-background/80 backdrop-blur-md border-t border-border px-2 py-2 z-50">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-md border-t border-border px-2 py-2 z-50">
       <div className="flex items-center justify-around">
         {links.map((link) => {
           const active = pathname === link.href;

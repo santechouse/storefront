@@ -21,15 +21,15 @@ export default function BrandsListTemplate({ brands }: Props) {
           </p>
         )}
       </div>
-      
+
       {brands.length > 0 ? (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-8 min-h-[200px]">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-8 min-h-50">
           {brands.map((brand) => (
             <BrandCard key={brand.id} brand={brand} />
           ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center min-h-[300px] border border-dashed rounded-xl border-border">
+        <div className="flex items-center justify-center min-h-75 border border-dashed rounded-xl border-border">
           <p className="text-muted-foreground">No brands found.</p>
         </div>
       )}

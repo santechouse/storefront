@@ -13,7 +13,7 @@ interface Props extends PageProps<"/[locale]/products/[handle]"> {
 }
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
-  const { brand } = await retrieveBrand(params.handle);
+  const brand = await retrieveBrand(params.handle);
   return {
     title: `${brand.name}`,
   };
@@ -22,7 +22,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function BrandProductsPage(props: Props) {
   const params = await props.params;
   const searchParams = await props.searchParams;
-  const { brand } = await retrieveBrand(params.handle);
+  const brand = await retrieveBrand(params.handle);
   const { product_categories: categories } = await listCategories({
     locale: params.locale,
     query: {

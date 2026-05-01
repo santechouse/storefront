@@ -4,8 +4,12 @@ import { Brand } from "@/types/brand";
 import { getCacheOptions } from "./cookies";
 import { getLocale } from "../util/get-locale";
 
-export const retrieveBrand = (id: string) => {
-  return sdk.client.fetch<{ brand: Brand }>(`/store/brands/${id}`);
+export const retrieveBrand = async (handle: string) => {
+  return sdk.client
+    .fetch<{ brands: Brand[] }>(`/store/brands`, {
+      query: { handle },
+    })
+    .then(({ brands }) => brands[0]);
 };
 
 export const listBrandProducts = async (
@@ -56,13 +60,15 @@ export const listBrands = async () => {
     ...(await getCacheOptions("brands")),
   };
 
-  return sdk.client.fetch<{ brands: Brand[] }>(`/store/brands`, {
-    query: {
-      offset: 0,
-      limit: 1000
-    },
-    next
-  }).then(({ brands }) => {
-    return brands;
-  });
-}
+  return sdk.client
+    .fetch<{ brands: Brand[] }>(`/store/brands`, {
+      query: {
+        offset: 0,
+        limit: 1000,
+      },
+      next,
+    })
+    .then(({ brands }) => {
+      return brands;
+    });
+};

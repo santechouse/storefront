@@ -35,7 +35,7 @@ export function BrandProductsHeader(props: {
   };
   return (
     <div className="flex flex-col w-full md:flex-row md:items-end justify-between gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-6">
-      <Breadcrumb items={[{ name: brand.name, link: `/brands/${brand.id}` }]} />
+      <Breadcrumb items={[{ name: brand.name, link: `/brands/${brand.handle}` }]} />
       <div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
           {brand.name}

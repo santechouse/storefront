@@ -63,6 +63,7 @@ export const listBrands = async () => {
   return sdk.client
     .fetch<{ brands: Brand[] }>(`/store/brands`, {
       query: {
+        fields: "*images",
         offset: 0,
         limit: 1000,
       },

@@ -70,6 +70,6 @@ export const listBrands = async () => {
       next,
     })
     .then(({ brands }) => {
-      return brands;
+      return brands.filter((b) => b.is_active !== false);
     });
 };

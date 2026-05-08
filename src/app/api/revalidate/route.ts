@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
@@ -19,9 +19,22 @@ export async function GET(req: NextRequest) {
 
   const tagsArray = tags.split(",");
 
-  tagsArray.forEach((tag) => {
-    revalidateTag(tag, "max");
-  });
+  await Promise.all(
+    tagsArray.map(async (tag) => {
+      switch (tag) {
+        case "products":
+          revalidatePath("/[locale]/(main)/store", "page");
+          revalidatePath("/[locale]/(main)/products/[handle]", "page");
+          break;
+        case "collections":
+          revalidatePath("/[locale]/(main)/collections/[handle]", "page");
+          break;
+        case "categories":
+          revalidatePath("/[locale]/(main)/categories/[...category]", "page");
+          break;
+      }
+    })
+  );
 
   return NextResponse.json(
     { message: "Revalidated", tags: tagsArray },

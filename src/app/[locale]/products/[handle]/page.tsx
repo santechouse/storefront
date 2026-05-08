@@ -9,21 +9,29 @@ interface Props extends PageProps<"/[locale]/products/[handle]"> {
   searchParams: Promise<{ v_id?: string }>;
 }
 
+function getThumbnailFallback(product: HttpTypes.StoreProduct): HttpTypes.StoreProductImage[] {
+  if (product.thumbnail) {
+    return [{ id: "thumbnail", url: product.thumbnail, rank: 0 }];
+  }
+  return [];
+}
+
 function getImagesForVariant(
   product: HttpTypes.StoreProduct,
   selectedVariantId?: string,
 ) {
   if (!selectedVariantId || !product.variants) {
-    return product.images;
+    return product.images?.length ? product.images : getThumbnailFallback(product);
   }
 
   const variant = product.variants!.find((v) => v.id === selectedVariantId);
   if (!variant || !variant.images?.length) {
-    return product.images;
+    return product.images?.length ? product.images : getThumbnailFallback(product);
   }
 
   const imageIdsMap = new Map(variant.images.map((i) => [i.id, true]));
-  return product.images!.filter((i) => imageIdsMap.has(i.id));
+  const filtered = product.images!.filter((i) => imageIdsMap.has(i.id));
+  return filtered.length ? filtered : getThumbnailFallback(product);
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -83,7 +91,7 @@ export default async function ProductPage(props: Props) {
       <ProductTemplate
         product={pricedProduct}
         region={region}
-        images={images || []}
+        images={images ?? []}
       />
     </>
   );

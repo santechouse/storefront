@@ -23,14 +23,14 @@ export async function GET(req: NextRequest) {
     tagsArray.map(async (tag) => {
       switch (tag) {
         case "products":
-          revalidatePath("/[locale]/(main)/store", "page");
-          revalidatePath("/[locale]/(main)/products/[handle]", "page");
+          revalidatePath("/[locale]/catalog", "page");
+          revalidatePath("/[locale]/products/[handle]", "page");
           break;
         case "collections":
-          revalidatePath("/[locale]/(main)/collections/[handle]", "page");
+          revalidatePath("/[locale]/collections/[handle]", "page");
           break;
         case "categories":
-          revalidatePath("/[locale]/(main)/categories/[...category]", "page");
+          revalidatePath("/[locale]/catalog/[handle]", "page");
           break;
       }
     })

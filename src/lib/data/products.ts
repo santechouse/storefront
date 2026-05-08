@@ -96,9 +96,12 @@ export const listProducts = async ({
  * This will fetch 100 products to the Next.js cache and sort them based on the sortBy parameter.
  * It will then return the paginated products based on the page and limit parameters.
  */
+const SORT_FETCH_LIMIT = 100;
+const SORT_PAGE_LIMIT = 12;
+
 export const listProductsWithSort = async ({
   locale,
-  page = 0,
+  page = 1,
   queryParams,
   sortBy = "created_at",
 }: {
@@ -113,7 +116,7 @@ export const listProductsWithSort = async ({
   queryParams?: HttpTypes.FindParams &
     HttpTypes.StoreProductParams & { brand_id?: string };
 }> => {
-  const limit = queryParams?.limit || 12;
+  const displayLimit = SORT_PAGE_LIMIT;
   const region = await getRegion();
 
   const {
@@ -121,20 +124,21 @@ export const listProductsWithSort = async ({
   } = await listProducts({
     locale,
     regionId: region?.id,
-    pageParam: page,
+    pageParam: 1,
     queryParams: {
       ...queryParams,
-      limit: 100,
+      limit: SORT_FETCH_LIMIT,
     },
   });
 
   const sortedProducts = sortProducts(products, sortBy);
 
-  const pageParam = (page - 1) * limit;
+  const currentPage = Math.max(page, 1);
+  const offset = (currentPage - 1) * displayLimit;
 
-  const nextPage = count > pageParam + limit ? pageParam + limit : null;
+  const nextPage = count > offset + displayLimit ? currentPage + 1 : null;
 
-  const paginatedProducts = sortedProducts.slice(pageParam, pageParam + limit);
+  const paginatedProducts = sortedProducts.slice(offset, offset + displayLimit);
 
   return {
     response: {

@@ -13,7 +13,7 @@ interface PaginatedProductsProps {
   sortBy?: SortOptions;
 }
 
-const PRODUCT_LIMIT = 100;
+const PRODUCT_LIMIT = 12;
 
 export default async function PaginatedProducts({
   locale,
@@ -32,7 +32,6 @@ export default async function PaginatedProducts({
     sortBy,
     queryParams: {
       q,
-      limit: PRODUCT_LIMIT,
       brand_id: brand_id,
       category_id: category_id,
       collection_id: collection_id,

@@ -48,14 +48,15 @@ export const listProducts = async ({
     };
   }
 
+  const authHeaders = await getAuthHeaders();
+  const isAuthenticated = "authorization" in authHeaders;
+
   const headers = {
-    ...(await getAuthHeaders()),
+    ...authHeaders,
     "x-medusa-locale": getLocale(locale),
   };
 
-  const next = {
-    ...(await getCacheOptions("products")),
-  };
+  const next = isAuthenticated ? {} : { ...(await getCacheOptions("products")) };
 
   return sdk.client
     .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
@@ -75,7 +76,7 @@ export const listProducts = async ({
         },
         headers,
         next,
-        cache: "force-cache",
+        cache: isAuthenticated ? "no-store" : "force-cache",
       },
     )
     .then(({ products, count }) => {

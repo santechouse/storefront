@@ -1,5 +1,6 @@
 import { retrieveBrand } from "@/lib/data/brands";
 import { listCategories } from "@/lib/data/categories";
+import { listProductTags } from "@/lib/data/products";
 import BrandProductsTemplate from "@/modules/brand/templates";
 import { SortOptions } from "@/types/globals";
 import { Metadata } from "next";
@@ -23,6 +24,7 @@ export default async function BrandProductsPage(props: Props) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const brand = await retrieveBrand(params.handle);
+  const [tag] = await listProductTags({ value: brand.handle });
   const { product_categories: categories } = await listCategories({
     locale: params.locale,
     query: {
@@ -32,6 +34,7 @@ export default async function BrandProductsPage(props: Props) {
   });
   return (
     <BrandProductsTemplate
+      tag={tag}
       locale={params.locale}
       q={searchParams.q}
       page={searchParams.page}

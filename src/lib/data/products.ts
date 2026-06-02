@@ -7,6 +7,21 @@ import { getRegion, retrieveRegion } from "./regions";
 import { SortOptions } from "@/types/globals";
 import { getLocale } from "../util/get-locale";
 
+export const listProductTags = async ({
+  value,
+}: {
+  value: string;
+}): Promise<HttpTypes.StoreProductTag[]> => {
+  const { product_tags } =
+    await sdk.client.fetch<HttpTypes.StoreProductTagListResponse>(
+      "/store/product-tags",
+      {
+        query: { value },
+      },
+    );
+  return product_tags;
+};
+
 export const listProducts = async ({
   locale,
   pageParam = 1,
@@ -56,13 +71,13 @@ export const listProducts = async ({
     "x-medusa-locale": getLocale(locale),
   };
 
-  const next = isAuthenticated ? {} : { ...(await getCacheOptions("products")) };
+  const next = isAuthenticated
+    ? {}
+    : { ...(await getCacheOptions("products")) };
 
   return sdk.client
     .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
-      queryParams?.brand_id
-        ? `/store/brands/${queryParams.brand_id}/products`
-        : "/store/products",
+      "/store/products",
       {
         method: "GET",
         query: {
@@ -108,8 +123,7 @@ export const listProductsWithSort = async ({
 }: {
   locale: string;
   page?: number;
-  queryParams?: HttpTypes.FindParams &
-    HttpTypes.StoreProductListParams & { brand_id?: string };
+  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductListParams;
   sortBy?: SortOptions;
 }): Promise<{
   response: { products: HttpTypes.StoreProduct[]; count: number };

@@ -11,9 +11,10 @@ export default function BrandProductsTemplate(props: {
   sortBy?: SortOptions;
   page?: string;
   brand: Brand;
+  tag?: HttpTypes.StoreProductTag;
   categories: HttpTypes.StoreProductCategory[];
 }) {
-  const { locale, q, sortBy, page, brand, categories } = props;
+  const { locale, q, sortBy, page, brand, tag, categories } = props;
   return (
     <>
       <RefinementList categories={categories} />
@@ -27,7 +28,7 @@ export default function BrandProductsTemplate(props: {
           locale={locale}
           q={q}
           sortBy={sortBy}
-          brand_id={brand.id}
+          tag_id={tag?.id}
           page={Number(page || 1)}
         />
       </div>

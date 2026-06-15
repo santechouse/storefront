@@ -3,10 +3,15 @@
 import { sdk } from "@lib/config";
 import { HttpTypes } from "@medusajs/types";
 import { getAuthHeaders, getCacheOptions } from "./cookies";
+import { getLocale } from "../util/get-locale";
 
-export const listCartShippingMethods = async (cartId: string) => {
+export const listCartShippingMethods = async (
+  cartId: string,
+  locale: string,
+) => {
   const headers = {
     ...(await getAuthHeaders()),
+    "x-medusa-locale": getLocale(locale),
   };
 
   const next = {
@@ -15,7 +20,7 @@ export const listCartShippingMethods = async (cartId: string) => {
 
   return sdk.client
     .fetch<HttpTypes.StoreShippingOptionListResponse>(
-      `/store/shipping-options`,
+      `/store/shipping-options?locale=${locale}`,
       {
         method: "GET",
         query: {

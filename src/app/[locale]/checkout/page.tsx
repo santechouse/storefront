@@ -21,5 +21,11 @@ export default async function CheckoutPage(
     notFound();
   }
   // redirect()'s generic signature doesn't narrow customer to non-null here
-  return <CheckoutFormTemplate cart={cart} customer={customer!} />;
+  return (
+    <CheckoutFormTemplate
+      cart={cart}
+      customer={customer!}
+      locale={params.locale}
+    />
+  );
 }

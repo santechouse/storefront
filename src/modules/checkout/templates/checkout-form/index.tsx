@@ -11,10 +11,15 @@ import { ExtendedStoreCustomer } from "@/lib/data/customer";
 type Props = {
   cart: HttpTypes.StoreCart;
   customer: ExtendedStoreCustomer;
+  locale: string;
 };
 
-export default async function CheckoutFormTemplate({ cart, customer }: Props) {
-  const shippingMethods = await listCartShippingMethods(cart.id);
+export default async function CheckoutFormTemplate({
+  cart,
+  customer,
+  locale,
+}: Props) {
+  const shippingMethods = await listCartShippingMethods(cart.id, locale);
   const paymentMethods = await listCartPaymentMethods(cart.region_id || "");
 
   return (

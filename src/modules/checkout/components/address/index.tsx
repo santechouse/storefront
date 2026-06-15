@@ -2,31 +2,40 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { setAddresses } from "@/lib/data/cart";
+import { ExtendedStoreCustomer } from "@/lib/data/customer";
 import { HttpTypes } from "@medusajs/types";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React from "react";
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/components/ui/native-select";
 import { useTranslations } from "next-intl";
+
+const DEFAULT_COUNTRY_CODE =
+  process.env.NEXT_PUBLIC_MEDUSA_DEFAULT_COUNTRY || "uz";
 
 type AddressProps = {
   cart: HttpTypes.StoreCart;
+  customer: ExtendedStoreCustomer;
 };
 
-const Address: React.FC<AddressProps> = ({ cart }) => {
+const Address: React.FC<AddressProps> = ({ cart, customer }) => {
   const t = useTranslations("Checkout.address");
-  const tCountries = useTranslations("Countries");
   const searchParams = useSearchParams();
+  const defaultAddress =
+    customer.addresses?.find((address) => address.is_default_shipping) ||
+    customer.addresses?.[0];
   const [formData, setFormData] = React.useState<Record<string, any>>({
-    "shipping_address.first_name": cart.shipping_address?.first_name || "",
-    "shipping_address.last_name": cart.shipping_address?.last_name || "",
-    "shipping_address.address_1": cart.shipping_address?.address_1 || "",
-    "shipping_address.city": cart.shipping_address?.city || "",
-    "shipping_address.province": cart.shipping_address?.province || "",
-    "shipping_address.phone": cart.shipping_address?.phone || "",
+    "shipping_address.first_name":
+      cart.shipping_address?.first_name || defaultAddress?.first_name || "",
+    "shipping_address.last_name":
+      cart.shipping_address?.last_name || defaultAddress?.last_name || "",
+    "shipping_address.address_1":
+      cart.shipping_address?.address_1 || defaultAddress?.address_1 || "",
+    "shipping_address.city":
+      cart.shipping_address?.city || defaultAddress?.city || "",
+    "shipping_address.province":
+      cart.shipping_address?.province || defaultAddress?.province || "",
+    "shipping_address.phone":
+      cart.shipping_address?.phone || defaultAddress?.phone || "",
   });
   const [message, formAction] = React.useActionState(setAddresses, null);
   const isOpen = searchParams.get("step") === "address";
@@ -36,14 +45,6 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const countryOptions = React.useMemo(() => {
-    if (!cart.region) return [];
-    return cart.region.countries?.map((country) => ({
-      value: country.iso_2,
-      label: country.iso_2 ? tCountries(country.iso_2) : country.display_name,
-    }));
-  }, [cart, tCountries]);
 
   if (!isOpen) return null;
 
@@ -84,21 +85,11 @@ const Address: React.FC<AddressProps> = ({ cart }) => {
           </FormField>
         </div>
 
-        <FormField label={t("country")}>
-          <NativeSelect
-            name="shipping_address.country_code"
-            value={formData["shipping_address.country_code"]}
-            onChange={handleChange}
-            className="w-full"
-            required
-          >
-            {countryOptions?.map(({ value, label }, index) => (
-              <NativeSelectOption key={index} value={value}>
-                {label}
-              </NativeSelectOption>
-            ))}
-          </NativeSelect>
-        </FormField>
+        <input
+          type="hidden"
+          name="shipping_address.country_code"
+          value={DEFAULT_COUNTRY_CODE}
+        />
 
         <FormField label={t("address")}>
           <Input

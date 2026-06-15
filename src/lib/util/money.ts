@@ -32,7 +32,7 @@ export const convertCashbackToPoints = (
   balance: number,
   locale = "en-US"
 ) => {
-  const points = Math.round(balance / 1000);
+  const points = Math.round(balance / 100000);
 
   return new Intl.NumberFormat(locale).format(points);
 };

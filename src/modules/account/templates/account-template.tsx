@@ -2,7 +2,7 @@
 
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { ExtendedStoreCustomer, signout } from "@/lib/data/customer";
-import { convertToLocale } from "@/lib/util/money";
+import { convertCashbackToPoints } from "@/lib/util/money";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import {
@@ -50,11 +50,10 @@ const AccountTemplate: React.FC<AccountTemplateProps> = ({ customer }) => {
 
   const cashbackAccount = customer?.cashback_accounts?.[0];
   const formattedBalance = cashbackAccount
-    ? convertToLocale({
-        amount: cashbackAccount.balance,
-        currency_code: cashbackAccount.currency_code,
-        locale: locale === "uz" ? "uz-UZ" : "ru-RU",
-      })
+    ? `${convertCashbackToPoints(
+        cashbackAccount.balance,
+        locale === "uz" ? "uz-UZ" : "ru-RU"
+      )} ${t("points")}`
     : null;
 
   const initials = customer

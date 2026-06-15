@@ -1,7 +1,7 @@
 "use client";
 import { ExtendedStoreCustomer } from "@/lib/data/customer";
-import { convertToLocale } from "@/lib/util/money";
-import { useTranslations } from "next-intl";
+import { convertCashbackToPoints } from "@/lib/util/money";
+import { useLocale, useTranslations } from "next-intl";
 
 export const CashbackInfo = ({
   customer,
@@ -9,6 +9,7 @@ export const CashbackInfo = ({
   customer: ExtendedStoreCustomer;
 }) => {
   const t = useTranslations("Account");
+  const locale = useLocale();
 
   if (!customer.cashback_accounts?.length) return null;
 
@@ -24,10 +25,11 @@ export const CashbackInfo = ({
               {t("cashback")}
             </span>
             <span className="text-2xl font-bold tabular-nums text-foreground leading-tight">
-              {convertToLocale({
-                currency_code: c.currency_code,
-                amount: c.balance,
-              })}
+              {convertCashbackToPoints(
+                c.balance,
+                locale === "uz" ? "uz-UZ" : "ru-RU"
+              )}{" "}
+              {t("points")}
             </span>
           </div>
           <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center">

@@ -27,3 +27,12 @@ export const convertToLocale = ({
 
   return result;
 };
+
+export const convertCashbackToPoints = (
+  balance: number,
+  locale = "en-US"
+) => {
+  const points = Math.round(balance / 1000);
+
+  return new Intl.NumberFormat(locale).format(points);
+};

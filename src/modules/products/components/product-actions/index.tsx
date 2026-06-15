@@ -1,6 +1,5 @@
 "use client";
 
-import { addToCart } from "@lib/data/cart";
 import { HttpTypes } from "@medusajs/types";
 import { Button } from "@/components/ui/button";
 import OptionSelect from "@modules/products/components/product-actions/option-select";
@@ -8,10 +7,10 @@ import { isEqual } from "lodash";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import ProductPrice from "../product-price";
+import AddToCartDrawer from "./add-to-cart-drawer";
 import { useTranslations } from "next-intl";
 
 type ProductActionsProps = {
-  locale: string;
   product: HttpTypes.StoreProduct;
   disabled?: boolean;
 };
@@ -28,7 +27,6 @@ const optionsAsKeymap = (
 };
 
 export default function ProductActions({
-  locale,
   product,
   disabled,
 }: ProductActionsProps) {
@@ -38,7 +36,7 @@ export default function ProductActions({
   const t = useTranslations("Product");
 
   const [options, setOptions] = useState<Record<string, string>>({});
-  const [isAdding, setIsAdding] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const actionsRef = useRef<HTMLDivElement>(null);
 
@@ -81,17 +79,6 @@ export default function ProductActions({
     setOptions((prev) => ({ ...prev, [optionId]: value }));
   };
 
-  const handleAddToCart = async () => {
-    if (!selectedVariant?.id) return;
-    setIsAdding(true);
-    try {
-      await addToCart({ locale, variantId: selectedVariant.id, quantity: 1 });
-      router.refresh();
-    } finally {
-      setIsAdding(false);
-    }
-  };
-
   const buttonLabel = !selectedVariant
     ? t("selectVariant")
     : !inStock || !isValidVariant
@@ -109,7 +96,7 @@ export default function ProductActions({
               current={options[option.id]}
               updateOption={setOptionValue}
               title={option.title ?? ""}
-              disabled={!!disabled || isAdding}
+              disabled={!!disabled}
               data-testid="product-options"
             />
           ))}
@@ -120,13 +107,20 @@ export default function ProductActions({
       <ProductPrice product={product} variant={selectedVariant} />
 
       <Button
-        onClick={handleAddToCart}
-        disabled={!selectedVariant || !isValidVariant || !inStock || isAdding || disabled}
+        onClick={() => setIsDrawerOpen(true)}
+        disabled={!selectedVariant || !isValidVariant || !inStock || disabled}
         className="w-full h-11"
         data-testid="add-product-button"
       >
         {buttonLabel}
       </Button>
+
+      <AddToCartDrawer
+        product={product}
+        variant={selectedVariant}
+        open={isDrawerOpen}
+        setOpen={setIsDrawerOpen}
+      />
     </div>
   );
 }

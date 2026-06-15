@@ -80,7 +80,7 @@ export default function ProductTemplate({
 
             <Suspense
               fallback={
-                <ProductActions locale="ru" disabled product={product} />
+                <ProductActions disabled product={product} />
               }
             >
               <ProductActionsWrapper id={product.id} region={region} />

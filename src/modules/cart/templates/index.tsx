@@ -18,9 +18,15 @@ export default function CartTemplate({ cart }: Props) {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
           {/* Left Column: Cart Items */}
           <section className="flex-1 flex flex-col gap-6">
-            {cart.items.map((item) => (
-              <CartItem key={item.id} item={item} />
-            ))}
+            {[...cart.items]
+              .sort(
+                (a, b) =>
+                  new Date(a.created_at ?? 0).getTime() -
+                  new Date(b.created_at ?? 0).getTime()
+              )
+              .map((item) => (
+                <CartItem key={item.id} item={item} />
+              ))}
           </section>
           {/* Right Column: Order Summary */}
           <aside className="w-full lg:w-[380px] shrink-0">

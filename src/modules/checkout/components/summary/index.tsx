@@ -23,7 +23,13 @@ const Summary: React.FC<OrderSummaryProps> = ({ cart }) => {
 
         {/* Items */}
         <div className="flex flex-col divide-y divide-border">
-          {cart.items?.map((item) => (
+          {[...(cart.items ?? [])]
+            .sort(
+              (a, b) =>
+                new Date(a.created_at ?? 0).getTime() -
+                new Date(b.created_at ?? 0).getTime()
+            )
+            .map((item) => (
             <div key={item.id} className="flex gap-4 px-5 py-4">
               <div className="relative size-16 rounded-xl overflow-hidden border border-border bg-muted shrink-0">
                 <img

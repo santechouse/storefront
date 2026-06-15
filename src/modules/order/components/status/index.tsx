@@ -76,7 +76,7 @@ const Status: React.FC<Props> = ({ order }) => {
                 <div
                   className={`size-7 rounded-full border flex items-center justify-center transition-colors ${
                     isDone
-                      ? "bg-primary border-primary text-white"
+                      ? "bg-primary border-primary text-primary-foreground"
                       : "bg-background border-border text-muted-foreground"
                   } ${isCurrent ? "ring-4 ring-primary/20" : ""}`}
                 >

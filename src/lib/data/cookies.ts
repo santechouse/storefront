@@ -23,6 +23,10 @@ export const getAuthHeaders = async (): Promise<
 
     if (isJwtExpiringSoon(token, REFRESH_THRESHOLD_SECONDS)) {
       try {
+        // sdk is a module-level singleton shared by every concurrent
+        // request across all users, so the token must be passed explicitly
+        // here rather than relying on the SDK's own (server-side no-op)
+        // token storage to pick up the right user's session.
         const newToken = await sdk.auth.refresh({
           Authorization: `Bearer ${token}`,
         });

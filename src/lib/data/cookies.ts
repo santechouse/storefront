@@ -1,5 +1,6 @@
 import "server-only";
 import { cookies as nextCookies } from "next/headers";
+import { isJwtExpired } from "@/lib/util/jwt";
 
 export const getAuthHeaders = async (): Promise<
   { authorization: string } | {}
@@ -9,6 +10,11 @@ export const getAuthHeaders = async (): Promise<
     const token = cookies.get("_medusa_jwt")?.value;
 
     if (!token) {
+      return {};
+    }
+
+    if (isJwtExpired(token)) {
+      await removeAuthToken();
       return {};
     }
 

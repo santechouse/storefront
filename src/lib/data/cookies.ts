@@ -1,6 +1,9 @@
 import "server-only";
 import { cookies as nextCookies } from "next/headers";
-import { isJwtExpired } from "@/lib/util/jwt";
+import { sdk } from "@/lib/config";
+import { isJwtExpired, isJwtExpiringSoon } from "@/lib/util/jwt";
+
+const REFRESH_THRESHOLD_SECONDS = 5 * 60;
 
 export const getAuthHeaders = async (): Promise<
   { authorization: string } | {}
@@ -16,6 +19,19 @@ export const getAuthHeaders = async (): Promise<
     if (isJwtExpired(token)) {
       await removeAuthToken();
       return {};
+    }
+
+    if (isJwtExpiringSoon(token, REFRESH_THRESHOLD_SECONDS)) {
+      try {
+        const newToken = await sdk.auth.refresh({
+          Authorization: `Bearer ${token}`,
+        });
+        await setAuthToken(newToken as string);
+        return { authorization: `Bearer ${newToken}` };
+      } catch {
+        await removeAuthToken();
+        return {};
+      }
     }
 
     return { authorization: `Bearer ${token}` };

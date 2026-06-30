@@ -26,7 +26,7 @@ export const getAuthHeaders = async (): Promise<
         const newToken = await sdk.auth.refresh({
           Authorization: `Bearer ${token}`,
         });
-        await setAuthToken(newToken as string);
+        await setAuthToken(newToken);
         return { authorization: `Bearer ${newToken}` };
       } catch {
         await removeAuthToken();
